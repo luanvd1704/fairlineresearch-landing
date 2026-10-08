@@ -1,0 +1,576 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fairline Research — Vietnam Equity Valuation</title>
+  <meta name="description" content="Independent valuation research on HOSE, HNX and UPCoM stocks using DCF, trading comparables and residual income — with every assumption on the table.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,500;1,6..72,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="container nav__inner">
+    <a class="logo" href="#top" aria-label="Fairline Research — back to top">
+      <svg class="logo__mark" viewBox="0 0 32 32" width="30" height="30" aria-hidden="true">
+        <rect class="logo__bg" width="32" height="32" rx="8"/>
+        <line class="logo__fair" x1="5" y1="16" x2="27" y2="16"/>
+        <path class="logo__price" d="M5 21 C 9 9, 13 9, 16 16 S 23 24, 27 10"/>
+      </svg>
+      <span class="logo__text">Fairline <span>Research</span></span>
+    </a>
+    <nav class="nav__links" aria-label="Main">
+      <a href="#methods">Methods</a>
+      <a href="#market">Market data</a>
+      <a href="#calculator">Calculator</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="btn btn--primary btn--sm" href="#signup-section">Start free</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero__grid">
+      <div class="hero__copy">
+        <p class="eyebrow">Independent valuation research · HOSE · HNX · UPCoM</p>
+        <h1>Know what a stock is worth <em>before</em> you buy it.</h1>
+        <p class="lead">Fairline builds valuation models from audited financial statements — discounted cash flow, trading comparables, residual income — and publishes both the value range and every assumption behind it.</p>
+        <div class="hero__cta">
+          <a class="btn btn--primary" href="#signup-section">Get 3 free reports</a>
+          <a class="btn btn--ghost" href="#calculator">Try the calculator →</a>
+        </div>
+        <p class="fineprint">No credit card required · Cancel anytime</p>
+      </div>
+
+      <figure class="hero__card card">
+        <figcaption class="chart-head">
+          <div>
+            <span class="ticker">ABC</span>
+            <span class="muted">Market price vs. fair value</span>
+          </div>
+          <span class="tag">Illustrative</span>
+        </figcaption>
+        <svg id="heroChart" class="hero-chart" viewBox="0 0 600 280" role="img"
+             aria-label="Illustrative chart: market price oscillating around a fair value line"></svg>
+        <ul class="legend">
+          <li><i class="sw sw--under"></i>Below fair value</li>
+          <li><i class="sw sw--over"></i>Above fair value</li>
+          <li><i class="sw sw--fair"></i>Fair value</li>
+        </ul>
+        <dl class="hero__stats">
+          <div><dt>Price (VND)</dt><dd>42,300</dd></div>
+          <div><dt>Fair value (VND)</dt><dd>51,800</dd></div>
+          <div><dt>Margin of safety</dt><dd class="pos">18.3%</dd></div>
+        </dl>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Principles -->
+  <section class="principles" aria-label="Principles">
+    <div class="container principles__grid">
+      <div><h3>Independent</h3><p>No fees from the companies we cover.</p></div>
+      <div><h3>Transparent</h3><p>Download the Excel model and change any assumption.</p></div>
+      <div><h3>Accountable</h3><p>Every past valuation stays on record — including the misses.</p></div>
+    </div>
+  </section>
+
+  <!-- Methods -->
+  <section id="methods" class="section">
+    <div class="container">
+      <div class="section__head">
+        <p class="eyebrow">Methods</p>
+        <h2>Three lenses, one value range</h2>
+        <p class="lead">No single method fits every business. We pick the model that matches how the company makes money, then cross-check to arrive at a range you can trust.</p>
+      </div>
+
+      <div class="methods">
+        <article class="method card">
+          <span class="method__num">01</span>
+          <h3>Discounted cash flow (DCF)</h3>
+          <p>Free cash flow projected 5–10 years out from real business drivers, discounted at a WACC that reflects Vietnam market risk.</p>
+          <p class="method__fit">Best for: manufacturing, retail, utilities, technology</p>
+        </article>
+        <article class="method card">
+          <span class="method__num">02</span>
+          <h3>Trading comparables</h3>
+          <p>P/E, P/B and EV/EBITDA against domestic and regional peers, adjusted for differences in growth and return on equity.</p>
+          <p class="method__fit">Best for: sectors with many similar listed companies</p>
+        </article>
+        <article class="method card">
+          <span class="method__num">03</span>
+          <h3>Residual income (RI)</h3>
+          <p>Value built from book value plus returns earned above the cost of equity — the standard for financials, where free cash flow says little.</p>
+          <p class="method__fit">Best for: banks, insurers, brokerages</p>
+        </article>
+      </div>
+
+      <figure class="ff card" style="--min:30; --max:65">
+        <figcaption class="ff__head">
+          <div>
+            <h3>Valuation range chart</h3>
+            <p class="muted">Stock ABC · thousand VND per share</p>
+          </div>
+          <span class="tag">Illustrative</span>
+        </figcaption>
+
+        <div class="ff__plot">
+          <div class="ff__row">
+            <div class="ff__label">DCF (FCFF)<small>Weight 50%</small></div>
+            <div class="ff__track"><div class="ff__bar" style="--lo:45.8; --hi:58.8"><span>45.8 – 58.8</span></div></div>
+          </div>
+          <div class="ff__row">
+            <div class="ff__label">P/E comps<small>Weight 25%</small></div>
+            <div class="ff__track"><div class="ff__bar" style="--lo:44; --hi:53.5"><span>44.0 – 53.5</span></div></div>
+          </div>
+          <div class="ff__row">
+            <div class="ff__label">EV/EBITDA<small>Weight 25%</small></div>
+            <div class="ff__track"><div class="ff__bar" style="--lo:47.5; --hi:60.2"><span>47.5 – 60.2</span></div></div>
+          </div>
+          <div class="ff__row">
+            <div class="ff__label">P/B comps<small>Reference</small></div>
+            <div class="ff__track"><div class="ff__bar ff__bar--ref" style="--lo:39.8; --hi:50.1"><span>39.8 – 50.1</span></div></div>
+          </div>
+          <div class="ff__row">
+            <div class="ff__label">52-week range<small>Reference</small></div>
+            <div class="ff__track"><div class="ff__bar ff__bar--ref" style="--lo:33.1; --hi:46.8"><span>33.1 – 46.8</span></div></div>
+          </div>
+          <div class="ff__marker ff__marker--price" style="--v:42.3"><span>Price 42.3</span></div>
+          <div class="ff__marker ff__marker--fair" style="--v:51.8"><span>Fair value 51.8</span></div>
+        </div>
+
+        <div class="ff__axis" aria-hidden="true">
+          <span style="--t:30">30</span><span style="--t:35">35</span><span style="--t:40">40</span><span style="--t:45">45</span>
+          <span style="--t:50">50</span><span style="--t:55">55</span><span style="--t:60">60</span><span style="--t:65">65</span>
+        </div>
+        <p class="ff__note">Fair value = weighted average of range midpoints: DCF 50% · P/E 25% · EV/EBITDA 25%. P/B and the 52-week range are shown for reference only.</p>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Market data (filled by market-charts.js from data/market-data.js) -->
+  <section id="market" class="section section--alt">
+    <div class="container">
+      <div class="section__head">
+        <p class="eyebrow">Market data</p>
+        <h2>Where Vietnam valuations stand today</h2>
+        <p class="lead">Computed from daily P/E and P/B across <span id="coverage">300+</span> companies listed on HOSE, HNX and UPCoM. Data as of <span id="asOf">—</span>.</p>
+      </div>
+
+      <div class="stats">
+        <div class="stat card">
+          <p class="stat__label">Median market P/E</p>
+          <p class="stat__value" id="statPe">—</p>
+          <p class="stat__note" id="statPeNote"></p>
+        </div>
+        <div class="stat card">
+          <p class="stat__label">Sectors below their 5-year median P/E</p>
+          <p class="stat__value" id="statSectors">—</p>
+          <p class="stat__note">Each sector compared with its own history</p>
+        </div>
+        <div class="stat card">
+          <p class="stat__label">Banks below justified P/B</p>
+          <p class="stat__value" id="statBanks">—</p>
+          <p class="stat__note" id="statBanksNote"></p>
+        </div>
+      </div>
+
+      <figure class="viz card viz--wide">
+        <figcaption class="viz__head">
+          <div>
+            <h3>Market P/E since 2018</h3>
+            <p class="muted">Median trailing P/E of profitable listed companies, monthly</p>
+          </div>
+          <ul class="viz__legend">
+            <li><i class="key key--line"></i>Median P/E</li>
+            <li><i class="key key--band"></i>Middle 50% of stocks</li>
+            <li><i class="key key--ref"></i>Average since 2018</li>
+          </ul>
+        </figcaption>
+        <div class="viz__plot" id="vizMarket"></div>
+        <details class="viz__table"><summary>View data</summary><div id="tableMarket"></div></details>
+      </figure>
+
+      <div class="viz-grid">
+        <figure class="viz card">
+          <figcaption class="viz__head">
+            <div>
+              <h3>Sector P/E vs. its own history</h3>
+              <p class="muted">Sector median P/E today against the last 5 years</p>
+            </div>
+            <ul class="viz__legend">
+              <li><i class="key key--dot"></i>Today</li>
+              <li><i class="key key--tick"></i>5-year median</li>
+              <li><i class="key key--range"></i>5-year range (10th–90th pct)</li>
+            </ul>
+          </figcaption>
+          <div class="viz__plot" id="vizSectors"></div>
+          <details class="viz__table"><summary>View data</summary><div id="tableSectors"></div></details>
+        </figure>
+
+        <figure class="viz card">
+          <figcaption class="viz__head">
+            <div>
+              <h3>Banks: what you pay vs. what they earn</h3>
+              <p class="muted" id="banksSub">ROE against P/B, with the residual-income justified P/B</p>
+            </div>
+            <ul class="viz__legend">
+              <li><i class="key key--dot"></i>Bank</li>
+              <li><i class="key key--fair"></i>Justified P/B = (ROE − g) / (r − g)</li>
+            </ul>
+          </figcaption>
+          <div class="viz__plot" id="vizBanks"></div>
+          <details class="viz__table"><summary>View data</summary><div id="tableBanks"></div></details>
+        </figure>
+      </div>
+      <p class="viz__source">Source: Fairline Research database. P/E excludes loss-making companies. For information only — not investment advice.</p>
+    </div>
+  </section>
+
+  <!-- Calculator -->
+  <section id="calculator" class="section">
+    <div class="container">
+      <div class="section__head">
+        <p class="eyebrow">Valuation calculator</p>
+        <h2>Estimate intrinsic value in 30 seconds</h2>
+        <p class="lead">A two-stage discounted earnings model: five years of high growth, then a stable long-term rate. Move the sliders to see how sensitive value is to each assumption.</p>
+      </div>
+
+      <div class="calc">
+        <form class="calc__inputs card" id="calcForm" novalidate>
+          <div class="field-pair">
+            <div class="field">
+              <label for="eps">Trailing EPS <span class="unit">VND</span></label>
+              <input id="eps" type="number" inputmode="numeric" min="0" step="100" value="4200">
+            </div>
+            <div class="field">
+              <label for="price">Market price <span class="unit">VND</span></label>
+              <input id="price" type="number" inputmode="numeric" min="0" step="100" value="42300">
+            </div>
+          </div>
+          <div class="field">
+            <div class="field__row"><label for="g1">EPS growth, next 5 years</label><output id="g1Out" for="g1"></output></div>
+            <input id="g1" type="range" min="0" max="30" step="0.5" value="10">
+          </div>
+          <div class="field">
+            <div class="field__row"><label for="g2">Long-term growth (year 6+)</label><output id="g2Out" for="g2"></output></div>
+            <input id="g2" type="range" min="0" max="7" step="0.5" value="4">
+          </div>
+          <div class="field">
+            <div class="field__row"><label for="r">Required return (cost of equity)</label><output id="rOut" for="r"></output></div>
+            <input id="r" type="range" min="9" max="20" step="0.5" value="14">
+          </div>
+          <p class="fineprint">Simplified model: assumes all earnings are cash available to shareholders. Full reports use free cash flow and the actual capital structure.</p>
+        </form>
+
+        <div class="calc__result card" aria-live="polite">
+          <p class="muted">Estimated intrinsic value</p>
+          <p class="big"><span id="value">—</span> <small>VND/share</small></p>
+          <p class="verdict" id="verdict"></p>
+
+          <div class="gauge" id="gauge">
+            <div class="gauge__track"></div>
+            <div class="gauge__fill" id="gaugeFill"></div>
+            <div class="gauge__mark gauge__mark--price" id="markPrice"><span></span></div>
+            <div class="gauge__mark gauge__mark--value" id="markValue"><span></span></div>
+          </div>
+
+          <dl class="breakdown">
+            <div><dt>Margin of safety</dt><dd id="mos">—</dd></div>
+            <div><dt>Implied P/E</dt><dd id="pe">—</dd></div>
+            <div><dt>PV of 5-year earnings</dt><dd id="pvStage">—</dd></div>
+            <div><dt>PV of terminal value</dt><dd id="pvTerminal">—</dd></div>
+          </dl>
+
+          <h4 class="sens__title">Sensitivity <span class="muted">(thousand VND/share)</span></h4>
+          <div class="sens__wrap">
+            <table class="sens" id="sens"></table>
+          </div>
+          <p class="fineprint">Rows: required return · Columns: long-term growth · Outlined cell: current inputs</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Portfolio construction (charts filled by market-charts.js) -->
+  <section id="portfolio" class="section section--alt">
+    <div class="container">
+      <div class="section__head">
+        <p class="eyebrow">Portfolio construction</p>
+        <h2>From fair value to position size</h2>
+        <p class="lead">Knowing what a stock is worth is half the job. The other half is how much of it to own. Six allocation methods, each with a different idea of what “balanced” means.</p>
+      </div>
+
+      <div class="am-grid">
+        <article class="am card">
+          <div class="am__top"><span class="am__num">1</span><h3>Mean-variance (Markowitz)</h3></div>
+          <p>Finds the mix with the highest return per unit of risk on the efficient frontier. Powerful, but sensitive to return estimates — it likes to concentrate.</p>
+          <code class="am__formula">max (wᵀμ − r<sub>f</sub>) / √(wᵀΣw)</code>
+          <p class="am__needs">Needs: expected returns · covariance</p>
+        </article>
+        <article class="am card">
+          <div class="am__top"><span class="am__num">2</span><h3>Black-Litterman</h3></div>
+          <p>Starts from the returns the market implies, then tilts toward your views — our fair-value estimates — in proportion to confidence. Steadier than raw Markowitz.</p>
+          <code class="am__formula">π = δΣw<sub>mkt</sub> blended with views Q</code>
+          <p class="am__needs">Needs: market caps · views · covariance</p>
+        </article>
+        <article class="am card">
+          <div class="am__top"><span class="am__num">3</span><h3>Risk parity</h3></div>
+          <p>Every holding contributes the same amount of risk. No return forecasts at all, so there is nothing to get wrong on that side.</p>
+          <code class="am__formula">w<sub>i</sub>(Σw)<sub>i</sub> = w<sub>j</sub>(Σw)<sub>j</sub></code>
+          <p class="am__needs">Needs: covariance</p>
+        </article>
+        <article class="am card">
+          <div class="am__top"><span class="am__num">4</span><h3>Kelly criterion</h3></div>
+          <p>Sizes positions to maximize long-run growth given your edge. Full Kelly is brutal in drawdowns, so we use half Kelly, capped at 100% invested.</p>
+          <code class="am__formula">f* = ½ Σ⁻¹(μ − r<sub>f</sub>)</code>
+          <p class="am__needs">Needs: expected returns · covariance</p>
+        </article>
+        <article class="am card">
+          <div class="am__top"><span class="am__num">5</span><h3>Minimum variance</h3></div>
+          <p>The lowest-volatility mix available. Ignores returns entirely and leans on calm, low-correlation names.</p>
+          <code class="am__formula">min wᵀΣw</code>
+          <p class="am__needs">Needs: covariance</p>
+        </article>
+        <article class="am card">
+          <div class="am__top"><span class="am__num">6</span><h3>Equal weight</h3></div>
+          <p>One over N in everything. Surprisingly hard to beat out of sample — the benchmark every other method has to clear.</p>
+          <code class="am__formula">w<sub>i</sub> = 1 / N</code>
+          <p class="am__needs">Needs: nothing</p>
+        </article>
+      </div>
+
+      <figure class="viz card viz--wide">
+        <figcaption class="viz__head">
+          <div>
+            <h3>Same six stocks, six different portfolios</h3>
+            <p class="muted" id="allocSub">Long-only weights from each method</p>
+          </div>
+          <ul class="viz__legend" id="allocLegend"></ul>
+        </figcaption>
+        <div class="viz__plot" id="vizAlloc"></div>
+        <details class="viz__table"><summary>View data</summary><div id="tableAlloc"></div></details>
+      </figure>
+
+      <figure class="viz card">
+        <figcaption class="viz__head">
+          <div>
+            <h3>Risk vs. expected return</h3>
+            <p class="muted">Each method’s portfolio against the efficient frontier</p>
+          </div>
+          <ul class="viz__legend">
+            <li><i class="key key--line"></i>Efficient frontier</li>
+            <li><i class="key key--num">1</i>Method (numbered as above)</li>
+            <li><i class="key key--ring"></i>Single stock</li>
+          </ul>
+        </figcaption>
+        <div class="viz__plot" id="vizFrontier"></div>
+        <details class="viz__table"><summary>View data</summary><div id="tableFrontier"></div></details>
+      </figure>
+      <p class="viz__source" id="portfolioSource">Illustrative sample — not a recommendation to buy these stocks.</p>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section id="process" class="section">
+    <div class="container">
+      <div class="section__head">
+        <p class="eyebrow">Process</p>
+        <h2>From financial statements to a value range</h2>
+      </div>
+      <ol class="steps">
+        <li>
+          <span class="step__num">01</span>
+          <h3>Collect</h3>
+          <p>Three years of audited consolidated statements, the latest quarterly filings, annual reports and AGM resolutions.</p>
+        </li>
+        <li>
+          <span class="step__num">02</span>
+          <h3>Normalize</h3>
+          <p>Strip out one-offs — asset disposals, provision reversals, revaluation gains — so value rests on core earnings.</p>
+        </li>
+        <li>
+          <span class="step__num">03</span>
+          <h3>Model</h3>
+          <p>Link all three statements and forecast from volume, pricing and margins — never by extrapolating past growth.</p>
+        </li>
+        <li>
+          <span class="step__num">04</span>
+          <h3>Stress-test</h3>
+          <p>Sensitivity grids plus bear, base and bull scenarios. The output is a range, not a single number.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section id="pricing" class="section section--alt">
+    <div class="container">
+      <div class="section__head section__head--center">
+        <p class="eyebrow">Pricing</p>
+        <h2>Start free, upgrade when you need more</h2>
+      </div>
+      <div class="plans">
+        <article class="plan card">
+          <h3>Basic</h3>
+          <p class="plan__price">Free</p>
+          <p class="plan__for">For investors getting started</p>
+          <ul>
+            <li>3 valuation reports per month</li>
+            <li>Valuation calculator</li>
+            <li>Weekly valuation newsletter</li>
+          </ul>
+          <a class="btn btn--ghost" href="#signup-section">Start free</a>
+        </article>
+        <article class="plan card plan--featured">
+          <span class="plan__badge">Most popular</span>
+          <h3>Investor</h3>
+          <p class="plan__price">VND 199,000<span>/month</span></p>
+          <p class="plan__for">For serious individual investors</p>
+          <ul>
+            <li>Full valuation report library</li>
+            <li>Downloadable, editable Excel models</li>
+            <li>Alerts when price enters the value range</li>
+            <li>Portfolio allocation with all six methods</li>
+            <li>Updates after every quarterly filing</li>
+          </ul>
+          <a class="btn btn--primary" href="#signup-section">Try 14 days free</a>
+        </article>
+        <article class="plan card">
+          <h3>Institutional</h3>
+          <p class="plan__price">Custom</p>
+          <p class="plan__for">For funds, brokerages and family offices</p>
+          <ul>
+            <li>Everything in Investor</li>
+            <li>Valuation data API</li>
+            <li>Bespoke research</li>
+            <li>Multiple user seats</li>
+          </ul>
+          <a class="btn btn--ghost" href="#contact">Talk to us</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="section">
+    <div class="container faq">
+      <div class="section__head">
+        <p class="eyebrow">FAQ</p>
+        <h2>Common questions</h2>
+      </div>
+      <div class="faq__list">
+        <details>
+          <summary>Is fair value the same as a target price?</summary>
+          <p>No. A target price is usually tied to a 12-month horizon and market expectations. Fair value is an estimate of intrinsic value based on future cash flows — the market may take years to reflect it, or never do.</p>
+        </details>
+        <details>
+          <summary>Where does the data come from?</summary>
+          <p>Audited consolidated financial statements, quarterly filings, annual reports and AGM documents published by companies on HOSE, HNX and their investor relations sites.</p>
+        </details>
+        <details>
+          <summary>How often are reports updated?</summary>
+          <p>After every quarterly filing, and whenever an event changes a core assumption — a share issuance, an acquisition, or a shift in sector regulation.</p>
+        </details>
+        <details>
+          <summary>How do you value banks?</summary>
+          <p>With residual income and P/B anchored to sustainable ROE. For a bank, debt is raw material rather than financing, so free cash flow carries little meaning.</p>
+        </details>
+        <details>
+          <summary>Does Fairline give buy or sell recommendations?</summary>
+          <p>No. We publish the value range and every assumption so you can judge for yourself. The investment decision is always yours.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="section section--alt">
+    <div class="container contact">
+      <div class="contact__info">
+        <p class="eyebrow">Contact</p>
+        <h2>Get in touch</h2>
+        <p class="lead">Questions about a report, your subscription or institutional access? Send us a message.</p>
+        <div class="contact__card card">
+          <span class="contact__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+          </span>
+          <div>
+            <p class="contact__label">Support email</p>
+            <a class="contact__email" href="mailto:support@fairlineresearch.com">support@fairlineresearch.com</a>
+            <p class="contact__hint">Reports, account, billing and institutional plans</p>
+          </div>
+        </div>
+        <p class="contact__faq">Quick question? It may already be answered in the <a href="#faq">FAQ</a>.</p>
+      </div>
+
+      <form class="contact__form card" id="contactForm" data-email="support@fairlineresearch.com">
+        <div class="field">
+          <label for="contactName">Your name</label>
+          <input id="contactName" name="name" type="text" required autocomplete="name">
+        </div>
+        <div class="field">
+          <label for="contactTopic">Topic</label>
+          <select id="contactTopic" name="topic">
+            <option>Report question</option>
+            <option>Subscription &amp; billing</option>
+            <option>Institutional access</option>
+            <option>Something else</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="contactMessage">Message</label>
+          <textarea id="contactMessage" name="message" rows="5" required></textarea>
+        </div>
+        <button class="btn btn--primary" type="submit">Send message</button>
+        <p class="fineprint">Opens your email app with the message ready to send to support@fairlineresearch.com.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- Signup -->
+  <section id="signup-section" class="cta">
+    <div class="container cta__inner">
+      <div>
+        <h2>Get a free valuation report every week</h2>
+        <p>One company, one model, every assumption — in your inbox Monday morning.</p>
+      </div>
+      <form class="signup" id="signup">
+        <label class="sr-only" for="email">Email</label>
+        <input id="email" type="email" required placeholder="you@example.com" autocomplete="email">
+        <button class="btn btn--mint" type="submit">Subscribe</button>
+        <p class="signup__legal">By subscribing you agree to our <a href="terms.html">Terms</a> and <a href="privacy.html">Privacy Policy</a>. Unsubscribe anytime.</p>
+        <p class="signup__msg" id="signupMsg" role="status"></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <div class="footer__brand">
+      <span class="logo__text">Fairline <span>Research</span></span>
+      <a class="footer__email" href="mailto:support@fairlineresearch.com">support@fairlineresearch.com</a>
+      <nav class="footer__links" aria-label="Legal">
+        <a href="terms.html">Terms of Service</a>
+        <a href="privacy.html">Privacy Policy</a>
+      </nav>
+      <p>© 2026 Fairline Research</p>
+    </div>
+    <p class="disclaimer">Content on this site is for informational purposes only and is not investment advice or a recommendation to buy or sell securities. Fair value is an estimate based on assumptions and may be wrong. Investors are responsible for their own decisions. Figures for “ABC” are illustrative.</p>
+  </div>
+</footer>
+
+<script src="data/market-data.js"></script>
+<script src="main.js"></script>
+<script src="market-charts.js"></script>
+</body>
+</html>
