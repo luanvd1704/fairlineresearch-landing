@@ -8,24 +8,31 @@
   }
 
   const NS = 'http://www.w3.org/2000/svg';
-  const fmt1 = new Intl.NumberFormat('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
-  const fmt2 = new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-  const monthFmt = new Intl.DateTimeFormat('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' });
-  const dayFmt = new Intl.DateTimeFormat('en-US', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
+  const fmt1 = new Intl.NumberFormat('vi-VN', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+  const fmt2 = new Intl.NumberFormat('vi-VN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const monthFmt = { format: (d) => `T${d.getUTCMonth() + 1}/${d.getUTCFullYear()}` };
+  const dayFmt = new Intl.DateTimeFormat('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric', timeZone: 'UTC' });
   const toDate = (s) => new Date(s + 'T00:00:00Z');
   const mult = (v) => fmt1.format(v) + 'x';
   const signed = (v) => (v >= 0 ? '+' : '−') + Math.round(Math.abs(v)) + '%';
-  const ordinal = (n) => {
-    const s = ['th', 'st', 'nd', 'rd'], v = n % 100;
-    return n + (s[(v - 20) % 10] || s[v] || s[0]);
-  };
+  const ordinal = (n) => String(n);
   const justifiedPb = (roe) => (roe - data.banks.growth) / (data.banks.requiredReturn - data.banks.growth);
-  const SHORT = {
-    'Mining & Construction Materials': 'Mining & Materials',
-    'Pharmaceuticals & Healthcare': 'Pharma & Healthcare',
-    'Industrial Real Estate': 'Industrial Parks',
-    'Fishery & Aquaculture': 'Seafood',
+  // Dữ liệu xuất bằng tên tiếng Anh; hiển thị bằng tiếng Việt
+  const SECTOR_VI = {
+    'Agriculture': 'Nông nghiệp', 'Banking': 'Ngân hàng', 'Building Materials': 'Vật liệu xây dựng',
+    'Chemicals': 'Hóa chất', 'Construction': 'Xây dựng', 'Fishery & Aquaculture': 'Thủy sản',
+    'FMCG': 'Hàng tiêu dùng', 'Industrial Real Estate': 'BĐS khu công nghiệp', 'Insurance': 'Bảo hiểm',
+    'Logistics': 'Logistics', 'Mining & Construction Materials': 'Khai khoáng, VLXD', 'Oil & Gas': 'Dầu khí',
+    'Pharmaceuticals & Healthcare': 'Dược, y tế', 'Real Estate': 'Bất động sản', 'Retail': 'Bán lẻ',
+    'Securities': 'Chứng khoán', 'Steel': 'Thép', 'Technology': 'Công nghệ', 'Textiles': 'Dệt may',
+    'Utilities': 'Điện, nước',
   };
+  const METHOD_VI = {
+    'Markowitz': 'Markowitz', 'Black-Litterman': 'Black-Litterman', 'Risk parity': 'Cân bằng rủi ro',
+    'Half Kelly': 'Nửa Kelly', 'Minimum variance': 'Phương sai nhỏ nhất', 'Equal weight': 'Tỷ trọng bằng nhau',
+  };
+  const vi = (s) => SECTOR_VI[s] || s;
+  const viM = (s) => METHOD_VI[s] || s;
 
   /* ---------- DOM helpers ---------- */
   function svg(tag, attrs, parent) {
@@ -96,7 +103,7 @@
     host.replaceChildren();
     const root = svg('svg', {
       width: W, height: H, class: 'viz__svg', tabindex: 0, role: 'img',
-      'aria-label': `Median P/E ${mult(m.median[last])} in ${monthFmt.format(toDate(m.dates[last]))}, versus a ${mult(m.average)} average since 2018. Use arrow keys to step through months.`,
+      'aria-label': `P/E trung vị ${mult(m.median[last])} tháng ${monthFmt.format(toDate(m.dates[last]))}, so với trung bình ${mult(m.average)} từ 2018. Dùng phím mũi tên để xem từng tháng.`,
     }, host);
     for (let v = lo; v <= hi; v += 5) {
       svg('line', { class: 'viz__grid', x1: M.left, x2: M.left + iw, y1: y(v), y2: y(v) }, root);
@@ -109,7 +116,7 @@
     const band = m.p75.map((v, i) => `${x(i)},${y(v)}`).concat(m.p25.map((v, i) => `${x(i)},${y(v)}`).reverse());
     svg('polygon', { class: 'viz__band', points: band.join(' ') }, root);
     svg('line', { class: 'viz__ref', x1: M.left, x2: M.left + iw, y1: y(m.average), y2: y(m.average) }, root);
-    label(root, M.left + 6, y(m.average) - 7, 'Average ' + mult(m.average), 'viz__note');
+    label(root, M.left + 6, y(m.average) - 7, 'Trung bình ' + mult(m.average), 'viz__note');
     svg('path', { class: 'viz__line', d: 'M' + m.median.map((v, i) => `${x(i)},${y(v)}`).join('L') }, root);
     svg('circle', { class: 'viz__dot', cx: x(last), cy: y(m.median[last]), r: 4 }, root);
     label(root, x(last) + 9, y(m.median[last]) + 4, mult(m.median[last]), 'viz__label');
@@ -128,9 +135,9 @@
       cdot.setAttribute('cy', cy);
       cross.setAttribute('visibility', 'visible');
       tip.show(monthFmt.format(toDate(m.dates[i])), [
-        [mult(m.median[i]), 'median P/E', 'line'],
-        [`${fmt1.format(m.p25[i])}–${mult(m.p75[i])}`, 'middle 50%', 'band'],
-        [String(m.n[i]), 'stocks'],
+        [mult(m.median[i]), 'P/E trung vị', 'line'],
+        [`${fmt1.format(m.p25[i])}–${mult(m.p75[i])}`, '50% ở giữa', 'band'],
+        [String(m.n[i]), 'cổ phiếu'],
       ], cx, cy);
     };
     const hide = () => { cross.setAttribute('visibility', 'hidden'); tip.hide(); };
@@ -173,14 +180,14 @@
       const dot = h('span', 'sx__dot');
       dot.style.left = at(r.current);
       track.append(range, mid, dot);
-      row.append(h('span', 'sx__name', SHORT[r.sector] || r.sector), track, h('span', 'sx__val', mult(r.current)));
+      row.append(h('span', 'sx__name', vi(r.sector)), track, h('span', 'sx__val', mult(r.current)));
 
-      const show = () => tip.show(r.sector, [
-        [mult(r.current), 'today', 'dot'],
-        [mult(r.mid), '5-year median', 'tick'],
-        [`${fmt1.format(r.low)}–${mult(r.high)}`, '5-year range', 'range'],
-        [ordinal(r.percentile), 'percentile vs. own history'],
-        [String(r.n), 'stocks'],
+      const show = () => tip.show(vi(r.sector), [
+        [mult(r.current), 'hôm nay', 'dot'],
+        [mult(r.mid), 'trung vị 5 năm', 'tick'],
+        [`${fmt1.format(r.low)}–${mult(r.high)}`, 'dải 5 năm', 'range'],
+        [ordinal(r.percentile), 'phân vị so với lịch sử'],
+        [String(r.n), 'cổ phiếu'],
       ], track.offsetLeft + (r.current / max) * track.clientWidth, row.offsetTop + row.offsetHeight / 2);
       row.addEventListener('pointerenter', show);
       row.addEventListener('focus', show);
@@ -211,7 +218,7 @@
     const below = pts.filter((p) => justifiedPb(p.roe) > p.pb).length;
     const root = svg('svg', {
       width: W, height: H, class: 'viz__svg', role: 'img',
-      'aria-label': `${pts.length} banks plotted by ROE and P/B; ${below} trade below justified P/B.`,
+      'aria-label': `${pts.length} ngân hàng theo ROE và P/B; ${below} ngân hàng có P/B dưới mức hợp lý.`,
     }, host);
     const defs = svg('defs', {}, root);
     svg('rect', { x: M.left, y: M.top, width: iw, height: ih }, svg('clipPath', { id: 'banksClip' }, defs));
@@ -221,7 +228,7 @@
       label(root, M.left - 8, y(v) + 4, fmt1.format(v) + 'x', 'viz__tick', 'end');
     }
     for (let v = 0; v <= xMax; v += 5) label(root, x(v), M.top + ih + 18, v + '%', 'viz__tick', 'middle');
-    label(root, M.left + iw / 2, H - 4, 'ROE, trailing 12 months', 'viz__note', 'middle');
+    label(root, M.left + iw / 2, H - 4, 'ROE 4 quý gần nhất', 'viz__note', 'middle');
     label(root, M.left - 8, M.top - 12, 'P/B', 'viz__note', 'end');
 
     // Justified P/B line and the "cheaper than justified" region under it
@@ -230,8 +237,8 @@
     svg('polygon', { class: 'viz__cheap', points: `${line} ${x(xMax)},${y(0)}` }, clip);
     svg('polyline', { class: 'viz__fair', points: line }, clip);
     const regionLabels = [
-      [M.left + iw - 6, y(0) - 8, 'Below justified P/B', 'end'],
-      [x(xMax * 0.36), M.top + 12, 'Above justified P/B', 'start'],
+      [M.left + iw - 6, y(0) - 8, 'Dưới P/B hợp lý', 'end'],
+      [x(xMax * 0.36), M.top + 12, 'Trên P/B hợp lý', 'start'],
     ];
     const placed = regionLabels.map(([lx, ly, str, anchor]) => {
       label(root, lx, ly, str, 'viz__note', anchor);
@@ -270,8 +277,8 @@
       const show = () => tip.show(p.ticker, [
         [fmt2.format(p.pb) + 'x', 'P/B', 'dot'],
         [fmt1.format(p.roe) + '%', 'ROE (TTM)'],
-        [jp > 0 ? fmt2.format(jp) + 'x' : '—', 'justified P/B', 'fair'],
-        [jp > 0 ? signed((p.pb / jp - 1) * 100) : '—', 'vs. justified'],
+        [jp > 0 ? fmt2.format(jp) + 'x' : '—', 'P/B hợp lý', 'fair'],
+        [jp > 0 ? signed((p.pb / jp - 1) * 100) : '—', 'so với hợp lý'],
       ], cx, cy);
       hit.addEventListener('pointerenter', show);
       hit.addEventListener('focus', show);
@@ -282,7 +289,7 @@
 
   /* ---------- 4. Portfolio weights by allocation method ---------- */
   const STOCK_COLORS = ['#2a78d6', '#eb6834', '#1baf7a', '#eda100', '#e87ba4', '#008300'];
-  const CASH_COLOR = '#CFC9BC';
+  const CASH_COLOR = '#c9ced8';
   const pct0 = (v) => Math.round(v * 100) + '%';
   const pct1 = (v) => fmt1.format(v * 100) + '%';
   // White text on dark fills, ink on light ones
@@ -295,18 +302,18 @@
     const p = data.portfolio;
     const wrap = h('div', 'al');
     const head = wrap.appendChild(h('div', 'al__row al__row--head'));
-    ['', 'Weights', 'Return', 'Volatility', 'Sharpe'].forEach((t) => head.appendChild(h('span', null, t)));
+    ['', 'Tỷ trọng', 'Lợi suất', 'Biến động', 'Sharpe'].forEach((t) => head.appendChild(h('span', null, t)));
     host.replaceChildren(wrap);
     const tip = tooltip(host);
 
     p.methods.forEach((m, i) => {
       const parts = p.tickers.map((t, k) => [t, m.weights[k], STOCK_COLORS[k]])
-        .concat([['Cash', m.cash, CASH_COLOR]])
+        .concat([['Tiền mặt', m.cash, CASH_COLOR]])
         .filter(([, w]) => w >= 0.005);
       const row = wrap.appendChild(h('div', 'al__row'));
       row.tabIndex = 0;
       const name = h('span', 'al__name');
-      name.append(h('span', 'am__num am__num--sm', String(i + 1)), document.createTextNode(m.name));
+      name.append(h('span', 'am__num am__num--sm', String(i + 1)), document.createTextNode(viM(m.name)));
       const bar = h('span', 'al__bar');
       for (const [, w, color] of parts) {
         const seg = bar.appendChild(h('span', 'al__seg', pct0(w)));
@@ -319,8 +326,8 @@
 
       const show = (e) => {
         const x = e && e.clientX != null ? e.clientX - host.getBoundingClientRect().left : bar.offsetLeft + bar.clientWidth / 2;
-        tip.show(m.name, parts.map(([t, w, color]) => [pct1(w), t, color]).concat([
-          [pct1(m.ret), 'expected return'], [pct1(m.vol), 'volatility'], [fmt2.format(m.sharpe), 'Sharpe ratio'],
+        tip.show(viM(m.name), parts.map(([t, w, color]) => [pct1(w), t, color]).concat([
+          [pct1(m.ret), 'lợi suất kỳ vọng'], [pct1(m.vol), 'biến động'], [fmt2.format(m.sharpe), 'hệ số Sharpe'],
         ]), x, row.offsetTop + row.offsetHeight / 2);
       };
       row.addEventListener('pointermove', show);
@@ -350,7 +357,7 @@
     host.replaceChildren();
     const root = svg('svg', {
       width: W, height: H, class: 'viz__svg', role: 'img',
-      'aria-label': 'Expected return against volatility for each allocation method, the six stocks and the efficient frontier.',
+      'aria-label': 'Lợi suất kỳ vọng so với biến động của từng cách phân bổ, sáu cổ phiếu và đường biên hiệu quả.',
     }, host);
     const yStep = y1 - y0 > 0.08 ? 0.02 : 0.01;
     for (let v = y0; v <= y1 + 1e-9; v += yStep) {
@@ -359,8 +366,8 @@
     }
     const xStep = W < 560 ? 0.04 : 0.02;
     for (let v = x0; v <= x1 + 1e-9; v += xStep) label(root, x(v), M.top + ih + 18, pct0(v), 'viz__tick', 'middle');
-    label(root, M.left + iw / 2, H - 4, 'Volatility (annualized)', 'viz__note', 'middle');
-    label(root, M.left - 8, M.top - 12, 'Expected return', 'viz__note', 'start');
+    label(root, M.left + iw / 2, H - 4, 'Biến động (năm hóa)', 'viz__note', 'middle');
+    label(root, M.left - 8, M.top - 12, 'Lợi suất kỳ vọng', 'viz__note', 'start');
     svg('path', { class: 'viz__line', d: 'M' + p.frontier.map(([v, r]) => `${x(v)},${y(r)}`).join('L') }, root);
 
     const tip = tooltip(host);
@@ -386,11 +393,11 @@
     });
     // Hit targets go last so they sit above every mark
     p.stocks.forEach((s, k) => hover(x(s.vol), y(s.ret), s.ticker, [
-      [pct1(s.ret), 'expected return', STOCK_COLORS[k]], [pct1(s.vol), 'volatility'],
-    ], `${s.ticker}: expected return ${pct1(s.ret)}, volatility ${pct1(s.vol)}`));
-    p.methods.forEach((m, i) => hover(x(m.vol), y(m.ret), `${i + 1}. ${m.name}`, [
-      [pct1(m.ret), 'expected return'], [pct1(m.vol), 'volatility'], [fmt2.format(m.sharpe), 'Sharpe ratio'],
-    ], `${m.name}: expected return ${pct1(m.ret)}, volatility ${pct1(m.vol)}, Sharpe ${fmt2.format(m.sharpe)}`));
+      [pct1(s.ret), 'lợi suất kỳ vọng', STOCK_COLORS[k]], [pct1(s.vol), 'biến động'],
+    ], `${s.ticker}: lợi suất kỳ vọng ${pct1(s.ret)}, biến động ${pct1(s.vol)}`));
+    p.methods.forEach((m, i) => hover(x(m.vol), y(m.ret), `${i + 1}. ${viM(m.name)}`, [
+      [pct1(m.ret), 'lợi suất kỳ vọng'], [pct1(m.vol), 'biến động'], [fmt2.format(m.sharpe), 'hệ số Sharpe'],
+    ], `${viM(m.name)}: lợi suất kỳ vọng ${pct1(m.ret)}, biến động ${pct1(m.vol)}, Sharpe ${fmt2.format(m.sharpe)}`));
   }
 
   /* ---------- Headline stats and data tables ---------- */
@@ -399,37 +406,37 @@
   document.getElementById('asOf').textContent = dayFmt.format(toDate(data.asOf));
   document.getElementById('coverage').textContent = m.n[m.n.length - 1];
   document.getElementById('statPe').textContent = mult(lastPe);
-  document.getElementById('statPeNote').textContent = `${signed((lastPe / m.average - 1) * 100)} vs. ${mult(m.average)} average since 2018`;
+  document.getElementById('statPeNote').textContent = `${signed((lastPe / m.average - 1) * 100)} so với trung bình ${mult(m.average)} từ 2018`;
   document.getElementById('statSectors').textContent =
-    `${data.sectorPe.filter((r) => r.current < r.mid).length} of ${data.sectorPe.length}`;
+    `${data.sectorPe.filter((r) => r.current < r.mid).length}/${data.sectorPe.length}`;
   document.getElementById('statBanks').textContent =
-    `${b.points.filter((p) => justifiedPb(p.roe) > p.pb).length} of ${b.points.length}`;
-  document.getElementById('statBanksNote').textContent = `Residual income at r = ${b.requiredReturn}%, g = ${b.growth}%`;
+    `${b.points.filter((p) => justifiedPb(p.roe) > p.pb).length}/${b.points.length}`;
+  document.getElementById('statBanksNote').textContent = `Thu nhập thặng dư với r = ${b.requiredReturn}%, g = ${b.growth}%`;
   document.getElementById('banksSub').textContent =
-    `ROE to ${b.roePeriod}, P/B on ${dayFmt.format(toDate(b.pbDate))}; r = ${b.requiredReturn}%, g = ${b.growth}%`;
+    `ROE đến ${b.roePeriod.replace(/^Q(\d) (\d{4})$/, 'Q$1/$2')}, P/B ngày ${dayFmt.format(toDate(b.pbDate))}; r = ${b.requiredReturn}%, g = ${b.growth}%`;
 
-  table('tableMarket', ['Month', 'Median P/E', '25th pct', '75th pct', 'Stocks'],
+  table('tableMarket', ['Tháng', 'P/E trung vị', 'Phân vị 25', 'Phân vị 75', 'Số cổ phiếu'],
     m.dates.map((d, i) => [monthFmt.format(toDate(d)), mult(m.median[i]), mult(m.p25[i]), mult(m.p75[i]), m.n[i]]).reverse());
-  table('tableSectors', ['Sector', 'Today', '5-yr median', '10th pct', '90th pct', 'Percentile', 'Stocks'],
-    data.sectorPe.map((r) => [r.sector, mult(r.current), mult(r.mid), mult(r.low), mult(r.high), ordinal(r.percentile), r.n]));
-  table('tableBanks', ['Bank', 'ROE (TTM)', 'P/B', 'Justified P/B'],
+  table('tableSectors', ['Ngành', 'Hôm nay', 'Trung vị 5 năm', 'Phân vị 10', 'Phân vị 90', 'Phân vị', 'Số cổ phiếu'],
+    data.sectorPe.map((r) => [vi(r.sector), mult(r.current), mult(r.mid), mult(r.low), mult(r.high), ordinal(r.percentile), r.n]));
+  table('tableBanks', ['Ngân hàng', 'ROE 4 quý', 'P/B', 'P/B hợp lý'],
     b.points.map((p) => [p.ticker, fmt1.format(p.roe) + '%', fmt2.format(p.pb) + 'x', justifiedPb(p.roe) > 0 ? fmt2.format(justifiedPb(p.roe)) + 'x' : '—']));
 
   const pf = data.portfolio;
   const allocLegend = document.getElementById('allocLegend');
-  pf.tickers.concat('Cash').forEach((t, k) => {
+  pf.tickers.concat('Tiền mặt').forEach((t, k) => {
     const li = allocLegend.appendChild(h('li'));
     li.appendChild(h('i', 'key key--box')).style.background = STOCK_COLORS[k] || CASH_COLOR;
     li.appendChild(document.createTextNode(t));
   });
   document.getElementById('allocSub').textContent =
-    `Long-only weights for ${pf.tickers.join(', ')} — covariance from daily prices, ${monthFmt.format(toDate(pf.from))} to ${monthFmt.format(toDate(pf.to))}`;
+    `Tỷ trọng chỉ mua cho ${pf.tickers.join(', ')} — hiệp phương sai từ giá ngày, ${monthFmt.format(toDate(pf.from))} đến ${monthFmt.format(toDate(pf.to))}`;
   document.getElementById('portfolioSource').textContent =
-    `Expected return = earnings yield + long-term growth; risk-free rate ${pct0(pf.riskFree)}. Long-only, no leverage. Illustrative sample — not a recommendation to buy these stocks.`;
-  table('tableAlloc', ['Method', ...pf.tickers, 'Cash', 'Return', 'Volatility', 'Sharpe'],
-    pf.methods.map((m) => [m.name, ...m.weights.map(pct1), pct1(m.cash), pct1(m.ret), pct1(m.vol), fmt2.format(m.sharpe)]));
-  table('tableFrontier', ['Portfolio', 'Expected return', 'Volatility'],
-    pf.methods.map((m, i) => [`${i + 1}. ${m.name}`, pct1(m.ret), pct1(m.vol)])
+    `Lợi suất kỳ vọng = lợi suất lợi nhuận + tăng trưởng dài hạn; lãi suất phi rủi ro ${pct0(pf.riskFree)}. Chỉ mua, không đòn bẩy. Mẫu minh họa — không phải khuyến nghị mua các cổ phiếu này.`;
+  table('tableAlloc', ['Cách phân bổ', ...pf.tickers, 'Tiền mặt', 'Lợi suất', 'Biến động', 'Sharpe'],
+    pf.methods.map((m) => [viM(m.name), ...m.weights.map(pct1), pct1(m.cash), pct1(m.ret), pct1(m.vol), fmt2.format(m.sharpe)]));
+  table('tableFrontier', ['Danh mục', 'Lợi suất kỳ vọng', 'Biến động'],
+    pf.methods.map((m, i) => [`${i + 1}. ${viM(m.name)}`, pct1(m.ret), pct1(m.vol)])
       .concat(pf.stocks.map((s) => [s.ticker, pct1(s.ret), pct1(s.vol)])));
 
   renderSectors(document.getElementById('vizSectors'));

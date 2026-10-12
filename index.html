@@ -1,20 +1,20 @@
 <!doctype html>
-<html lang="en">
+<html lang="vi">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Fairline Research — Vietnam Equity Valuation</title>
-  <meta name="description" content="Independent valuation research on HOSE, HNX and UPCoM stocks using DCF, trading comparables and residual income — with every assumption on the table.">
+  <title>Fairline Research — Định giá cổ phiếu Việt Nam</title>
+  <meta name="description" content="Nghiên cứu định giá độc lập cổ phiếu HOSE, HNX, UPCoM bằng DCF, so sánh bội số và thu nhập thặng dư — công bố mọi giả định.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,500;1,6..72,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
 <header class="nav">
   <div class="container nav__inner">
-    <a class="logo" href="#top" aria-label="Fairline Research — back to top">
+    <a class="logo" href="#top" aria-label="Fairline Research — về đầu trang">
       <svg class="logo__mark" viewBox="0 0 32 32" width="30" height="30" aria-hidden="true">
         <rect class="logo__bg" width="32" height="32" rx="8"/>
         <line class="logo__fair" x1="5" y1="16" x2="27" y2="16"/>
@@ -22,162 +22,226 @@
       </svg>
       <span class="logo__text">Fairline <span>Research</span></span>
     </a>
-    <nav class="nav__links" aria-label="Main">
-      <a href="#methods">Methods</a>
-      <a href="#market">Market data</a>
-      <a href="#calculator">Calculator</a>
-      <a href="#portfolio">Portfolio</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#contact">Contact</a>
+    <nav class="nav__links" aria-label="Chính">
+      <a href="#phan-tich">Phân tích</a>
+      <a href="#methods">Phương pháp</a>
+      <a href="#market">Thị trường</a>
+      <a href="#calculator">Công cụ định giá</a>
+      <a href="#portfolio">Danh mục</a>
+      <a href="#pricing">Bảng giá</a>
+      <a href="#contact">Liên hệ</a>
     </nav>
-    <a class="btn btn--primary btn--sm" href="#signup-section">Start free</a>
+    <a class="btn btn--light btn--sm" href="#signup-section">Đăng ký miễn phí</a>
   </div>
 </header>
 
 <main id="top">
 
-  <!-- Hero -->
+  <!-- Đầu trang -->
   <section class="hero">
     <div class="container hero__grid">
       <div class="hero__copy">
-        <p class="eyebrow">Independent valuation research · HOSE · HNX · UPCoM</p>
-        <h1>Know what a stock is worth <em>before</em> you buy it.</h1>
-        <p class="lead">Fairline builds valuation models from audited financial statements — discounted cash flow, trading comparables, residual income — and publishes both the value range and every assumption behind it.</p>
+        <p class="eyebrow">Nghiên cứu định giá độc lập · HOSE · HNX · UPCoM</p>
+        <h1>Biết cổ phiếu đáng giá bao nhiêu <em>trước khi</em> mua.</h1>
+        <p class="lead">Fairline dựng mô hình định giá từ báo cáo tài chính đã kiểm toán — chiết khấu dòng tiền, so sánh bội số, thu nhập thặng dư — và công bố cả khoảng giá trị lẫn mọi giả định đứng sau.</p>
         <div class="hero__cta">
-          <a class="btn btn--primary" href="#signup-section">Get 3 free reports</a>
-          <a class="btn btn--ghost" href="#calculator">Try the calculator →</a>
+          <a class="btn btn--mint" href="#phan-tich">Xem bài phân tích →</a>
+          <a class="btn btn--glass" href="#calculator">Thử công cụ định giá</a>
         </div>
-        <p class="fineprint">No credit card required · Cancel anytime</p>
+        <p class="fineprint">Đọc miễn phí · Không cần thẻ thanh toán</p>
       </div>
 
       <figure class="hero__card card">
         <figcaption class="chart-head">
           <div>
             <span class="ticker">ABC</span>
-            <span class="muted">Market price vs. fair value</span>
+            <span class="muted">Giá thị trường so với giá trị hợp lý</span>
           </div>
-          <span class="tag">Illustrative</span>
+          <span class="tag">Minh họa</span>
         </figcaption>
         <svg id="heroChart" class="hero-chart" viewBox="0 0 600 280" role="img"
-             aria-label="Illustrative chart: market price oscillating around a fair value line"></svg>
+             aria-label="Biểu đồ minh họa: giá thị trường dao động quanh đường giá trị hợp lý"></svg>
         <ul class="legend">
-          <li><i class="sw sw--under"></i>Below fair value</li>
-          <li><i class="sw sw--over"></i>Above fair value</li>
-          <li><i class="sw sw--fair"></i>Fair value</li>
+          <li><i class="sw sw--under"></i>Dưới giá trị hợp lý</li>
+          <li><i class="sw sw--over"></i>Trên giá trị hợp lý</li>
+          <li><i class="sw sw--fair"></i>Giá trị hợp lý</li>
         </ul>
         <dl class="hero__stats">
-          <div><dt>Price (VND)</dt><dd>42,300</dd></div>
-          <div><dt>Fair value (VND)</dt><dd>51,800</dd></div>
-          <div><dt>Margin of safety</dt><dd class="pos">18.3%</dd></div>
+          <div><dt>Giá (đồng)</dt><dd>42.300</dd></div>
+          <div><dt>Giá trị hợp lý (đồng)</dt><dd>51.800</dd></div>
+          <div><dt>Biên an toàn</dt><dd class="pos">18,3%</dd></div>
         </dl>
       </figure>
     </div>
   </section>
 
-  <!-- Principles -->
-  <section class="principles" aria-label="Principles">
+  <!-- Nguyên tắc -->
+  <section class="principles" aria-label="Nguyên tắc">
     <div class="container principles__grid">
-      <div><h3>Independent</h3><p>No fees from the companies we cover.</p></div>
-      <div><h3>Transparent</h3><p>Download the Excel model and change any assumption.</p></div>
-      <div><h3>Accountable</h3><p>Every past valuation stays on record — including the misses.</p></div>
+      <div>
+        <span class="principle__icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 4.5 3.4 8.2 8 9 4.6-.8 8-4.5 8-9V6z"/><path d="m9 12 2 2 4-4"/></svg></span>
+        <h3>Độc lập</h3>
+        <p>Không nhận phí từ doanh nghiệp được phân tích.</p>
+      </div>
+      <div>
+        <span class="principle__icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></span>
+        <h3>Minh bạch</h3>
+        <p>Tải file Excel định giá và tự đổi bất kỳ giả định nào.</p>
+      </div>
+      <div>
+        <span class="principle__icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19h16"/><path d="M7 15v-4M12 15V7M17 15v-6"/></svg></span>
+        <h3>Chịu trách nhiệm</h3>
+        <p>Mọi bản định giá cũ được giữ lại — kể cả những lần sai.</p>
+      </div>
     </div>
   </section>
 
-  <!-- Methods -->
-  <section id="methods" class="section">
+  <!-- Phân tích -->
+  <section id="phan-tich" class="section">
+    <div class="container">
+      <div class="panel">
+        <div class="section__head section__head--row">
+          <div>
+            <p class="eyebrow">Phân tích cơ bản</p>
+            <h2>Bài phân tích <em>mới nhất</em></h2>
+          </div>
+          <a class="btn btn--ghost btn--pill" href="phan-tich/">Xem tất cả →</a>
+        </div>
+        <div class="posts">
+          <a class="post" href="phan-tich/mcm/">
+            <div class="cover">
+              <span class="cover__brand">Fairline Research</span>
+              <div>
+                <p class="cover__ticker">MCM</p>
+                <p class="cover__name">Giống bò sữa Mộc Châu · UPCoM</p>
+              </div>
+              <span class="cover__bars" aria-hidden="true"><i style="height:38%"></i><i style="height:62%"></i><i style="height:48%"></i><i style="height:80%"></i><i style="height:56%"></i></span>
+            </div>
+            <div class="post__body">
+              <p class="post__cat">Phân tích cơ bản · Sữa</p>
+              <h3 class="post__title">Mộc Châu Milk: kinh doanh sữa co lại, tiền gửi gánh gần nửa giá trị</h3>
+              <p class="post__meta">12/10/2026 · Số liệu đến Q2/2026 · Dashboard, định giá, Excel</p>
+              <p class="post__excerpt">Lợi nhuận lõi giảm từ 289 tỷ (2022) còn 152 tỷ (2025); lãi tiền gửi bằng 42% LNTT. Định giá năm phương pháp, ba kịch bản: 16.673–37.835 đồng/cổ phiếu.</p>
+              <span class="post__more">Đọc phân tích →</span>
+            </div>
+          </a>
+          <a class="post" href="phan-tich/qns/">
+            <div class="cover cover--teal">
+              <span class="cover__brand">Fairline Research</span>
+              <div>
+                <p class="cover__ticker">QNS</p>
+                <p class="cover__name">Đường Quảng Ngãi · UPCoM</p>
+              </div>
+              <span class="cover__bars" aria-hidden="true"><i style="height:70%"></i><i style="height:52%"></i><i style="height:40%"></i><i style="height:58%"></i><i style="height:66%"></i></span>
+            </div>
+            <div class="post__body">
+              <p class="post__cat">Phân tích cơ bản · Đường, sữa đậu nành</p>
+              <h3 class="post__title">Đường Quảng Ngãi: sữa đậu nành là trụ lợi nhuận, mảng đường có dấu hiệu qua đáy</h3>
+              <p class="post__meta">30/09/2026 · Số liệu đến Q2/2026 · Dashboard</p>
+              <p class="post__excerpt">Biên gộp sữa 2025 bị phóng đại vì đổi cách ghi khuyến mãi; biên đường hồi lên 19,4% ở Q2/2026; tiền ròng 5.180 tỷ, khoảng 1/3 vốn hóa.</p>
+              <span class="post__more">Đọc phân tích →</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Phương pháp -->
+  <section id="methods" class="section section--alt">
     <div class="container">
       <div class="section__head">
-        <p class="eyebrow">Methods</p>
-        <h2>Three lenses, one value range</h2>
-        <p class="lead">No single method fits every business. We pick the model that matches how the company makes money, then cross-check to arrive at a range you can trust.</p>
+        <p class="eyebrow">Phương pháp</p>
+        <h2>Ba lăng kính, <em>một khoảng giá trị</em></h2>
+        <p class="lead">Không phương pháp nào hợp với mọi doanh nghiệp. Chúng tôi chọn mô hình khớp với cách công ty kiếm tiền, rồi đối chiếu chéo để ra một khoảng giá trị đáng tin.</p>
       </div>
 
       <div class="methods">
         <article class="method card">
           <span class="method__num">01</span>
-          <h3>Discounted cash flow (DCF)</h3>
-          <p>Free cash flow projected 5–10 years out from real business drivers, discounted at a WACC that reflects Vietnam market risk.</p>
-          <p class="method__fit">Best for: manufacturing, retail, utilities, technology</p>
+          <h3>Chiết khấu dòng tiền (DCF)</h3>
+          <p>Dòng tiền tự do dự phóng 5–10 năm từ các động lực kinh doanh thật, chiết khấu bằng chi phí vốn phản ánh rủi ro thị trường Việt Nam.</p>
+          <p class="method__fit">Hợp với: sản xuất, bán lẻ, tiện ích, công nghệ</p>
         </article>
         <article class="method card">
           <span class="method__num">02</span>
-          <h3>Trading comparables</h3>
-          <p>P/E, P/B and EV/EBITDA against domestic and regional peers, adjusted for differences in growth and return on equity.</p>
-          <p class="method__fit">Best for: sectors with many similar listed companies</p>
+          <h3>So sánh bội số</h3>
+          <p>P/E, P/B và EV/EBITDA so với doanh nghiệp cùng ngành trong nước và khu vực, điều chỉnh theo chênh lệch tăng trưởng và ROE.</p>
+          <p class="method__fit">Hợp với: ngành có nhiều công ty niêm yết tương đồng</p>
         </article>
         <article class="method card">
           <span class="method__num">03</span>
-          <h3>Residual income (RI)</h3>
-          <p>Value built from book value plus returns earned above the cost of equity — the standard for financials, where free cash flow says little.</p>
-          <p class="method__fit">Best for: banks, insurers, brokerages</p>
+          <h3>Thu nhập thặng dư (RI)</h3>
+          <p>Giá trị bằng giá trị sổ sách cộng phần lợi nhuận vượt chi phí vốn chủ — chuẩn mực cho tài chính, nơi dòng tiền tự do ít ý nghĩa.</p>
+          <p class="method__fit">Hợp với: ngân hàng, bảo hiểm, chứng khoán</p>
         </article>
       </div>
 
       <figure class="ff card" style="--min:30; --max:65">
         <figcaption class="ff__head">
           <div>
-            <h3>Valuation range chart</h3>
-            <p class="muted">Stock ABC · thousand VND per share</p>
+            <h3>Biểu đồ khoảng giá trị</h3>
+            <p class="muted">Cổ phiếu ABC · nghìn đồng mỗi cổ phiếu</p>
           </div>
-          <span class="tag">Illustrative</span>
+          <span class="tag">Minh họa</span>
         </figcaption>
 
         <div class="ff__plot">
           <div class="ff__row">
-            <div class="ff__label">DCF (FCFF)<small>Weight 50%</small></div>
-            <div class="ff__track"><div class="ff__bar" style="--lo:45.8; --hi:58.8"><span>45.8 – 58.8</span></div></div>
+            <div class="ff__label">DCF (FCFF)<small>Trọng số 50%</small></div>
+            <div class="ff__track"><div class="ff__bar" style="--lo:45.8; --hi:58.8"><span>45,8 – 58,8</span></div></div>
           </div>
           <div class="ff__row">
-            <div class="ff__label">P/E comps<small>Weight 25%</small></div>
-            <div class="ff__track"><div class="ff__bar" style="--lo:44; --hi:53.5"><span>44.0 – 53.5</span></div></div>
+            <div class="ff__label">So sánh P/E<small>Trọng số 25%</small></div>
+            <div class="ff__track"><div class="ff__bar" style="--lo:44; --hi:53.5"><span>44,0 – 53,5</span></div></div>
           </div>
           <div class="ff__row">
-            <div class="ff__label">EV/EBITDA<small>Weight 25%</small></div>
-            <div class="ff__track"><div class="ff__bar" style="--lo:47.5; --hi:60.2"><span>47.5 – 60.2</span></div></div>
+            <div class="ff__label">EV/EBITDA<small>Trọng số 25%</small></div>
+            <div class="ff__track"><div class="ff__bar" style="--lo:47.5; --hi:60.2"><span>47,5 – 60,2</span></div></div>
           </div>
           <div class="ff__row">
-            <div class="ff__label">P/B comps<small>Reference</small></div>
-            <div class="ff__track"><div class="ff__bar ff__bar--ref" style="--lo:39.8; --hi:50.1"><span>39.8 – 50.1</span></div></div>
+            <div class="ff__label">So sánh P/B<small>Tham khảo</small></div>
+            <div class="ff__track"><div class="ff__bar ff__bar--ref" style="--lo:39.8; --hi:50.1"><span>39,8 – 50,1</span></div></div>
           </div>
           <div class="ff__row">
-            <div class="ff__label">52-week range<small>Reference</small></div>
-            <div class="ff__track"><div class="ff__bar ff__bar--ref" style="--lo:33.1; --hi:46.8"><span>33.1 – 46.8</span></div></div>
+            <div class="ff__label">Dải giá 52 tuần<small>Tham khảo</small></div>
+            <div class="ff__track"><div class="ff__bar ff__bar--ref" style="--lo:33.1; --hi:46.8"><span>33,1 – 46,8</span></div></div>
           </div>
-          <div class="ff__marker ff__marker--price" style="--v:42.3"><span>Price 42.3</span></div>
-          <div class="ff__marker ff__marker--fair" style="--v:51.8"><span>Fair value 51.8</span></div>
+          <div class="ff__marker ff__marker--price" style="--v:42.3"><span>Giá 42,3</span></div>
+          <div class="ff__marker ff__marker--fair" style="--v:51.8"><span>Giá trị hợp lý 51,8</span></div>
         </div>
 
         <div class="ff__axis" aria-hidden="true">
           <span style="--t:30">30</span><span style="--t:35">35</span><span style="--t:40">40</span><span style="--t:45">45</span>
           <span style="--t:50">50</span><span style="--t:55">55</span><span style="--t:60">60</span><span style="--t:65">65</span>
         </div>
-        <p class="ff__note">Fair value = weighted average of range midpoints: DCF 50% · P/E 25% · EV/EBITDA 25%. P/B and the 52-week range are shown for reference only.</p>
+        <p class="ff__note">Giá trị hợp lý = bình quân có trọng số của điểm giữa các khoảng: DCF 50% · P/E 25% · EV/EBITDA 25%. P/B và dải giá 52 tuần chỉ để tham khảo.</p>
       </figure>
     </div>
   </section>
 
-  <!-- Market data (filled by market-charts.js from data/market-data.js) -->
-  <section id="market" class="section section--alt">
+  <!-- Số liệu thị trường (market-charts.js điền từ data/market-data.js) -->
+  <section id="market" class="section">
     <div class="container">
       <div class="section__head">
-        <p class="eyebrow">Market data</p>
-        <h2>Where Vietnam valuations stand today</h2>
-        <p class="lead">Computed from daily P/E and P/B across <span id="coverage">300+</span> companies listed on HOSE, HNX and UPCoM. Data as of <span id="asOf">—</span>.</p>
+        <p class="eyebrow">Số liệu thị trường</p>
+        <h2>Định giá thị trường Việt Nam <em>đang ở đâu</em></h2>
+        <p class="lead">Tính từ P/E và P/B hằng ngày của <span id="coverage">300+</span> doanh nghiệp niêm yết trên HOSE, HNX và UPCoM. Số liệu đến ngày <span id="asOf">—</span>.</p>
       </div>
 
       <div class="stats">
         <div class="stat card">
-          <p class="stat__label">Median market P/E</p>
+          <p class="stat__label">P/E trung vị toàn thị trường</p>
           <p class="stat__value" id="statPe">—</p>
           <p class="stat__note" id="statPeNote"></p>
         </div>
         <div class="stat card">
-          <p class="stat__label">Sectors below their 5-year median P/E</p>
+          <p class="stat__label">Ngành có P/E dưới trung vị 5 năm</p>
           <p class="stat__value" id="statSectors">—</p>
-          <p class="stat__note">Each sector compared with its own history</p>
+          <p class="stat__note">Mỗi ngành so với chính lịch sử của nó</p>
         </div>
         <div class="stat card">
-          <p class="stat__label">Banks below justified P/B</p>
+          <p class="stat__label">Ngân hàng có P/B dưới mức hợp lý</p>
           <p class="stat__value" id="statBanks">—</p>
           <p class="stat__note" id="statBanksNote"></p>
         </div>
@@ -186,94 +250,94 @@
       <figure class="viz card viz--wide">
         <figcaption class="viz__head">
           <div>
-            <h3>Market P/E since 2018</h3>
-            <p class="muted">Median trailing P/E of profitable listed companies, monthly</p>
+            <h3>P/E thị trường từ 2018</h3>
+            <p class="muted">P/E trượt trung vị của các doanh nghiệp có lãi, theo tháng</p>
           </div>
           <ul class="viz__legend">
-            <li><i class="key key--line"></i>Median P/E</li>
-            <li><i class="key key--band"></i>Middle 50% of stocks</li>
-            <li><i class="key key--ref"></i>Average since 2018</li>
+            <li><i class="key key--line"></i>P/E trung vị</li>
+            <li><i class="key key--band"></i>50% cổ phiếu ở giữa</li>
+            <li><i class="key key--ref"></i>Trung bình từ 2018</li>
           </ul>
         </figcaption>
         <div class="viz__plot" id="vizMarket"></div>
-        <details class="viz__table"><summary>View data</summary><div id="tableMarket"></div></details>
+        <details class="viz__table"><summary>Xem bảng số liệu</summary><div id="tableMarket"></div></details>
       </figure>
 
       <div class="viz-grid">
         <figure class="viz card">
           <figcaption class="viz__head">
             <div>
-              <h3>Sector P/E vs. its own history</h3>
-              <p class="muted">Sector median P/E today against the last 5 years</p>
+              <h3>P/E ngành so với lịch sử</h3>
+              <p class="muted">P/E trung vị từng ngành hôm nay so với 5 năm qua</p>
             </div>
             <ul class="viz__legend">
-              <li><i class="key key--dot"></i>Today</li>
-              <li><i class="key key--tick"></i>5-year median</li>
-              <li><i class="key key--range"></i>5-year range (10th–90th pct)</li>
+              <li><i class="key key--dot"></i>Hôm nay</li>
+              <li><i class="key key--tick"></i>Trung vị 5 năm</li>
+              <li><i class="key key--range"></i>Dải 5 năm (phân vị 10–90)</li>
             </ul>
           </figcaption>
           <div class="viz__plot" id="vizSectors"></div>
-          <details class="viz__table"><summary>View data</summary><div id="tableSectors"></div></details>
+          <details class="viz__table"><summary>Xem bảng số liệu</summary><div id="tableSectors"></div></details>
         </figure>
 
         <figure class="viz card">
           <figcaption class="viz__head">
             <div>
-              <h3>Banks: what you pay vs. what they earn</h3>
-              <p class="muted" id="banksSub">ROE against P/B, with the residual-income justified P/B</p>
+              <h3>Ngân hàng: trả bao nhiêu, lãi bao nhiêu</h3>
+              <p class="muted" id="banksSub">ROE so với P/B, kèm P/B hợp lý theo thu nhập thặng dư</p>
             </div>
             <ul class="viz__legend">
-              <li><i class="key key--dot"></i>Bank</li>
-              <li><i class="key key--fair"></i>Justified P/B = (ROE − g) / (r − g)</li>
+              <li><i class="key key--dot"></i>Ngân hàng</li>
+              <li><i class="key key--fair"></i>P/B hợp lý = (ROE − g) / (r − g)</li>
             </ul>
           </figcaption>
           <div class="viz__plot" id="vizBanks"></div>
-          <details class="viz__table"><summary>View data</summary><div id="tableBanks"></div></details>
+          <details class="viz__table"><summary>Xem bảng số liệu</summary><div id="tableBanks"></div></details>
         </figure>
       </div>
-      <p class="viz__source">Source: Fairline Research database. P/E excludes loss-making companies. For information only — not investment advice.</p>
+      <p class="viz__source">Nguồn: cơ sở dữ liệu Fairline Research. P/E không tính doanh nghiệp lỗ. Chỉ để tham khảo — không phải khuyến nghị đầu tư.</p>
     </div>
   </section>
 
-  <!-- Calculator -->
-  <section id="calculator" class="section">
+  <!-- Công cụ định giá -->
+  <section id="calculator" class="section section--alt">
     <div class="container">
       <div class="section__head">
-        <p class="eyebrow">Valuation calculator</p>
-        <h2>Estimate intrinsic value in 30 seconds</h2>
-        <p class="lead">A two-stage discounted earnings model: five years of high growth, then a stable long-term rate. Move the sliders to see how sensitive value is to each assumption.</p>
+        <p class="eyebrow">Công cụ định giá</p>
+        <h2>Ước giá trị nội tại <em>trong 30 giây</em></h2>
+        <p class="lead">Mô hình chiết khấu lợi nhuận hai giai đoạn: năm năm tăng trưởng cao, sau đó tăng đều dài hạn. Kéo thanh trượt để thấy giá trị nhạy thế nào với từng giả định.</p>
       </div>
 
       <div class="calc">
         <form class="calc__inputs card" id="calcForm" novalidate>
           <div class="field-pair">
             <div class="field">
-              <label for="eps">Trailing EPS <span class="unit">VND</span></label>
+              <label for="eps">EPS 4 quý <span class="unit">đồng</span></label>
               <input id="eps" type="number" inputmode="numeric" min="0" step="100" value="4200">
             </div>
             <div class="field">
-              <label for="price">Market price <span class="unit">VND</span></label>
+              <label for="price">Giá thị trường <span class="unit">đồng</span></label>
               <input id="price" type="number" inputmode="numeric" min="0" step="100" value="42300">
             </div>
           </div>
           <div class="field">
-            <div class="field__row"><label for="g1">EPS growth, next 5 years</label><output id="g1Out" for="g1"></output></div>
+            <div class="field__row"><label for="g1">Tăng trưởng EPS, 5 năm tới</label><output id="g1Out" for="g1"></output></div>
             <input id="g1" type="range" min="0" max="30" step="0.5" value="10">
           </div>
           <div class="field">
-            <div class="field__row"><label for="g2">Long-term growth (year 6+)</label><output id="g2Out" for="g2"></output></div>
+            <div class="field__row"><label for="g2">Tăng trưởng dài hạn (từ năm 6)</label><output id="g2Out" for="g2"></output></div>
             <input id="g2" type="range" min="0" max="7" step="0.5" value="4">
           </div>
           <div class="field">
-            <div class="field__row"><label for="r">Required return (cost of equity)</label><output id="rOut" for="r"></output></div>
+            <div class="field__row"><label for="r">Lợi suất yêu cầu (chi phí vốn chủ)</label><output id="rOut" for="r"></output></div>
             <input id="r" type="range" min="9" max="20" step="0.5" value="14">
           </div>
-          <p class="fineprint">Simplified model: assumes all earnings are cash available to shareholders. Full reports use free cash flow and the actual capital structure.</p>
+          <p class="fineprint">Mô hình rút gọn: coi toàn bộ lợi nhuận là tiền cổ đông nhận được. Báo cáo đầy đủ dùng dòng tiền tự do và cơ cấu vốn thực tế.</p>
         </form>
 
         <div class="calc__result card" aria-live="polite">
-          <p class="muted">Estimated intrinsic value</p>
-          <p class="big"><span id="value">—</span> <small>VND/share</small></p>
+          <p class="muted">Giá trị nội tại ước tính</p>
+          <p class="big"><span id="value">—</span> <small>đồng/cổ phiếu</small></p>
           <p class="verdict" id="verdict"></p>
 
           <div class="gauge" id="gauge">
@@ -284,273 +348,274 @@
           </div>
 
           <dl class="breakdown">
-            <div><dt>Margin of safety</dt><dd id="mos">—</dd></div>
-            <div><dt>Implied P/E</dt><dd id="pe">—</dd></div>
-            <div><dt>PV of 5-year earnings</dt><dd id="pvStage">—</dd></div>
-            <div><dt>PV of terminal value</dt><dd id="pvTerminal">—</dd></div>
+            <div><dt>Biên an toàn</dt><dd id="mos">—</dd></div>
+            <div><dt>P/E ngầm định</dt><dd id="pe">—</dd></div>
+            <div><dt>Hiện giá lợi nhuận 5 năm</dt><dd id="pvStage">—</dd></div>
+            <div><dt>Hiện giá giá trị cuối kỳ</dt><dd id="pvTerminal">—</dd></div>
           </dl>
 
-          <h4 class="sens__title">Sensitivity <span class="muted">(thousand VND/share)</span></h4>
+          <h4 class="sens__title">Độ nhạy <span class="muted">(nghìn đồng/cổ phiếu)</span></h4>
           <div class="sens__wrap">
             <table class="sens" id="sens"></table>
           </div>
-          <p class="fineprint">Rows: required return · Columns: long-term growth · Outlined cell: current inputs</p>
+          <p class="fineprint">Hàng: lợi suất yêu cầu · Cột: tăng trưởng dài hạn · Ô viền đậm: giả định đang chọn</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Portfolio construction (charts filled by market-charts.js) -->
-  <section id="portfolio" class="section section--alt">
+  <!-- Phân bổ danh mục (market-charts.js vẽ biểu đồ) -->
+  <section id="portfolio" class="section">
     <div class="container">
       <div class="section__head">
-        <p class="eyebrow">Portfolio construction</p>
-        <h2>From fair value to position size</h2>
-        <p class="lead">Knowing what a stock is worth is half the job. The other half is how much of it to own. Six allocation methods, each with a different idea of what “balanced” means.</p>
+        <p class="eyebrow">Phân bổ danh mục</p>
+        <h2>Từ giá trị hợp lý <em>đến tỷ trọng</em></h2>
+        <p class="lead">Biết cổ phiếu đáng giá bao nhiêu mới là một nửa. Nửa còn lại là nên nắm bao nhiêu. Sáu cách phân bổ, mỗi cách một quan niệm khác về thế nào là “cân bằng”.</p>
       </div>
 
       <div class="am-grid">
         <article class="am card">
-          <div class="am__top"><span class="am__num">1</span><h3>Mean-variance (Markowitz)</h3></div>
-          <p>Finds the mix with the highest return per unit of risk on the efficient frontier. Powerful, but sensitive to return estimates — it likes to concentrate.</p>
+          <div class="am__top"><span class="am__num">1</span><h3>Trung bình – phương sai (Markowitz)</h3></div>
+          <p>Tìm tổ hợp có lợi suất trên mỗi đơn vị rủi ro cao nhất trên đường biên hiệu quả. Mạnh, nhưng nhạy với ước tính lợi suất — dễ dồn tỷ trọng.</p>
           <code class="am__formula">max (wᵀμ − r<sub>f</sub>) / √(wᵀΣw)</code>
-          <p class="am__needs">Needs: expected returns · covariance</p>
+          <p class="am__needs">Cần: lợi suất kỳ vọng · hiệp phương sai</p>
         </article>
         <article class="am card">
           <div class="am__top"><span class="am__num">2</span><h3>Black-Litterman</h3></div>
-          <p>Starts from the returns the market implies, then tilts toward your views — our fair-value estimates — in proportion to confidence. Steadier than raw Markowitz.</p>
-          <code class="am__formula">π = δΣw<sub>mkt</sub> blended with views Q</code>
-          <p class="am__needs">Needs: market caps · views · covariance</p>
+          <p>Bắt đầu từ lợi suất mà thị trường ngầm định, rồi nghiêng theo quan điểm — chính là ước tính giá trị hợp lý — tùy mức tin cậy. Ổn định hơn Markowitz thuần.</p>
+          <code class="am__formula">π = δΣw<sub>mkt</sub> kết hợp quan điểm Q</code>
+          <p class="am__needs">Cần: vốn hóa · quan điểm · hiệp phương sai</p>
         </article>
         <article class="am card">
-          <div class="am__top"><span class="am__num">3</span><h3>Risk parity</h3></div>
-          <p>Every holding contributes the same amount of risk. No return forecasts at all, so there is nothing to get wrong on that side.</p>
+          <div class="am__top"><span class="am__num">3</span><h3>Cân bằng rủi ro</h3></div>
+          <p>Mỗi cổ phiếu góp cùng một phần rủi ro. Không cần dự báo lợi suất, nên không có gì để dự báo sai ở phía đó.</p>
           <code class="am__formula">w<sub>i</sub>(Σw)<sub>i</sub> = w<sub>j</sub>(Σw)<sub>j</sub></code>
-          <p class="am__needs">Needs: covariance</p>
+          <p class="am__needs">Cần: hiệp phương sai</p>
         </article>
         <article class="am card">
-          <div class="am__top"><span class="am__num">4</span><h3>Kelly criterion</h3></div>
-          <p>Sizes positions to maximize long-run growth given your edge. Full Kelly is brutal in drawdowns, so we use half Kelly, capped at 100% invested.</p>
+          <div class="am__top"><span class="am__num">4</span><h3>Tiêu chí Kelly</h3></div>
+          <p>Chọn tỷ trọng tối đa hóa tăng trưởng dài hạn theo lợi thế của bạn. Kelly đủ mức sụt giảm rất sâu, nên dùng nửa Kelly, tối đa 100% vốn.</p>
           <code class="am__formula">f* = ½ Σ⁻¹(μ − r<sub>f</sub>)</code>
-          <p class="am__needs">Needs: expected returns · covariance</p>
+          <p class="am__needs">Cần: lợi suất kỳ vọng · hiệp phương sai</p>
         </article>
         <article class="am card">
-          <div class="am__top"><span class="am__num">5</span><h3>Minimum variance</h3></div>
-          <p>The lowest-volatility mix available. Ignores returns entirely and leans on calm, low-correlation names.</p>
+          <div class="am__top"><span class="am__num">5</span><h3>Phương sai nhỏ nhất</h3></div>
+          <p>Tổ hợp biến động thấp nhất có thể. Bỏ qua lợi suất, dồn vào các mã ít biến động, ít tương quan.</p>
           <code class="am__formula">min wᵀΣw</code>
-          <p class="am__needs">Needs: covariance</p>
+          <p class="am__needs">Cần: hiệp phương sai</p>
         </article>
         <article class="am card">
-          <div class="am__top"><span class="am__num">6</span><h3>Equal weight</h3></div>
-          <p>One over N in everything. Surprisingly hard to beat out of sample — the benchmark every other method has to clear.</p>
+          <div class="am__top"><span class="am__num">6</span><h3>Tỷ trọng bằng nhau</h3></div>
+          <p>Chia đều cho N mã. Ngoài mẫu khó thắng một cách bất ngờ — là mốc mà mọi cách khác phải vượt.</p>
           <code class="am__formula">w<sub>i</sub> = 1 / N</code>
-          <p class="am__needs">Needs: nothing</p>
+          <p class="am__needs">Cần: không gì cả</p>
         </article>
       </div>
 
       <figure class="viz card viz--wide">
         <figcaption class="viz__head">
           <div>
-            <h3>Same six stocks, six different portfolios</h3>
-            <p class="muted" id="allocSub">Long-only weights from each method</p>
+            <h3>Cùng sáu cổ phiếu, sáu danh mục khác nhau</h3>
+            <p class="muted" id="allocSub">Tỷ trọng chỉ mua theo từng cách</p>
           </div>
           <ul class="viz__legend" id="allocLegend"></ul>
         </figcaption>
         <div class="viz__plot" id="vizAlloc"></div>
-        <details class="viz__table"><summary>View data</summary><div id="tableAlloc"></div></details>
+        <details class="viz__table"><summary>Xem bảng số liệu</summary><div id="tableAlloc"></div></details>
       </figure>
 
       <figure class="viz card">
         <figcaption class="viz__head">
           <div>
-            <h3>Risk vs. expected return</h3>
-            <p class="muted">Each method’s portfolio against the efficient frontier</p>
+            <h3>Rủi ro và lợi suất kỳ vọng</h3>
+            <p class="muted">Danh mục của từng cách so với đường biên hiệu quả</p>
           </div>
           <ul class="viz__legend">
-            <li><i class="key key--line"></i>Efficient frontier</li>
-            <li><i class="key key--num">1</i>Method (numbered as above)</li>
-            <li><i class="key key--ring"></i>Single stock</li>
+            <li><i class="key key--line"></i>Đường biên hiệu quả</li>
+            <li><i class="key key--num">1</i>Cách phân bổ (đánh số như trên)</li>
+            <li><i class="key key--ring"></i>Từng cổ phiếu</li>
           </ul>
         </figcaption>
         <div class="viz__plot" id="vizFrontier"></div>
-        <details class="viz__table"><summary>View data</summary><div id="tableFrontier"></div></details>
+        <details class="viz__table"><summary>Xem bảng số liệu</summary><div id="tableFrontier"></div></details>
       </figure>
-      <p class="viz__source" id="portfolioSource">Illustrative sample — not a recommendation to buy these stocks.</p>
+      <p class="viz__source" id="portfolioSource">Mẫu minh họa — không phải khuyến nghị mua các cổ phiếu này.</p>
     </div>
   </section>
 
-  <!-- Process -->
-  <section id="process" class="section">
+  <!-- Quy trình -->
+  <section id="process" class="section section--alt">
     <div class="container">
       <div class="section__head">
-        <p class="eyebrow">Process</p>
-        <h2>From financial statements to a value range</h2>
+        <p class="eyebrow">Quy trình</p>
+        <h2>Từ báo cáo tài chính <em>đến khoảng giá trị</em></h2>
       </div>
       <ol class="steps">
         <li>
           <span class="step__num">01</span>
-          <h3>Collect</h3>
-          <p>Three years of audited consolidated statements, the latest quarterly filings, annual reports and AGM resolutions.</p>
+          <h3>Thu thập</h3>
+          <p>Ba năm báo cáo tài chính hợp nhất đã kiểm toán, báo cáo quý gần nhất, báo cáo thường niên và nghị quyết đại hội cổ đông.</p>
         </li>
         <li>
           <span class="step__num">02</span>
-          <h3>Normalize</h3>
-          <p>Strip out one-offs — asset disposals, provision reversals, revaluation gains — so value rests on core earnings.</p>
+          <h3>Chuẩn hóa</h3>
+          <p>Loại các khoản bất thường — thanh lý tài sản, hoàn nhập dự phòng, lãi đánh giá lại — để giá trị dựa trên lợi nhuận cốt lõi.</p>
         </li>
         <li>
           <span class="step__num">03</span>
-          <h3>Model</h3>
-          <p>Link all three statements and forecast from volume, pricing and margins — never by extrapolating past growth.</p>
+          <h3>Mô hình</h3>
+          <p>Liên kết ba báo cáo và dự phóng từ sản lượng, giá bán, biên lợi nhuận — không kéo dài tăng trưởng quá khứ.</p>
         </li>
         <li>
           <span class="step__num">04</span>
-          <h3>Stress-test</h3>
-          <p>Sensitivity grids plus bear, base and bull scenarios. The output is a range, not a single number.</p>
+          <h3>Kiểm định</h3>
+          <p>Bảng độ nhạy cùng ba kịch bản xấu, cơ sở, tốt. Kết quả là một khoảng, không phải một con số.</p>
         </li>
       </ol>
     </div>
   </section>
 
-  <!-- Pricing -->
-  <section id="pricing" class="section section--alt">
+  <!-- Bảng giá -->
+  <section id="pricing" class="section">
     <div class="container">
       <div class="section__head section__head--center">
-        <p class="eyebrow">Pricing</p>
-        <h2>Start free, upgrade when you need more</h2>
+        <p class="eyebrow">Bảng giá</p>
+        <h2>Bắt đầu miễn phí, <em>nâng cấp khi cần</em></h2>
       </div>
       <div class="plans">
         <article class="plan card">
-          <h3>Basic</h3>
-          <p class="plan__price">Free</p>
-          <p class="plan__for">For investors getting started</p>
+          <h3>Cơ bản</h3>
+          <p class="plan__price">Miễn phí</p>
+          <p class="plan__for">Cho nhà đầu tư mới bắt đầu</p>
           <ul>
-            <li>3 valuation reports per month</li>
-            <li>Valuation calculator</li>
-            <li>Weekly valuation newsletter</li>
+            <li>3 báo cáo định giá mỗi tháng</li>
+            <li>Công cụ định giá</li>
+            <li>Bản tin định giá hằng tuần</li>
           </ul>
-          <a class="btn btn--ghost" href="#signup-section">Start free</a>
+          <a class="btn btn--ghost" href="#signup-section">Bắt đầu miễn phí</a>
         </article>
         <article class="plan card plan--featured">
-          <span class="plan__badge">Most popular</span>
-          <h3>Investor</h3>
-          <p class="plan__price">VND 199,000<span>/month</span></p>
-          <p class="plan__for">For serious individual investors</p>
+          <span class="plan__badge">Được chọn nhiều nhất</span>
+          <h3>Nhà đầu tư</h3>
+          <p class="plan__price">199.000 đ<span>/tháng</span></p>
+          <p class="plan__for">Cho nhà đầu tư cá nhân nghiêm túc</p>
           <ul>
-            <li>Full valuation report library</li>
-            <li>Downloadable, editable Excel models</li>
-            <li>Alerts when price enters the value range</li>
-            <li>Portfolio allocation with all six methods</li>
-            <li>Updates after every quarterly filing</li>
+            <li>Toàn bộ thư viện báo cáo định giá</li>
+            <li>File Excel định giá tải về, sửa được</li>
+            <li>Thông báo khi giá vào khoảng giá trị</li>
+            <li>Phân bổ danh mục với cả sáu cách</li>
+            <li>Cập nhật sau mỗi kỳ báo cáo quý</li>
           </ul>
-          <a class="btn btn--primary" href="#signup-section">Try 14 days free</a>
+          <a class="btn btn--mint" href="#signup-section">Dùng thử 14 ngày</a>
         </article>
         <article class="plan card">
-          <h3>Institutional</h3>
-          <p class="plan__price">Custom</p>
-          <p class="plan__for">For funds, brokerages and family offices</p>
+          <h3>Tổ chức</h3>
+          <p class="plan__price">Theo thỏa thuận</p>
+          <p class="plan__for">Cho quỹ, công ty chứng khoán, văn phòng gia đình</p>
           <ul>
-            <li>Everything in Investor</li>
-            <li>Valuation data API</li>
-            <li>Bespoke research</li>
-            <li>Multiple user seats</li>
+            <li>Mọi quyền của gói Nhà đầu tư</li>
+            <li>API dữ liệu định giá</li>
+            <li>Nghiên cứu theo yêu cầu</li>
+            <li>Nhiều tài khoản người dùng</li>
           </ul>
-          <a class="btn btn--ghost" href="#contact">Talk to us</a>
+          <a class="btn btn--ghost" href="#contact">Liên hệ</a>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- FAQ -->
-  <section id="faq" class="section">
+  <!-- Câu hỏi thường gặp -->
+  <section id="faq" class="section section--alt">
     <div class="container faq">
       <div class="section__head">
-        <p class="eyebrow">FAQ</p>
-        <h2>Common questions</h2>
+        <p class="eyebrow">Câu hỏi thường gặp</p>
+        <h2>Những điều <em>hay được hỏi</em></h2>
       </div>
       <div class="faq__list">
         <details>
-          <summary>Is fair value the same as a target price?</summary>
-          <p>No. A target price is usually tied to a 12-month horizon and market expectations. Fair value is an estimate of intrinsic value based on future cash flows — the market may take years to reflect it, or never do.</p>
+          <summary>Giá trị hợp lý có phải giá mục tiêu không?</summary>
+          <p>Không. Giá mục tiêu thường gắn với kỳ hạn 12 tháng và kỳ vọng của thị trường. Giá trị hợp lý là ước tính giá trị nội tại dựa trên dòng tiền tương lai — thị trường có thể mất nhiều năm mới phản ánh, hoặc không bao giờ.</p>
         </details>
         <details>
-          <summary>Where does the data come from?</summary>
-          <p>Audited consolidated financial statements, quarterly filings, annual reports and AGM documents published by companies on HOSE, HNX and their investor relations sites.</p>
+          <summary>Số liệu lấy từ đâu?</summary>
+          <p>Báo cáo tài chính đã kiểm toán, báo cáo quý, báo cáo thường niên và tài liệu đại hội cổ đông do doanh nghiệp công bố trên HOSE, HNX và trang quan hệ cổ đông.</p>
         </details>
         <details>
-          <summary>How often are reports updated?</summary>
-          <p>After every quarterly filing, and whenever an event changes a core assumption — a share issuance, an acquisition, or a shift in sector regulation.</p>
+          <summary>Báo cáo được cập nhật bao lâu một lần?</summary>
+          <p>Sau mỗi kỳ báo cáo quý, và khi có sự kiện làm đổi giả định cốt lõi — phát hành cổ phiếu, mua bán sáp nhập hay thay đổi quy định ngành.</p>
         </details>
         <details>
-          <summary>How do you value banks?</summary>
-          <p>With residual income and P/B anchored to sustainable ROE. For a bank, debt is raw material rather than financing, so free cash flow carries little meaning.</p>
+          <summary>Định giá ngân hàng thế nào?</summary>
+          <p>Bằng thu nhập thặng dư và P/B gắn với ROE bền vững. Với ngân hàng, nợ là nguyên liệu chứ không phải nguồn vốn, nên dòng tiền tự do ít ý nghĩa.</p>
         </details>
         <details>
-          <summary>Does Fairline give buy or sell recommendations?</summary>
-          <p>No. We publish the value range and every assumption so you can judge for yourself. The investment decision is always yours.</p>
+          <summary>Fairline có khuyến nghị mua, bán không?</summary>
+          <p>Không. Chúng tôi công bố khoảng giá trị và mọi giả định để bạn tự đánh giá. Quyết định đầu tư luôn là của bạn.</p>
         </details>
       </div>
     </div>
   </section>
 
-  <!-- Contact -->
-  <section id="contact" class="section section--alt">
+  <!-- Liên hệ -->
+  <section id="contact" class="section">
     <div class="container contact">
       <div class="contact__info">
-        <p class="eyebrow">Contact</p>
-        <h2>Get in touch</h2>
-        <p class="lead">Questions about a report, your subscription or institutional access? Send us a message.</p>
+        <p class="eyebrow">Liên hệ</p>
+        <h2>Trao đổi <em>với chúng tôi</em></h2>
+        <p class="lead">Câu hỏi về báo cáo, gói đăng ký hay quyền truy cập cho tổ chức? Gửi tin nhắn cho chúng tôi.</p>
         <div class="contact__card card">
           <span class="contact__icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
           </span>
           <div>
-            <p class="contact__label">Support email</p>
+            <p class="contact__label">Email hỗ trợ</p>
             <a class="contact__email" href="mailto:support@fairlineresearch.com">support@fairlineresearch.com</a>
-            <p class="contact__hint">Reports, account, billing and institutional plans</p>
+            <p class="contact__hint">Báo cáo, tài khoản, thanh toán và gói tổ chức</p>
           </div>
         </div>
-        <p class="contact__faq">Quick question? It may already be answered in the <a href="#faq">FAQ</a>.</p>
+        <p class="contact__faq">Câu hỏi nhanh? Có thể đã có trong phần <a href="#faq">câu hỏi thường gặp</a>.</p>
       </div>
 
       <form class="contact__form card" id="contactForm" data-email="support@fairlineresearch.com">
         <div class="field">
-          <label for="contactName">Your name</label>
+          <label for="contactName">Họ và tên</label>
           <input id="contactName" name="name" type="text" required autocomplete="name">
         </div>
         <div class="field">
-          <label for="contactTopic">Topic</label>
+          <label for="contactTopic">Chủ đề</label>
           <select id="contactTopic" name="topic">
-            <option>Report question</option>
-            <option>Subscription &amp; billing</option>
-            <option>Institutional access</option>
-            <option>Something else</option>
+            <option>Câu hỏi về báo cáo</option>
+            <option>Gói đăng ký và thanh toán</option>
+            <option>Truy cập cho tổ chức</option>
+            <option>Việc khác</option>
           </select>
         </div>
         <div class="field">
-          <label for="contactMessage">Message</label>
+          <label for="contactMessage">Lời nhắn</label>
           <textarea id="contactMessage" name="message" rows="5" required></textarea>
         </div>
-        <button class="btn btn--primary" type="submit">Send message</button>
-        <p class="fineprint">Opens your email app with the message ready to send to support@fairlineresearch.com.</p>
+        <button class="btn btn--primary" type="submit">Gửi tin nhắn →</button>
+        <p class="fineprint">Mở ứng dụng email của bạn với tin nhắn soạn sẵn gửi tới support@fairlineresearch.com.</p>
       </form>
     </div>
   </section>
 
-  <!-- Signup -->
+  <!-- Đăng ký -->
   <section id="signup-section" class="cta">
     <div class="container cta__inner">
       <div>
-        <h2>Get a free valuation report every week</h2>
-        <p>One company, one model, every assumption — in your inbox Monday morning.</p>
+        <h2>Mỗi tuần một báo cáo định giá <em>miễn phí</em></h2>
+        <p>Một doanh nghiệp, một mô hình, đủ mọi giả định — trong hộp thư sáng thứ Hai.</p>
       </div>
       <form class="signup" id="signup">
         <label class="sr-only" for="email">Email</label>
-        <input id="email" type="email" required placeholder="you@example.com" autocomplete="email">
-        <button class="btn btn--mint" type="submit">Subscribe</button>
-        <p class="signup__legal">By subscribing you agree to our <a href="terms.html">Terms</a> and <a href="privacy.html">Privacy Policy</a>. Unsubscribe anytime.</p>
+        <input id="email" type="email" required placeholder="ban@vidu.com" autocomplete="email">
+        <button class="btn btn--mint" type="submit">Đăng ký</button>
+        <p class="signup__legal">Đăng ký là bạn đồng ý với <a href="terms.html">Điều khoản</a> và <a href="privacy.html">Chính sách quyền riêng tư</a>. Hủy bất cứ lúc nào.</p>
         <p class="signup__msg" id="signupMsg" role="status"></p>
       </form>
     </div>
+    <div class="cta__bars" aria-hidden="true"><i style="height:46%"></i><i style="height:62%"></i><i style="height:38%"></i><i style="height:74%"></i><i style="height:55%"></i><i style="height:88%"></i><i style="height:48%"></i><i style="height:66%"></i><i style="height:42%"></i><i style="height:80%"></i><i style="height:58%"></i><i style="height:95%"></i><i style="height:52%"></i><i style="height:70%"></i></div>
   </section>
 </main>
 
@@ -559,14 +624,27 @@
     <div class="footer__brand">
       <span class="logo__text">Fairline <span>Research</span></span>
       <a class="footer__email" href="mailto:support@fairlineresearch.com">support@fairlineresearch.com</a>
-      <nav class="footer__links" aria-label="Legal">
-        <a href="terms.html">Terms of Service</a>
-        <a href="privacy.html">Privacy Policy</a>
-      </nav>
-      <p>© 2026 Fairline Research</p>
+      <p class="footer__copy">© 2026 Fairline Research</p>
     </div>
-    <p class="disclaimer">Content on this site is for informational purposes only and is not investment advice or a recommendation to buy or sell securities. Fair value is an estimate based on assumptions and may be wrong. Investors are responsible for their own decisions. Figures for “ABC” are illustrative.</p>
+    <div class="footer__col">
+      <p class="footer__title">Nội dung</p>
+      <ul>
+        <li><a href="phan-tich/">Phân tích</a></li>
+        <li><a href="#methods">Phương pháp</a></li>
+        <li><a href="#market">Số liệu thị trường</a></li>
+        <li><a href="#calculator">Công cụ định giá</a></li>
+      </ul>
+    </div>
+    <div class="footer__col">
+      <p class="footer__title">Pháp lý</p>
+      <ul>
+        <li><a href="terms.html">Điều khoản sử dụng</a></li>
+        <li><a href="privacy.html">Chính sách quyền riêng tư</a></li>
+      </ul>
+    </div>
+    <p class="disclaimer">Nội dung trên trang chỉ để tham khảo, không phải tư vấn hay khuyến nghị mua, bán chứng khoán. Giá trị hợp lý là ước tính dựa trên giả định và có thể sai. Nhà đầu tư tự chịu trách nhiệm với quyết định của mình. Số liệu của “ABC” là minh họa.</p>
   </div>
+  <p class="footer__mark" aria-hidden="true">Fairline</p>
 </footer>
 
 <script src="data/market-data.js"></script>

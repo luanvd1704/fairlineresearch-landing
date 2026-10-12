@@ -1,7 +1,7 @@
 const $ = (id) => document.getElementById(id);
-const fmtInt = new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 });
-const fmtOne = new Intl.NumberFormat('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
-const fmtPct = new Intl.NumberFormat('en-US', { maximumFractionDigits: 1 });
+const fmtInt = new Intl.NumberFormat('vi-VN', { maximumFractionDigits: 0 });
+const fmtOne = new Intl.NumberFormat('vi-VN', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+const fmtPct = new Intl.NumberFormat('vi-VN', { maximumFractionDigits: 1 });
 const pct = (percent) => fmtPct.format(percent) + '%';
 
 /* ---------- Hero chart: price oscillating around a rising fair-value line ---------- */
@@ -102,7 +102,7 @@ function updateCalculator() {
   if (!(eps > 0 && price > 0)) {
     for (const id of ['value', 'mos', 'pe', 'pvStage', 'pvTerminal']) $(id).textContent = '—';
     verdict.className = 'verdict is-near';
-    verdict.textContent = 'Enter an EPS and price above 0';
+    verdict.textContent = 'Nhập EPS và giá lớn hơn 0';
     $('gauge').hidden = true;
     $('sens').innerHTML = '';
     return;
@@ -122,22 +122,22 @@ function updateCalculator() {
 
   if (mos >= 0.2) {
     verdict.className = 'verdict is-under';
-    verdict.textContent = 'Price well below estimated value';
+    verdict.textContent = 'Giá thấp hơn nhiều so với giá trị ước tính';
   } else if (mos >= -0.1) {
     verdict.className = 'verdict is-near';
-    verdict.textContent = 'Price close to estimated value';
+    verdict.textContent = 'Giá gần với giá trị ước tính';
   } else {
     verdict.className = 'verdict is-over';
-    verdict.textContent = 'Price above estimated value';
+    verdict.textContent = 'Giá cao hơn giá trị ước tính';
   }
 
   const max = Math.max(value, price) * 1.25;
   const at = (v) => (v / max) * 100 + '%';
   $('gauge').hidden = false;
   $('markPrice').style.left = at(price);
-  $('markPrice').firstElementChild.textContent = 'Price ' + fmtInt.format(price);
+  $('markPrice').firstElementChild.textContent = 'Giá ' + fmtInt.format(price);
   $('markValue').style.left = at(value);
-  $('markValue').firstElementChild.textContent = 'Value ' + round100(value);
+  $('markValue').firstElementChild.textContent = 'Giá trị ' + round100(value);
   const fill = $('gaugeFill');
   fill.style.left = at(Math.min(value, price));
   fill.style.width = (Math.abs(value - price) / max) * 100 + '%';
@@ -163,6 +163,6 @@ $('contactForm').addEventListener('submit', (e) => {
 // TODO: connect to an email service (Mailchimp, ConvertKit, ...) — currently only shows a confirmation
 $('signup').addEventListener('submit', (e) => {
   e.preventDefault();
-  $('signupMsg').textContent = 'Thanks! Your first report arrives Monday morning.';
+  $('signupMsg').textContent = 'Cảm ơn bạn! Báo cáo đầu tiên sẽ đến vào sáng thứ Hai.';
   e.target.reset();
 });
