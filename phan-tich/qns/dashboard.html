@@ -3416,12 +3416,80 @@ function throttle(func, wait) {
 // và nhớ luôn kết quả (theo khóa phông) → chú thích đè nhau, nhãn trục bị cắt. Cách sửa: khi phông web đã tải và biểu
 // đồ đang hiện, đổi sang một cách viết khác của cùng họ phông để plotly đo lại; đồng thời đặt lại chiều cao thiết kế
 // (layout.meta.h do dung_ban_web.py ghi vì Quarto bỏ layout.height). Quarto nạp plotly qua RequireJS.
+// Danh sách phông phải khác hẳn bản gốc, không chỉ khác dấu cách: trình duyệt chuẩn hóa cách viết nên
+// "Inter,Segoe UI,…" và "Inter, Segoe UI, …" ra cùng khóa, plotly lại lấy số đo 0 đã nhớ.
+// Màn hình hẹp (điện thoại): chú thích nằm ngoài vùng vẽ thì dồn xuống đáy hình (plotly tự chừa lề), để không đè nút
+// Năm/Quý hay nhãn trục; biểu đồ con đặt cạnh nhau thì xếp dọc, mỗi cái rộng hết thẻ.
 (function () {
-  var FONT_DO_LAI = 'Inter,Segoe UI,Roboto,Arial,sans-serif';
+  var FONT_DO_LAI = 'Inter, system-ui, Segoe UI, Roboto, Arial, sans-serif';
+  var HEP = 560;
   var phongSan = false;
   function withPlotly(cb) {
     if (window.Plotly) return cb(window.Plotly);
     if (window.require) window.require(['plotly'], cb);
+  }
+  // Một hàng nhiều cột (xaxis, xaxis2… cạnh nhau, trục y nào cũng cao hết) → mỗi cột thành một tầng; trả về chiều cao mới
+  function xepDoc(L, sua) {
+    var cot = [];
+    for (var i = 1; L['xaxis' + (i > 1 ? i : '')]; i++) {
+      var k = i > 1 ? i : '', xa = L['xaxis' + k], ya = L['yaxis' + k];
+      if (!xa.domain || !ya || !ya.domain || ya.domain[0] > 0.01 || ya.domain[1] < 0.99) return 0;
+      cot.push({ k: k, d: xa.domain });
+    }
+    if (cot.length < 2) return 0;
+    cot.sort(function (a, b) { return a.d[0] - b.d[0]; });
+    for (var j = 1; j < cot.length; j++) if (cot[j].d[0] < cot[j - 1].d[1]) return 0;
+    var n = cot.length, CAO = n > 3 ? 170 : 210, KHE = 70, giay = n * CAO + (n - 1) * KHE;
+    cot.forEach(function (c, j) {
+      var tren = 1 - j * (CAO + KHE) / giay;
+      sua['xaxis' + c.k + '.domain'] = [0, 1];
+      sua['yaxis' + c.k + '.domain'] = [Math.max(0, tren - CAO / giay), tren];
+      // tiêu đề biểu đồ con (make_subplots đặt ở giữa cột, sát mép trên)
+      (L.annotations || []).forEach(function (a, ai) {
+        if (a.xref === 'paper' && a.yref === 'paper' && Math.abs(a.y - 1) < 1e-6 && a.x >= c.d[0] && a.x <= c.d[1]) {
+          sua['annotations[' + ai + '].x'] = 0.5;
+          sua['annotations[' + ai + '].y'] = tren;
+        }
+      });
+    });
+    return giay + ((L.margin && L.margin.t) || 60) + 130;
+  }
+  // Ghi chú tràn khỏi hình hoặc đè ghi chú khác (tiêu đề biểu đồ con khi cột hẹp): ngắt dòng theo từ cho vừa chỗ;
+  // ghi chú neo một bên vừa bề ngang mà lệch ra mép thì neo sang phía trong. Hình nào không lỗi thì không đổi.
+  function gonGhiChu(gd, Plotly) {
+    var svg = gd.querySelector('.main-svg'), fl = gd._fullLayout || {};
+    if (!svg) return;
+    var k = svg.getBoundingClientRect(), rong = k.width - 16, sua = {}, co = false;
+    var cot = Object.keys(fl).filter(function (t) { return /^xaxis\d*$/.test(t) && fl[t].domain && fl[t].domain[1] - fl[t].domain[0] < 0.999; });
+    var ds = [].map.call(gd.querySelectorAll('g.annotation'), function (g) {
+      var t = g.querySelector('text');
+      return { i: +g.getAttribute('data-index'), t: t, r: t && t.getBoundingClientRect() };
+    });
+    ds.forEach(function (x) {
+      var i = x.i, a = (gd.layout.annotations || [])[i], r = x.r;
+      if (!a || !x.t || a.showarrow !== false || /</.test(a.text) || !r.width) return;
+      var tran = r.left < k.left - 1 || r.right > k.right + 1;
+      var de = ds.some(function (y) { return y !== x && y.r && r.left < y.r.right && y.r.left < r.right && r.top < y.r.bottom && y.r.top < r.bottom; });
+      if (!tran && !de) return;
+      var neoBien = a.xanchor === 'left' || a.xanchor === 'right', tam = r.left + r.width / 2;
+      var cho = neoBien ? rong : 2 * Math.min(tam - k.left, k.right - tam) - 8;
+      if (de && a.xref === 'paper') cot.forEach(function (t) {
+        var d = fl[t].domain;
+        if (a.x >= d[0] && a.x <= d[1]) cho = Math.min(cho, fl[t]._length - 8);
+      });
+      if (neoBien && !de && r.width <= rong) {
+        sua['annotations[' + i + '].xanchor'] = r.right > k.right ? 'right' : 'left';
+      } else {
+        var toiDa = Math.floor(a.text.length * cho / r.width), dong = [], cur = '';
+        a.text.split(' ').forEach(function (w) {
+          if (cur && (cur + ' ' + w).length > toiDa) { dong.push(cur); cur = w; } else { cur = cur ? cur + ' ' + w : w; }
+        });
+        dong.push(cur);
+        sua['annotations[' + i + '].text'] = dong.join('<br>');
+      }
+      co = true;
+    });
+    if (co) Plotly.relayout(gd, sua);
   }
   function veLai() {
     if (!phongSan) return;
@@ -3429,9 +3497,19 @@ function throttle(func, wait) {
       document.querySelectorAll('.js-plotly-plot').forEach(function (gd) {
         if (!gd.offsetParent || gd.dataset.daVeLai) return;
         var h = gd.layout && gd.layout.meta && gd.layout.meta.h;
-        if (h) { gd.style.minHeight = h + 'px'; }
         gd.dataset.daVeLai = '1';
-        Plotly.relayout(gd, { 'font.family': FONT_DO_LAI, 'hoverlabel.font.family': FONT_DO_LAI, autosize: true });
+        var sua = { 'font.family': FONT_DO_LAI, 'hoverlabel.font.family': FONT_DO_LAI, autosize: true };
+        if (gd.offsetWidth < HEP) {
+          var lg = gd.layout.legend || {};
+          if (lg.orientation === 'h' && (lg.y > 1 || lg.y < 0)) {
+            sua['legend.x'] = 0; sua['legend.xanchor'] = 'left';
+            sua['legend.yref'] = 'container'; sua['legend.y'] = 0; sua['legend.yanchor'] = 'bottom';
+          }
+          h = xepDoc(gd.layout, sua) || h;
+        }
+        if (h) { gd.style.minHeight = h + 'px'; }
+        var p = Plotly.relayout(gd, sua);
+        if (p && p.then) p.then(function () { gonGhiChu(gd, Plotly); });
       });
     });
   }

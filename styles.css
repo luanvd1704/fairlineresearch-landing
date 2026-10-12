@@ -157,9 +157,42 @@ dd, output, .big, .sens, .plan__price, .num { font-variant-numeric: tabular-nums
 .nav__links a { color: rgba(255, 255, 255, .86); font-size: .9rem; font-weight: 500; text-decoration: none; white-space: nowrap; }
 .nav__links a:hover, .nav__links a[aria-current="page"] { color: #fff; }
 .nav__links a[aria-current="page"] { text-decoration: underline; text-decoration-color: var(--teal-3); text-underline-offset: 6px; }
-@media (max-width: 1180px) {
+.nav__toggle { display: none; }
+@media (max-width: 1200px) {
+  .nav__inner { position: relative; gap: 12px; }
   .nav__links { display: none; }
   .nav__inner > .btn { margin-left: auto; }
+  /* Nút menu thay cho hàng liên kết; bấm mở danh sách thả xuống (nav.js) */
+  .nav__toggle {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    border: 1px solid rgba(255, 255, 255, .35);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, .06);
+    color: #fff;
+    cursor: pointer;
+  }
+  .nav__toggle .i-dong, .nav--mo .nav__toggle .i-mo { display: none; }
+  .nav--mo .nav__toggle .i-dong { display: block; }
+  .nav--mo .nav__links {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    display: grid;
+    gap: 2px;
+    padding: 8px;
+    border: 1px solid rgba(255, 255, 255, .14);
+    border-radius: 16px;
+    background: var(--navy-900);
+    box-shadow: 0 18px 40px -16px rgba(10, 20, 48, .7);
+  }
+  .nav--mo .nav__links a { padding: 11px 14px; border-radius: 10px; font-size: 1rem; }
+  .nav--mo .nav__links a:hover { background: rgba(255, 255, 255, .08); }
 }
 
 /* Đầu trang chủ */
@@ -234,8 +267,9 @@ dd, output, .big, .sens, .plan__price, .num { font-variant-numeric: tabular-nums
   margin-top: 16px;
   padding-top: 16px;
 }
+.hero__stats div { display: flex; flex-direction: column; }
 .hero__stats dt { color: var(--ink-3); font-size: .78rem; }
-.hero__stats dd { font-size: 1.35rem; font-weight: 600; letter-spacing: -.01em; }
+.hero__stats dd { margin-top: auto; font-size: 1.35rem; font-weight: 600; letter-spacing: -.01em; }
 .pos { color: var(--green); }
 
 /* Đầu trang con (phân tích, pháp lý) */
@@ -952,6 +986,9 @@ dd, output, .big, .sens, .plan__price, .num { font-variant-numeric: tabular-nums
   .viz-grid { grid-template-columns: 1fr; }
   .report__grid, .library { grid-template-columns: minmax(0, 1fr); }
   .aside-box, .side-box { position: static; }
+  /* Cột bên xuống dưới bài: riêng thẻ "Tài liệu" (dashboard, PDF, Excel) đưa lên trước bài */
+  .aside-box { display: contents; }
+  .aside-box > :first-child { order: -1; }
   .footer__inner { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 960px) {
@@ -966,6 +1003,7 @@ dd, output, .big, .sens, .plan__price, .num { font-variant-numeric: tabular-nums
   .faq .section__head { margin-bottom: 0; }
   .tiles { grid-template-columns: 1fr 1fr; }
   .post-row { grid-template-columns: 200px 1fr; gap: 20px; }
+  .post-row .cover__bars { display: none; }  /* bìa 200px không đủ chỗ cho cả chữ lẫn cột */
   .legal__grid { grid-template-columns: 1fr; gap: 32px; }
   .legal__toc { position: static; }
   .legal__toc ol { grid-template-columns: 1fr 1fr; }
@@ -975,9 +1013,14 @@ dd, output, .big, .sens, .plan__price, .num { font-variant-numeric: tabular-nums
   .nav { top: 8px; }
   .nav__inner { height: 60px; padding: 0 10px 0 14px; gap: 12px; }
   .logo__text span { display: none; }
+  .cover__name { max-width: calc(100% - 100px); }
+  .tbl-report { font-size: .84rem; }
+  .tbl-report th, .tbl-report td { padding: 8px 6px; }
+  .tbl-report th:first-child, .tbl-report td:first-child { min-width: 0; padding-left: 10px; }
   .page-hero { padding: 116px 0 56px; }
   .principles__grid, .steps, .footer__inner, .stats, .am-grid { grid-template-columns: 1fr; }
   .post-row { grid-template-columns: 1fr; }
+  .post-row .cover__bars { display: flex; }
   .al__row { grid-template-columns: 1fr; gap: 6px; height: auto; padding: 8px 6px; }
   .al__row--head, .al__stat { display: none; }
   .stat__value { font-size: 2.1rem; }
@@ -996,4 +1039,14 @@ dd, output, .big, .sens, .plan__price, .num { font-variant-numeric: tabular-nums
   .panel { padding: 32px 16px; border-radius: 18px; }
   .tiles { grid-template-columns: 1fr; }
   .tile__value { font-size: 1.45rem; }
+}
+@media (max-width: 380px) {
+  .nav__cta-them, .nav__ve { display: none; }
+  .nav__ve + .nav__toggle { margin-left: auto; }
+}
+@media (max-width: 400px) {
+  .tbl-report { font-size: .8rem; }
+  .tbl-report th, .tbl-report td { padding: 7px 3px; }
+  .tbl-report th:first-child, .tbl-report td:first-child { padding-left: 8px; }
+  .tbl-report thead th { letter-spacing: 0; }
 }
