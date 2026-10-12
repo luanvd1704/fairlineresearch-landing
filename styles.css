@@ -154,10 +154,10 @@ dd, output, .big, .sens, .plan__price, .num { font-variant-numeric: tabular-nums
 .logo__text { font-family: var(--serif); font-weight: 500; font-size: 1.35rem; letter-spacing: -.01em; }
 .logo__text span { font-family: var(--sans); font-weight: 400; font-size: .85rem; letter-spacing: .04em; opacity: .75; margin-left: 2px; }
 .nav__links { display: flex; gap: 22px; margin-left: auto; }
-.nav__links a { color: rgba(255, 255, 255, .86); font-size: .9rem; font-weight: 500; text-decoration: none; }
+.nav__links a { color: rgba(255, 255, 255, .86); font-size: .9rem; font-weight: 500; text-decoration: none; white-space: nowrap; }
 .nav__links a:hover, .nav__links a[aria-current="page"] { color: #fff; }
 .nav__links a[aria-current="page"] { text-decoration: underline; text-decoration-color: var(--teal-3); text-underline-offset: 6px; }
-@media (max-width: 1080px) {
+@media (max-width: 1180px) {
   .nav__links { display: none; }
   .nav__inner > .btn { margin-left: auto; }
 }
