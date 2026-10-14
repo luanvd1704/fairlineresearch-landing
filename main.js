@@ -160,9 +160,14 @@ $('contactForm').addEventListener('submit', (e) => {
   location.href = `mailto:${f.dataset.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 });
 
-// TODO: connect to an email service (Mailchimp, ConvertKit, ...) — currently only shows a confirmation
+// TODO: connect to a newsletter service (Mailchimp, MailerLite, Brevo, ...) — until then, like the contact form,
+// hand the request to the visitor's email app
 $('signup').addEventListener('submit', (e) => {
   e.preventDefault();
-  $('signupMsg').textContent = 'Cảm ơn bạn! Báo cáo đầu tiên sẽ đến vào sáng thứ Hai.';
-  e.target.reset();
+  const f = e.target;
+  const email = f.email.value.trim();
+  const subject = `[Đăng ký bản tin] ${email}`;
+  const body = `Tôi muốn đăng ký nhận bản tin Fairline Research bằng địa chỉ: ${email}`;
+  location.href = `mailto:${f.dataset.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  $('signupMsg').textContent = 'Đã mở ứng dụng email — bấm Gửi để hoàn tất. Không thấy? Gửi email tới support@fairlineresearch.com.';
 });
