@@ -401,45 +401,70 @@
   }
 
   /* ---------- Headline stats and data tables ---------- */
-  const m = data.marketPe, lastPe = m.median[m.median.length - 1];
-  const b = data.banks;
-  document.getElementById('asOf').textContent = dayFmt.format(toDate(data.asOf));
-  document.getElementById('coverage').textContent = m.n[m.n.length - 1];
-  document.getElementById('statPe').textContent = mult(lastPe);
-  document.getElementById('statPeNote').textContent = `${signed((lastPe / m.average - 1) * 100)} so với trung bình ${mult(m.average)} từ 2018`;
-  document.getElementById('statSectors').textContent =
-    `${data.sectorPe.filter((r) => r.current < r.mid).length}/${data.sectorPe.length}`;
-  document.getElementById('statBanks').textContent =
-    `${b.points.filter((p) => justifiedPb(p.roe) > p.pb).length}/${b.points.length}`;
-  document.getElementById('statBanksNote').textContent = `Thu nhập thặng dư với r = ${b.requiredReturn}%, g = ${b.growth}%`;
-  document.getElementById('banksSub').textContent =
-    `ROE đến ${b.roePeriod.replace(/^Q(\d) (\d{4})$/, 'Q$1/$2')}, P/B ngày ${dayFmt.format(toDate(b.pbDate))}; r = ${b.requiredReturn}%, g = ${b.growth}%`;
+  // Each stat, table and chart fills on its own: if its part of the data is missing or malformed, only its stat card
+  // or <figure> is hidden and the rest still render. An element missing from the page is skipped.
+  function guard(el, fill) {
+    if (!el) return false;
+    try {
+      fill(el);
+      return true;
+    } catch (err) {
+      const box = el.closest('figure, .stat');
+      if (box) box.hidden = true;
+      console.error('[market-charts]', err);
+      return false;
+    }
+  }
 
-  table('tableMarket', ['Tháng', 'P/E trung vị', 'Phân vị 25', 'Phân vị 75', 'Số cổ phiếu'],
-    m.dates.map((d, i) => [monthFmt.format(toDate(d)), mult(m.median[i]), mult(m.p25[i]), mult(m.p75[i]), m.n[i]]).reverse());
-  table('tableSectors', ['Ngành', 'Hôm nay', 'Trung vị 5 năm', 'Phân vị 10', 'Phân vị 90', 'Phân vị', 'Số cổ phiếu'],
-    data.sectorPe.map((r) => [vi(r.sector), mult(r.current), mult(r.mid), mult(r.low), mult(r.high), ordinal(r.percentile), r.n]));
-  table('tableBanks', ['Ngân hàng', 'ROE 4 quý', 'P/B', 'P/B hợp lý'],
-    b.points.map((p) => [p.ticker, fmt1.format(p.roe) + '%', fmt2.format(p.pb) + 'x', justifiedPb(p.roe) > 0 ? fmt2.format(justifiedPb(p.roe)) + 'x' : '—']));
-
-  const pf = data.portfolio;
-  const allocLegend = document.getElementById('allocLegend');
-  pf.tickers.concat('Tiền mặt').forEach((t, k) => {
-    const li = allocLegend.appendChild(h('li'));
-    li.appendChild(h('i', 'key key--box')).style.background = STOCK_COLORS[k] || CASH_COLOR;
-    li.appendChild(document.createTextNode(t));
+  const m = data.marketPe, b = data.banks, pf = data.portfolio;
+  guard(document.getElementById('asOf'), (el) => { el.textContent = dayFmt.format(toDate(data.asOf)); });
+  guard(document.getElementById('coverage'), (el) => { el.textContent = m.n[m.n.length - 1]; });
+  guard(document.getElementById('statPe'), (el) => {
+    const lastPe = m.median[m.median.length - 1];
+    el.textContent = mult(lastPe);
+    document.getElementById('statPeNote').textContent = `${signed((lastPe / m.average - 1) * 100)} so với trung bình ${mult(m.average)} từ 2018`;
   });
-  document.getElementById('allocSub').textContent =
-    `Tỷ trọng chỉ mua cho ${pf.tickers.join(', ')} — hiệp phương sai từ giá ngày, ${monthFmt.format(toDate(pf.from))} đến ${monthFmt.format(toDate(pf.to))}`;
-  document.getElementById('portfolioSource').textContent =
-    `Lợi suất kỳ vọng = lợi suất lợi nhuận + tăng trưởng dài hạn; lãi suất phi rủi ro ${pct0(pf.riskFree)}. Chỉ mua, không đòn bẩy. Mẫu minh họa — không phải khuyến nghị mua các cổ phiếu này.`;
-  table('tableAlloc', ['Cách phân bổ', ...pf.tickers, 'Tiền mặt', 'Lợi suất', 'Biến động', 'Sharpe'],
-    pf.methods.map((m) => [viM(m.name), ...m.weights.map(pct1), pct1(m.cash), pct1(m.ret), pct1(m.vol), fmt2.format(m.sharpe)]));
-  table('tableFrontier', ['Danh mục', 'Lợi suất kỳ vọng', 'Biến động'],
-    pf.methods.map((m, i) => [`${i + 1}. ${viM(m.name)}`, pct1(m.ret), pct1(m.vol)])
-      .concat(pf.stocks.map((s) => [s.ticker, pct1(s.ret), pct1(s.vol)])));
+  guard(document.getElementById('statSectors'), (el) => {
+    el.textContent = `${data.sectorPe.filter((r) => r.current < r.mid).length}/${data.sectorPe.length}`;
+  });
+  guard(document.getElementById('statBanks'), (el) => {
+    el.textContent = `${b.points.filter((p) => justifiedPb(p.roe) > p.pb).length}/${b.points.length}`;
+    document.getElementById('statBanksNote').textContent = `Thu nhập thặng dư với r = ${b.requiredReturn}%, g = ${b.growth}%`;
+  });
+  guard(document.getElementById('banksSub'), (el) => {
+    el.textContent =
+      `ROE đến ${b.roePeriod.replace(/^Q(\d) (\d{4})$/, 'Q$1/$2')}, P/B ngày ${dayFmt.format(toDate(b.pbDate))}; r = ${b.requiredReturn}%, g = ${b.growth}%`;
+  });
 
-  renderSectors(document.getElementById('vizSectors'));
+  guard(document.getElementById('tableMarket'), () => table('tableMarket', ['Tháng', 'P/E trung vị', 'Phân vị 25', 'Phân vị 75', 'Số cổ phiếu'],
+    m.dates.map((d, i) => [monthFmt.format(toDate(d)), mult(m.median[i]), mult(m.p25[i]), mult(m.p75[i]), m.n[i]]).reverse()));
+  guard(document.getElementById('tableSectors'), () => table('tableSectors', ['Ngành', 'Hôm nay', 'Trung vị 5 năm', 'Phân vị 10', 'Phân vị 90', 'Phân vị', 'Số cổ phiếu'],
+    data.sectorPe.map((r) => [vi(r.sector), mult(r.current), mult(r.mid), mult(r.low), mult(r.high), ordinal(r.percentile), r.n])));
+  guard(document.getElementById('tableBanks'), () => table('tableBanks', ['Ngân hàng', 'ROE 4 quý', 'P/B', 'P/B hợp lý'],
+    b.points.map((p) => [p.ticker, fmt1.format(p.roe) + '%', fmt2.format(p.pb) + 'x', justifiedPb(p.roe) > 0 ? fmt2.format(justifiedPb(p.roe)) + 'x' : '—'])));
+
+  guard(document.getElementById('allocLegend'), (allocLegend) => {
+    pf.tickers.concat('Tiền mặt').forEach((t, k) => {
+      const li = allocLegend.appendChild(h('li'));
+      li.appendChild(h('i', 'key key--box')).style.background = STOCK_COLORS[k] || CASH_COLOR;
+      li.appendChild(document.createTextNode(t));
+    });
+  });
+  guard(document.getElementById('allocSub'), (el) => {
+    el.textContent =
+      `Tỷ trọng chỉ mua cho ${pf.tickers.join(', ')} — hiệp phương sai từ giá ngày, ${monthFmt.format(toDate(pf.from))} đến ${monthFmt.format(toDate(pf.to))}`;
+  });
+  guard(document.getElementById('portfolioSource'), (el) => {
+    el.textContent =
+      `Lợi suất kỳ vọng = lợi suất lợi nhuận + tăng trưởng dài hạn; lãi suất phi rủi ro ${pct0(pf.riskFree)}. Chỉ mua, không đòn bẩy. Mẫu minh họa — không phải khuyến nghị mua các cổ phiếu này.`;
+  });
+  guard(document.getElementById('tableAlloc'), () => table('tableAlloc', ['Cách phân bổ', ...pf.tickers, 'Tiền mặt', 'Lợi suất', 'Biến động', 'Sharpe'],
+    pf.methods.map((m) => [viM(m.name), ...m.weights.map(pct1), pct1(m.cash), pct1(m.ret), pct1(m.vol), fmt2.format(m.sharpe)])));
+  guard(document.getElementById('tableFrontier'), () => table('tableFrontier', ['Danh mục', 'Lợi suất kỳ vọng', 'Biến động'],
+    pf.methods.map((m, i) => [`${i + 1}. ${viM(m.name)}`, pct1(m.ret), pct1(m.vol)])
+      .concat(pf.stocks.map((s) => [s.ticker, pct1(s.ret), pct1(s.vol)]))));
+
+  guard(document.getElementById('vizSectors'), renderSectors);
 
   // Width-dependent charts redraw at their container's pixel width so text stays crisp
   const widths = new Map();
@@ -453,8 +478,8 @@
     for (const { target, contentRect } of entries) {
       if (widths.get(target) === contentRect.width) continue;
       widths.set(target, contentRect.width);
-      charts.get(target)(target);
+      if (!guard(target, charts.get(target))) observer.unobserve(target);  // failed chart is hidden: stop redrawing it
     }
   });
-  charts.forEach((_, el) => observer.observe(el));
+  charts.forEach((_, el) => { if (el) observer.observe(el); });
 })();

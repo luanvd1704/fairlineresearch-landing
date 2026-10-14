@@ -146,28 +146,40 @@ function updateCalculator() {
   renderSensitivity(eps, price, g1Pct, g2Pct, rPct);
 }
 
-drawHeroChart($('heroChart'));
-$('calcForm').addEventListener('input', updateCalculator);
-$('calcForm').addEventListener('submit', (e) => e.preventDefault());
-updateCalculator();
+// Each part checks for its own elements first: a page without one of them skips that part, the rest still run
+const heroChart = $('heroChart');
+if (heroChart) drawHeroChart(heroChart);
+
+const calcForm = $('calcForm');
+if (calcForm) {
+  calcForm.addEventListener('input', updateCalculator);
+  calcForm.addEventListener('submit', (e) => e.preventDefault());
+  updateCalculator();
+}
 
 // No backend: hand the message to the visitor's email app, addressed to support
-$('contactForm').addEventListener('submit', (e) => {
-  e.preventDefault();
-  const f = e.target;
-  const subject = `[${f.topic.value}] ${f.name.value}`;
-  const body = `${f.message.value}\n\n— ${f.name.value}`;
-  location.href = `mailto:${f.dataset.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-});
+const contactForm = $('contactForm');
+if (contactForm) {
+  contactForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const f = e.target;
+    const subject = `[${f.topic.value}] ${f.name.value}`;
+    const body = `${f.message.value}\n\n— ${f.name.value}`;
+    location.href = `mailto:${f.dataset.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  });
+}
 
 // TODO: connect to a newsletter service (Mailchimp, MailerLite, Brevo, ...) — until then, like the contact form,
 // hand the request to the visitor's email app
-$('signup').addEventListener('submit', (e) => {
-  e.preventDefault();
-  const f = e.target;
-  const email = f.email.value.trim();
-  const subject = `[Đăng ký bản tin] ${email}`;
-  const body = `Tôi muốn đăng ký nhận bản tin Fairline Research bằng địa chỉ: ${email}`;
-  location.href = `mailto:${f.dataset.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  $('signupMsg').textContent = 'Đã mở ứng dụng email — bấm Gửi để hoàn tất. Không thấy? Gửi email tới support@fairlineresearch.com.';
-});
+const signup = $('signup'), signupMsg = $('signupMsg');
+if (signup && signupMsg) {
+  signup.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const f = e.target;
+    const email = f.email.value.trim();
+    const subject = `[Đăng ký bản tin] ${email}`;
+    const body = `Tôi muốn đăng ký nhận bản tin Fairline Research bằng địa chỉ: ${email}`;
+    location.href = `mailto:${f.dataset.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    signupMsg.textContent = 'Đã mở ứng dụng email — bấm Gửi để hoàn tất. Không thấy? Gửi email tới support@fairlineresearch.com.';
+  });
+}
