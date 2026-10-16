@@ -1,5 +1,11 @@
 ---
 import Base from '../../../layouts/Base.astro';
+import { dong, layBai, nghin1, nghin2, ngay, phanTram1, phuongPhapDung } from '../../../lib/bai-viet';
+
+// Số định giá lấy từ src/data/bai-viet.yaml (mục id: mcm)
+const { data: bai } = await layBai('mcm');
+const dg = bai.dinhGia!;
+const dung = phuongPhapDung(dg);
 ---
 <Base
   title="MCM — Mộc Châu Milk — Fairline Research"
@@ -13,9 +19,9 @@ import Base from '../../../layouts/Base.astro';
       <p class="eyebrow">Phân tích cơ bản · Sữa · UPCoM: MCM</p>
       <h1>Mộc Châu Milk: kinh doanh sữa co lại, <em>tiền gửi gánh gần nửa giá trị</em></h1>
       <div class="meta-line">
-        <span>Ngày <strong>15/10/2026</strong></span>
-        <span>Số liệu đến <strong>Q2/2026</strong></span>
-        <span>Giá tham chiếu <strong>26.600 đồng</strong> (phiên 13/10/2026)</span>
+        <span>Ngày <strong>{ngay(bai.ngay)}</strong></span>
+        <span>Số liệu đến <strong>{bai.soLieuDen}</strong></span>
+        <span>Giá tham chiếu <strong>{dong(dg.giaThamChieu)} đồng</strong> (phiên {ngay(dg.ngayGia)})</span>
       </div>
     </div>
   </section>
@@ -35,10 +41,10 @@ import Base from '../../../layouts/Base.astro';
         <h2>Định <em>giá</em></h2>
         <p>Mỗi kịch bản = DCF phần kinh doanh sữa + 90% (tiền ròng − quỹ khen thưởng phúc lợi) + hai dự án. Ba kịch bản không gán xác suất: giá trị hợp lý là kịch bản cơ sở. Tiền ròng chỉ tính 90% vì cổ đông nhỏ không quyết được việc chia tiền (nhóm Vinamilk nắm 68%). Hai dự án tính riêng ở lợi suất yêu cầu cao hơn. P/E, chiết khấu cổ tức, P/B và EV/EBITDA chỉ để đối chiếu.</p>
         <div class="tiles">
-          <div class="tile card"><p class="tile__label">Giá tham chiếu</p><p class="tile__value">26.600</p><p class="tile__note">đồng, phiên 13/10/2026</p></div>
-          <div class="tile card"><p class="tile__label">Giá trị hợp lý</p><p class="tile__value">26.694</p><p class="tile__note">đồng, kịch bản cơ sở</p></div>
-          <div class="tile card"><p class="tile__label">Khoảng giá trị</p><p class="tile__value tile__value--sm">14.575 – 36.658</p><p class="tile__note">xấu – tốt, đồng</p></div>
-          <div class="tile card"><p class="tile__label">Biên an toàn</p><p class="tile__value">0,6%</p><p class="tile__note">(giá trị hợp lý − giá) ÷ (giá trị hợp lý − tiền), chỉ tính phần ngoài tiền</p></div>
+          <div class="tile card"><p class="tile__label">Giá tham chiếu</p><p class="tile__value">{dong(dg.giaThamChieu)}</p><p class="tile__note">đồng, phiên {ngay(dg.ngayGia)}</p></div>
+          <div class="tile card"><p class="tile__label">Giá trị hợp lý</p><p class="tile__value">{dong(dung.coSo)}</p><p class="tile__note">đồng, kịch bản cơ sở</p></div>
+          <div class="tile card"><p class="tile__label">Khoảng giá trị</p><p class="tile__value tile__value--sm">{dong(dung.xau)} – {dong(dung.tot)}</p><p class="tile__note">xấu – tốt, đồng</p></div>
+          <div class="tile card"><p class="tile__label">Biên an toàn</p><p class="tile__value">{phanTram1(dg.bienAnToan)}</p><p class="tile__note">(giá trị hợp lý − giá) ÷ (giá trị hợp lý − tiền), chỉ tính phần ngoài tiền</p></div>
         </div>
 
         <figure class="ff card" style="--min:5; --max:45; --ticks:8">
@@ -49,28 +55,14 @@ import Base from '../../../layouts/Base.astro';
             </div>
           </figcaption>
           <div class="ff__plot">
-            <div class="ff__row">
-              <div class="ff__label">DCF<small>Dùng làm giá trị</small></div>
-              <div class="ff__track"><div class="ff__bar" style="--lo:14.575; --hi:36.658"><span>14,6 – 36,7</span></div></div>
-            </div>
-            <div class="ff__row">
-              <div class="ff__label">P/E lõi<small>Đối chiếu</small></div>
-              <div class="ff__track"><div class="ff__bar ff__bar--ref" style="--lo:15.603; --hi:35.935"><span>15,6 – 35,9</span></div></div>
-            </div>
-            <div class="ff__row">
-              <div class="ff__label">Chiết khấu cổ tức<small>Đối chiếu</small></div>
-              <div class="ff__track"><div class="ff__bar ff__bar--ref" style="--lo:8.764; --hi:32.690"><span>8,8 – 32,7</span></div></div>
-            </div>
-            <div class="ff__row">
-              <div class="ff__label">P/B theo ROE<small>Đối chiếu</small></div>
-              <div class="ff__track"><div class="ff__bar ff__bar--ref" style="--lo:14.240; --hi:24.631"><span>14,2 – 24,6</span></div></div>
-            </div>
-            <div class="ff__row">
-              <div class="ff__label">EV/EBITDA lõi<small>Đối chiếu</small></div>
-              <div class="ff__track"><div class="ff__bar ff__bar--ref" style="--lo:16.869; --hi:34.389"><span>16,9 – 34,4</span></div></div>
-            </div>
-            <div class="ff__marker ff__marker--price" style="--v:26.6"><span>Giá 26,60</span></div>
-            <div class="ff__marker ff__marker--fair" style="--v:26.694"><span>Hợp lý 26,69</span></div>
+            {dg.phuongPhap.map((p) => (
+              <div class="ff__row">
+                <div class="ff__label">{p.tenNgan}<small>{p.dung ? 'Dùng làm giá trị' : 'Đối chiếu'}</small></div>
+                <div class="ff__track"><div class:list={['ff__bar', !p.dung && 'ff__bar--ref']} style={`--lo:${p.xau / 1000}; --hi:${p.tot / 1000}`}><span>{nghin1(p.xau)} – {nghin1(p.tot)}</span></div></div>
+              </div>
+            ))}
+            <div class="ff__marker ff__marker--price" style={`--v:${dg.giaThamChieu / 1000}`}><span>Giá {nghin2(dg.giaThamChieu)}</span></div>
+            <div class="ff__marker ff__marker--fair" style={`--v:${dung.coSo / 1000}`}><span>Hợp lý {nghin2(dung.coSo)}</span></div>
           </div>
           <div class="ff__axis" aria-hidden="true">
             <span style="--t:5">5</span><span style="--t:10">10</span><span style="--t:15">15</span><span style="--t:20">20</span><span style="--t:25">25</span>
@@ -83,15 +75,13 @@ import Base from '../../../layouts/Base.astro';
           <table class="tbl-report">
             <thead><tr><th>Phương pháp</th><th>Xấu</th><th>Cơ sở</th><th>Tốt</th></tr></thead>
             <tbody>
-              <tr class="row-total"><td>DCF phần lõi + 90% tiền + dự án</td><td>14.575</td><td>26.694</td><td>36.658</td></tr>
-              <tr><td>P/E lợi nhuận lõi + 90% tiền + dự án</td><td>15.603</td><td>27.131</td><td>35.935</td></tr>
-              <tr><td>Chiết khấu cổ tức (DDM)</td><td>8.764</td><td>22.496</td><td>32.690</td></tr>
-              <tr><td>P/B theo ROE</td><td>14.240</td><td>18.858</td><td>24.631</td></tr>
-              <tr><td>EV/EBITDA lõi + 90% tiền + dự án</td><td>16.869</td><td>27.001</td><td>34.389</td></tr>
+              {dg.phuongPhap.map((p) => (
+                <tr class={p.dung ? 'row-total' : undefined}><td>{p.tenDayDu}</td><td>{dong(p.xau)}</td><td>{dong(p.coSo)}</td><td>{dong(p.tot)}</td></tr>
+              ))}
             </tbody>
           </table>
         </div>
-        <p class="fineprint">Đồng mỗi cổ phiếu. Dòng đậm (DCF) là con số dùng; bốn dòng còn lại chỉ để đối chiếu. Giá trị hợp lý = kịch bản cơ sở của DCF, 26.694 đồng; ba kịch bản không gán xác suất, không lấy bình quân. Tính đủ 100% tiền ròng thì kịch bản cơ sở là 27.943 đồng.</p>
+        <p class="fineprint">Đồng mỗi cổ phiếu. Dòng đậm (DCF) là con số dùng; bốn dòng còn lại chỉ để đối chiếu. Giá trị hợp lý = kịch bản cơ sở của DCF, {dong(dung.coSo)} đồng; ba kịch bản không gán xác suất, không lấy bình quân. Tính đủ 100% tiền ròng thì kịch bản cơ sở là 27.943 đồng.</p>
 
         <h3>Giả định chính</h3>
         <div class="tbl-wrap">
@@ -114,7 +104,7 @@ import Base from '../../../layouts/Base.astro';
           </table>
         </div>
         <div class="note-box">
-          <strong>Nếu biên gộp phần bán cho Vinamilk là 5% thay vì 10%:</strong> kịch bản cơ sở, cũng là giá trị hợp lý, là 27.092 đồng (thay vì 26.694). Lợi nhuận 12 tháng không đổi, chỉ dịch lãi giữa hai phần; mức chênh nhỏ vì mô hình cho phần hàng thương hiệu tăng trưởng còn phần bán thô đi ngang.
+          <strong>Nếu biên gộp phần bán cho Vinamilk là 5% thay vì 10%:</strong> kịch bản cơ sở, cũng là giá trị hợp lý, là 27.092 đồng (thay vì {dong(dung.coSo)}). Lợi nhuận 12 tháng không đổi, chỉ dịch lãi giữa hai phần; mức chênh nhỏ vì mô hình cho phần hàng thương hiệu tăng trưởng còn phần bán thô đi ngang.
         </div>
         <p>Mua ở giá tham chiếu, lợi suất kỳ vọng của cả cổ phiếu khoảng 8,5%/năm — gần một nửa giá trị là tiền gửi, mà lãi tiền gửi sau thuế qua doanh nghiệp thấp hơn tự gửi.</p>
 

@@ -1,5 +1,9 @@
 ---
 import Base from '../../layouts/Base.astro';
+import TheBai from '../../components/TheBai.astro';
+import { tatCaBai } from '../../lib/bai-viet';
+
+const baiViet = await tatCaBai();
 ---
 <Base
   title="Phân tích cơ bản — Fairline Research"
@@ -22,48 +26,13 @@ import Base from '../../layouts/Base.astro';
           <h2>Bài viết <em>mới nhất</em></h2>
         </div>
 
-        <a class="post-row" href="mcm/">
-          <div class="cover">
-            <span class="cover__brand">Fairline Research</span>
-            <div>
-              <p class="cover__ticker">MCM</p>
-              <p class="cover__name">Giống bò sữa Mộc Châu</p>
-            </div>
-            <span class="cover__bars" aria-hidden="true"><i style="height:38%"></i><i style="height:62%"></i><i style="height:48%"></i><i style="height:80%"></i></span>
-          </div>
-          <div class="post__body">
-            <p class="post__cat">Phân tích cơ bản · Sữa</p>
-            <h3 class="post__title">Mộc Châu Milk: kinh doanh sữa co lại, tiền gửi gánh gần nửa giá trị</h3>
-            <p class="post__meta">15/10/2026 · Số liệu đến Q2/2026 · Dashboard, định giá, Excel</p>
-            <p class="post__excerpt">Lợi nhuận lõi giảm từ 289 tỷ (2022) còn 152 tỷ (2025); lãi tiền gửi bằng 42% LNTT. Hai dự án trang trại và nhà máy hút phần lớn 1.398,5 tỷ tiền ròng. Định giá DCF ba kịch bản: 14.575–36.658 đồng/cổ phiếu, giá trị hợp lý (kịch bản cơ sở) 26.694 đồng.</p>
-            <span class="post__more">Đọc phân tích →</span>
-          </div>
-        </a>
-
-        <a class="post-row" href="qns/">
-          <div class="cover cover--teal">
-            <span class="cover__brand">Fairline Research</span>
-            <div>
-              <p class="cover__ticker">QNS</p>
-              <p class="cover__name">Đường Quảng Ngãi</p>
-            </div>
-            <span class="cover__bars" aria-hidden="true"><i style="height:70%"></i><i style="height:52%"></i><i style="height:40%"></i><i style="height:58%"></i></span>
-          </div>
-          <div class="post__body">
-            <p class="post__cat">Phân tích cơ bản · Đường, sữa đậu nành</p>
-            <h3 class="post__title">Đường Quảng Ngãi: sữa đậu nành là trụ lợi nhuận, mảng đường có dấu hiệu qua đáy</h3>
-            <p class="post__meta">30/09/2026 · Số liệu đến Q2/2026 · Dashboard</p>
-            <p class="post__excerpt">Biên gộp sữa 2025 bị phóng đại vì đổi cách ghi khuyến mãi; biên đường hồi lên 19,4% ở Q2/2026; tiền ròng 5.180 tỷ, khoảng 1/3 vốn hóa, trước ba dự án khoảng 4.486 tỷ ở An Khê.</p>
-            <span class="post__more">Đọc phân tích →</span>
-          </div>
-        </a>
+        {baiViet.map((b) => <TheBai id={b.id} bai={b.data} kieu="thu-vien" />)}
       </div>
 
       <aside class="side-box" aria-label="Danh mục">
         <h3>Danh mục</h3>
         <ul>
-          <li><a href="mcm/">Sữa và thực phẩm</a> <span class="count">· MCM</span></li>
-          <li><a href="qns/">Đường, đồ uống</a> <span class="count">· QNS</span></li>
+          {baiViet.map((b) => <li><a href={`/phan-tich/${b.id}/`}>{b.data.danhMuc}</a> <span class="count">· {b.data.ma}</span></li>)}
         </ul>
       </aside>
     </div>

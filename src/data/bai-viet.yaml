@@ -1,0 +1,70 @@
+# Danh sách bài phân tích. Trang chủ, thư viện /phan-tich/ và trang từng bài đọc số từ đây:
+# đổi một chỗ ở đây là đổi cả ba nơi. Bài mới nhất (theo `ngay`) đứng đầu.
+#
+# - Số tiền ghi bằng đồng, KHÔNG có dấu chấm ngăn nghìn: 26694, không phải 26.694.
+# - Ngày ghi dạng năm-tháng-ngày: 2026-10-15.
+# - Gõ sai kiểu (chữ vào chỗ số, thiếu mục bắt buộc) thì `npm run build` báo lỗi và không lên web.
+
+- id: mcm
+  ma: MCM
+  ten: Giống bò sữa Mộc Châu
+  san: UPCoM
+  nganh: Sữa
+  danhMuc: Sữa và thực phẩm
+  tieuDe: "Mộc Châu Milk: kinh doanh sữa co lại, tiền gửi gánh gần nửa giá trị"
+  ngay: 2026-10-15
+  soLieuDen: Q2/2026
+  taiLieu: Dashboard, định giá, Excel
+  # Thẻ bài: trang chủ dùng `tomTat`, thư viện dùng `tomTatThuVien`; câu định giá tự nối thêm vào cuối
+  tomTat: "Lợi nhuận lõi giảm từ 289 tỷ (2022) còn 152 tỷ (2025); lãi tiền gửi bằng 42% LNTT."
+  tomTatThuVien: "Lợi nhuận lõi giảm từ 289 tỷ (2022) còn 152 tỷ (2025); lãi tiền gửi bằng 42% LNTT. Hai dự án trang trại và nhà máy hút phần lớn 1.398,5 tỷ tiền ròng."
+  bia:
+    cot: [38, 62, 48, 80, 56] # chiều cao (%) các cột trang trí trên ảnh bìa; thư viện dùng 4 cột đầu
+  dinhGia:
+    giaThamChieu: 26600
+    ngayGia: 2026-10-13
+    bienAnToan: 0.6 # %, lấy nguyên từ file Excel
+    # Phương pháp có `dung: true` là con số dùng (giá trị hợp lý = kịch bản cơ sở); các dòng khác chỉ để đối chiếu
+    phuongPhap:
+      - tenNgan: DCF
+        tenDayDu: DCF phần lõi + 90% tiền + dự án
+        dung: true
+        xau: 14575
+        coSo: 26694
+        tot: 36658
+      - tenNgan: P/E lõi
+        tenDayDu: P/E lợi nhuận lõi + 90% tiền + dự án
+        xau: 15603
+        coSo: 27131
+        tot: 35935
+      - tenNgan: Chiết khấu cổ tức
+        tenDayDu: Chiết khấu cổ tức (DDM)
+        xau: 8764
+        coSo: 22496
+        tot: 32690
+      - tenNgan: P/B theo ROE
+        tenDayDu: P/B theo ROE
+        xau: 14240
+        coSo: 18858
+        tot: 24631
+      - tenNgan: EV/EBITDA lõi
+        tenDayDu: EV/EBITDA lõi + 90% tiền + dự án
+        xau: 16869
+        coSo: 27001
+        tot: 34389
+
+- id: qns
+  ma: QNS
+  ten: Đường Quảng Ngãi
+  san: UPCoM
+  nganh: Đường, sữa đậu nành
+  danhMuc: Đường, đồ uống
+  tieuDe: "Đường Quảng Ngãi: sữa đậu nành là trụ lợi nhuận, mảng đường có dấu hiệu qua đáy"
+  ngay: 2026-09-30
+  soLieuDen: Q2/2026
+  taiLieu: Dashboard
+  tomTat: "Biên gộp sữa 2025 bị phóng đại vì đổi cách ghi khuyến mãi; biên đường hồi lên 19,4% ở Q2/2026; tiền ròng 5.180 tỷ, khoảng 1/3 vốn hóa."
+  tomTatThuVien: "Biên gộp sữa 2025 bị phóng đại vì đổi cách ghi khuyến mãi; biên đường hồi lên 19,4% ở Q2/2026; tiền ròng 5.180 tỷ, khoảng 1/3 vốn hóa, trước ba dự án khoảng 4.486 tỷ ở An Khê."
+  bia:
+    mau: teal
+    cot: [70, 52, 40, 58, 66]

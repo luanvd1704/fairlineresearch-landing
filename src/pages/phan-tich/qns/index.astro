@@ -1,5 +1,8 @@
 ---
 import Base from '../../../layouts/Base.astro';
+import { layBai, ngay } from '../../../lib/bai-viet';
+
+const { data: bai } = await layBai('qns');
 ---
 <Base
   title="QNS — Đường Quảng Ngãi — Fairline Research"
@@ -13,8 +16,8 @@ import Base from '../../../layouts/Base.astro';
       <p class="eyebrow">Phân tích cơ bản · Đường, sữa đậu nành · UPCoM: QNS</p>
       <h1>Đường Quảng Ngãi: sữa đậu nành là trụ lợi nhuận, <em>mảng đường có dấu hiệu qua đáy</em></h1>
       <div class="meta-line">
-        <span>Ngày <strong>30/09/2026</strong></span>
-        <span>Số liệu đến <strong>Q2/2026</strong></span>
+        <span>Ngày <strong>{ngay(bai.ngay)}</strong></span>
+        <span>Số liệu đến <strong>{bai.soLieuDen}</strong></span>
         <span>Giá thị trường đến <strong>28/09/2026</strong></span>
       </div>
     </div>

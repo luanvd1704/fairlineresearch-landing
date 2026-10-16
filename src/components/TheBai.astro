@@ -1,0 +1,37 @@
+---
+// Thẻ một bài phân tích: kieu "trang-chu" ở mục "Bài phân tích mới nhất", "thu-vien" ở /phan-tich/
+import { dong, ngay, phuongPhapDung, type BaiViet } from '../lib/bai-viet';
+
+interface Props {
+  id: string;
+  bai: BaiViet;
+  kieu: 'trang-chu' | 'thu-vien';
+}
+
+const { id, bai, kieu } = Astro.props;
+const laTrangChu = kieu === 'trang-chu';
+const dung = bai.dinhGia && phuongPhapDung(bai.dinhGia);
+const tomTat =
+  (laTrangChu ? bai.tomTat : bai.tomTatThuVien) +
+  (dung
+    ? ` Định giá ${dung.tenNgan} ba kịch bản: ${dong(dung.xau)}–${dong(dung.tot)} đồng/cổ phiếu, giá trị hợp lý (kịch bản cơ sở) ${dong(dung.coSo)} đồng.`
+    : '');
+const cot = laTrangChu ? bai.bia.cot : bai.bia.cot.slice(0, 4);
+---
+<a class={laTrangChu ? 'post' : 'post-row'} href={`/phan-tich/${id}/`}>
+  <div class:list={['cover', bai.bia.mau && `cover--${bai.bia.mau}`]}>
+    <span class="cover__brand">Fairline Research</span>
+    <div>
+      <p class="cover__ticker">{bai.ma}</p>
+      <p class="cover__name">{laTrangChu ? `${bai.ten} · ${bai.san}` : bai.ten}</p>
+    </div>
+    <span class="cover__bars" aria-hidden="true">{cot.map((h) => <i style={`height:${h}%`}></i>)}</span>
+  </div>
+  <div class="post__body">
+    <p class="post__cat">Phân tích cơ bản · {bai.nganh}</p>
+    <h3 class="post__title">{bai.tieuDe}</h3>
+    <p class="post__meta">{ngay(bai.ngay)} · Số liệu đến {bai.soLieuDen} · {bai.taiLieu}</p>
+    <p class="post__excerpt">{tomTat}</p>
+    <span class="post__more">Đọc phân tích →</span>
+  </div>
+</a>
