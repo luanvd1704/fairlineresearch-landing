@@ -476,7 +476,8 @@
   ]);
   const observer = new ResizeObserver((entries) => {
     for (const { target, contentRect } of entries) {
-      if (widths.get(target) === contentRect.width) continue;
+      // Not laid out yet (width 0): skip, the observer fires again once the box has its real width
+      if (!target.clientWidth || widths.get(target) === contentRect.width) continue;
       widths.set(target, contentRect.width);
       if (!guard(target, charts.get(target))) observer.unobserve(target);  // failed chart is hidden: stop redrawing it
     }
