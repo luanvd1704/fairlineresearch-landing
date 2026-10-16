@@ -1,4 +1,4 @@
-"""Export chart data from the local stock database to data/market-data.js.
+"""Export chart data from the local stock database to public/data/market-data.js.
 
 Read-only. Connection uses libpq env vars (PGHOST, PGPORT, PGPASSWORD, ...);
 PGDATABASE defaults to financial_statement and PGUSER to postgres.
@@ -18,7 +18,7 @@ import psycopg2
 from portfolio import (black_litterman, efficient_frontier, fractional_kelly, max_sharpe,
                        min_variance, risk_parity)
 
-OUT = Path(__file__).resolve().parent.parent / "data" / "market-data.js"
+OUT = Path(__file__).resolve().parent.parent / "public" / "data" / "market-data.js"
 REQUIRED_RETURN, LONG_TERM_GROWTH = 14.0, 4.0  # % — same defaults as the page calculator
 MIN_SECTOR_STOCKS = 7
 MIN_MARKET_STOCKS = 150  # months with thinner coverage give a meaningless median

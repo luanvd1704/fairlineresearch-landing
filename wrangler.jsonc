@@ -1,0 +1,10 @@
+// Cloudflare Workers Builds đọc file này khi chạy `npx wrangler deploy`: chỉ phát thư mục dist/ do `npm run build` sinh ra
+{
+  "name": "fairlineresearch-landing",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./dist",
+    // /terms.html → /terms, /phan-tich/mcm → /phan-tich/mcm/ như trước
+    "html_handling": "auto-trailing-slash"
+  }
+}

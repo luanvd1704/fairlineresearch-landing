@@ -2,37 +2,58 @@
 
 Mã nguồn của [fairlineresearch.com](https://fairlineresearch.com): trang chủ, thư viện bài phân tích, trang pháp lý.
 
-- **Website tĩnh**: HTML, CSS, JavaScript thuần, không framework, không gói npm. Không có máy chủ chạy code,
-  không có cơ sở dữ liệu phía web; trình duyệt chỉ tải các file có sẵn trong repo.
+- **Website tĩnh dựng bằng [Astro](https://astro.build)**: Astro chỉ chạy lúc build, ghép khung chung (đầu trang,
+  menu, chân trang) với nội dung từng trang rồi ra HTML tĩnh trong `dist/`. Trình duyệt nhận HTML, CSS, JavaScript
+  thuần như trước; Astro không gửi thêm JavaScript nào. Không có máy chủ chạy code, không có cơ sở dữ liệu phía web.
 - **Repo công khai**: mọi file đã push, kể cả trong lịch sử git, ai cũng xem được. Không đưa mật khẩu, đường dẫn
-  máy hay nhận định nội bộ vào đây.
-- **Push lên `main` = công bố ngay**: Cloudflare lấy nhánh `main` và phát ra trang thật, không có bước duyệt ở giữa.
+  máy hay nhận định nội bộ vào đây. Ghi chú cho người sửa code viết bằng `{/* */}` trong file `.astro` (không lên
+  web), không dùng `<!-- -->` (lên web, ai xem nguồn trang cũng đọc được).
+- **Push lên `main` = công bố ngay**: Cloudflare Workers Builds lấy nhánh `main`, chạy `npm run build` rồi phát
+  thư mục `dist/` (cấu hình trong `wrangler.jsonc`). Chỉ những gì nằm trong `dist/` lên web; README, `scripts/`,
+  `src/` thì không.
 
 ## Cây thư mục
 
 ```
-index.html                 Trang chủ: bài mới, phương pháp, số liệu thị trường, công cụ định giá, danh mục, bảng giá, form
-terms.html, privacy.html   Điều khoản sử dụng, chính sách quyền riêng tư
-styles.css                 Toàn bộ giao diện; màu, phông, bo góc là biến trong :root
-nav.js                     Nút menu ☰ trên màn hẹp (mọi trang đều nạp)
-main.js                    Trang chủ: biểu đồ đầu trang, công cụ định giá, form liên hệ, form đăng ký (mở ứng dụng email)
-market-charts.js           Trang chủ: vẽ mục Thị trường và Danh mục từ data/market-data.js
-data/market-data.js        Số liệu thị trường — SINH TỰ ĐỘNG bởi scripts/export_chart_data.py
-scripts/export_chart_data.py  Đọc cơ sở dữ liệu cổ phiếu (chỉ đọc), tính số liệu, ghi data/market-data.js
+src/layouts/Base.astro     Khung chung mọi trang: <head>, menu, chân trang. Sửa ở đây là đổi cả site
+src/pages/index.astro      Trang chủ: bài mới, phương pháp, số liệu thị trường, công cụ định giá, danh mục, bảng giá, form
+src/pages/terms.astro, privacy.astro   Điều khoản sử dụng, chính sách quyền riêng tư (ra terms.html, privacy.html)
+src/pages/phan-tich/index.astro        Thư viện bài phân tích
+src/pages/phan-tich/<mã>/index.astro   Bài phân tích từng mã (hiện có mcm, qns)
+public/                    Chép nguyên vào dist/, giữ nguyên đường dẫn:
+  styles.css               Toàn bộ giao diện; màu, phông, bo góc là biến trong :root
+  nav.js                   Nút menu ☰ trên màn hẹp (mọi trang đều nạp)
+  main.js                  Trang chủ: biểu đồ đầu trang, công cụ định giá, form liên hệ, form đăng ký (mở ứng dụng email)
+  market-charts.js         Trang chủ: vẽ mục Thị trường và Danh mục từ data/market-data.js
+  data/market-data.js      Số liệu thị trường — SINH TỰ ĐỘNG bởi scripts/export_chart_data.py
+  phan-tich/<mã>/dashboard.html  Dashboard của bài — SINH TỰ ĐỘNG từ dự án Quarto nội bộ (xem bên dưới)
+  phan-tich/mcm/*.xlsx, *.pdf    File định giá công khai, đã làm sạch ghi chú nội bộ và metadata trước khi đưa vào
+scripts/export_chart_data.py  Đọc cơ sở dữ liệu cổ phiếu (chỉ đọc), tính số liệu, ghi public/data/market-data.js
 scripts/portfolio.py       Các cách phân bổ danh mục (Markowitz, Black-Litterman…) dùng cho script trên
-phan-tich/index.html       Thư viện bài phân tích
-phan-tich/<mã>/index.html  Bài phân tích từng mã (hiện có mcm, qns)
-phan-tich/<mã>/dashboard.html  Dashboard của bài — SINH TỰ ĐỘNG từ dự án Quarto nội bộ (xem bên dưới)
-phan-tich/mcm/*.xlsx, *.pdf    File định giá công khai, đã làm sạch ghi chú nội bộ và metadata trước khi đưa vào
+astro.config.mjs           Cấu hình Astro (giữ URL dạng terms.html, không nén HTML)
+wrangler.jsonc             Cấu hình Cloudflare: phát thư mục dist/
+package.json, package-lock.json   Phiên bản Astro và wrangler, ghim cứng
+```
+
+Trong file `.astro`, link và file dùng đường dẫn tuyệt đối (`/styles.css`, `/#methods`), script nạp bằng
+`<script is:inline src="…">` để Astro để nguyên, không đóng gói lại.
+
+## Cài lần đầu
+
+Cần Node.js 24 (ghi trong `.node-version`). Ở thư mục gốc repo:
+
+```powershell
+npm ci
 ```
 
 ## Xem thử trên máy
 
 ```powershell
-python -m http.server 8765
+npm run dev        # http://localhost:4321 — sửa file là trang tự tải lại
+npm run preview    # build rồi chạy giả lập Cloudflare ở http://localhost:8787 — giống trang thật nhất
 ```
 
-Mở http://localhost:8765 (Ctrl+C để tắt). Nên xem qua máy chủ này thay vì bấm đúp file HTML.
+Ctrl+C để tắt.
 
 ## Cập nhật số liệu thị trường
 
@@ -42,26 +63,28 @@ là `postgres`. Cần các thư viện Python numpy, pandas, psycopg2, scipy. Tr
 
 ```powershell
 $env:PGPASSWORD = "mật khẩu PostgreSQL"   # chỉ đặt trong cửa sổ đang mở, không ghi vào file nào
-python scripts/export_chart_data.py       # ghi lại data/market-data.js
+python scripts/export_chart_data.py       # ghi lại public/data/market-data.js
 ```
 
 Lợi suất yêu cầu 14% và tăng trưởng dài hạn 4% ở đầu script phải khớp giá trị mặc định của thanh trượt trong
-công cụ định giá (`index.html`, ô `r` và `g2`). Đổi một bên thì đổi cả bên kia.
+công cụ định giá (`src/pages/index.astro`, ô `r` và `g2`). Đổi một bên thì đổi cả bên kia.
 
 ## Dashboard
 
-`phan-tich/<mã>/dashboard.html` được sinh từ dự án Quarto nội bộ trên máy tác giả, bằng script `dung_ban_web.py`:
-script đọc file `.qmd` nội bộ, ẩn phần không công bố, render rồi chép file kết quả vào `phan-tich/<mã>/`. Trước khi
-chép, script soát chuỗi cấm (đường dẫn máy, nhận định nội bộ); thấy là dừng, không chép.
+`public/phan-tich/<mã>/dashboard.html` được sinh từ dự án Quarto nội bộ trên máy tác giả, bằng script
+`dung_ban_web.py`: script đọc file `.qmd` nội bộ, ẩn phần không công bố, render rồi chép file kết quả vào
+`public/phan-tich/<mã>/`. Trước khi chép, script soát chuỗi cấm (đường dẫn máy, nhận định nội bộ); thấy là dừng,
+không chép.
 
 Script và file `.qmd` cố ý để **ngoài repo**: file `.qmd` có nhận định và ghi chú nội bộ không công bố, đưa vào
 repo công khai là lộ. Muốn đổi dashboard thì sửa ở dự án Quarto rồi chạy lại script, không sửa file trong repo.
 
 ## File KHÔNG sửa tay
 
-- `data/market-data.js`: chạy lại `scripts/export_chart_data.py`.
-- `phan-tich/*/dashboard.html`: sửa nguồn ở dự án Quarto rồi chạy lại `dung_ban_web.py`. Vá tay một lần là lần
-  render sau mất bản vá.
+- `public/data/market-data.js`: chạy lại `scripts/export_chart_data.py`.
+- `public/phan-tich/*/dashboard.html`: sửa nguồn ở dự án Quarto rồi chạy lại `dung_ban_web.py`. Vá tay một lần là
+  lần render sau mất bản vá.
+- `dist/`: kết quả build, không đưa lên git.
 
 ## Điểm ngắt màn hình
 
@@ -79,9 +102,10 @@ Dashboard có điểm ngắt riêng (560px) nằm trong phần giao diện của
 
 ## Trước khi push
 
-1. Xem thử qua `python -m http.server 8765` ở 4 khổ: **1440, 390, 360, 320px** (DevTools → chế độ thiết bị).
+1. `npm run build` chạy không lỗi.
+2. Xem thử qua `npm run preview` ở 4 khổ: **1440, 390, 360, 320px** (DevTools → chế độ thiết bị).
    Không trang nào bị tràn ngang; nút ☰ mở/đóng được; biểu đồ vẽ đủ.
-2. Mở Console của trình duyệt: không có lỗi đỏ.
-3. Bấm thử các link vừa đổi.
-4. `git status` và `git diff`: chỉ đúng những file định đổi; không có file nội bộ, mật khẩu, đường dẫn máy.
-5. Nhớ: push lên `main` là khách thấy ngay.
+3. Mở Console của trình duyệt: không có lỗi đỏ.
+4. Bấm thử các link vừa đổi.
+5. `git status` và `git diff`: chỉ đúng những file định đổi; không có file nội bộ, mật khẩu, đường dẫn máy.
+6. Nhớ: push lên `main` là khách thấy ngay.

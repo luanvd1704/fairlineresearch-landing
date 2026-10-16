@@ -1,44 +1,10 @@
-<!doctype html>
-<html lang="vi">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>MCM — Mộc Châu Milk — Fairline Research</title>
-  <meta name="description" content="Phân tích cơ bản và định giá MCM (Giống bò sữa Mộc Châu): lợi nhuận lõi, tiền gửi, hai dự án, định giá DCF ba kịch bản và bốn phương pháp đối chiếu.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../styles.css">
-  <script src="../../nav.js" defer></script>
-</head>
-<body>
-
-<header class="nav">
-  <div class="container nav__inner">
-    <a class="logo" href="../../" aria-label="Fairline Research — trang chủ">
-      <svg class="logo__mark" viewBox="0 0 32 32" width="30" height="30" aria-hidden="true">
-        <rect class="logo__bg" width="32" height="32" rx="8"/>
-        <line class="logo__fair" x1="5" y1="16" x2="27" y2="16"/>
-        <path class="logo__price" d="M5 21 C 9 9, 13 9, 16 16 S 23 24, 27 10"/>
-      </svg>
-      <span class="logo__text">Fairline <span>Research</span></span>
-    </a>
-    <nav class="nav__links" id="menu-chinh" aria-label="Chính">
-      <a href="../../">Trang chủ</a>
-      <a href="../" aria-current="page">Phân tích</a>
-      <a href="../../#methods">Phương pháp</a>
-      <a href="../../#market">Thị trường</a>
-      <a href="../../#calculator">Công cụ định giá</a>
-      <a href="../../#pricing">Bảng giá</a>
-      <a href="../../#contact">Liên hệ</a>
-    </nav>
-    <a class="btn btn--light btn--sm" href="../../#signup-section"><span>Đăng ký<span class="nav__cta-them"> miễn phí</span></span></a>
-    <button class="nav__toggle" type="button" aria-label="Mở menu" aria-expanded="false" aria-controls="menu-chinh">
-      <svg class="i-mo" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-      <svg class="i-dong" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-    </button>
-  </div>
-</header>
+---
+import Base from '../../../layouts/Base.astro';
+---
+<Base
+  title="MCM — Mộc Châu Milk — Fairline Research"
+  description="Phân tích cơ bản và định giá MCM (Giống bò sữa Mộc Châu): lợi nhuận lõi, tiền gửi, hai dự án, định giá DCF ba kịch bản và bốn phương pháp đối chiếu."
+>
 
 <main>
   <section class="page-hero">
@@ -191,33 +157,4 @@
   </section>
 </main>
 
-<footer class="footer">
-  <div class="container footer__inner">
-    <div class="footer__brand">
-      <span class="logo__text">Fairline <span>Research</span></span>
-      <a class="footer__email" href="mailto:support@fairlineresearch.com">support@fairlineresearch.com</a>
-      <p class="footer__copy">© 2026 Fairline Research</p>
-    </div>
-    <div class="footer__col">
-      <p class="footer__title">Nội dung</p>
-      <ul>
-        <li><a href="../">Phân tích</a></li>
-        <li><a href="../../#methods">Phương pháp</a></li>
-        <li><a href="../../#market">Số liệu thị trường</a></li>
-        <li><a href="../../#calculator">Công cụ định giá</a></li>
-      </ul>
-    </div>
-    <div class="footer__col">
-      <p class="footer__title">Pháp lý</p>
-      <ul>
-        <li><a href="../../terms.html">Điều khoản sử dụng</a></li>
-        <li><a href="../../privacy.html">Chính sách quyền riêng tư</a></li>
-      </ul>
-    </div>
-    <p class="disclaimer">Nội dung trên trang chỉ để tham khảo, không phải tư vấn hay khuyến nghị mua, bán chứng khoán. Giá trị hợp lý là ước tính dựa trên giả định và có thể sai. Nhà đầu tư tự chịu trách nhiệm với quyết định của mình.</p>
-  </div>
-  <p class="footer__mark" aria-hidden="true">Fairline</p>
-</footer>
-
-</body>
-</html>
+</Base>
