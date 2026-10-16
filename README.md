@@ -20,6 +20,12 @@ src/pages/index.astro      Trang chủ: bài mới, phương pháp, số liệu 
 src/pages/terms.astro, privacy.astro   Điều khoản sử dụng, chính sách quyền riêng tư (ra terms.html, privacy.html)
 src/pages/phan-tich/index.astro        Thư viện bài phân tích
 src/pages/phan-tich/<mã>/index.astro   Bài phân tích từng mã (hiện có mcm, qns)
+src/pages/404.astro        Trang báo không tìm thấy (Cloudflare trả kèm mã 404)
+src/pages/sitemap.xml.ts   Sinh sitemap.xml từ danh sách trang, tự có trang mới
+src/data/bai-viet.yaml     Thông tin và số định giá của từng bài: SỬA SỐ Ở ĐÂY (xem mục bên dưới)
+src/content.config.ts      Kiểm kiểu dữ liệu của bai-viet.yaml lúc build
+src/components/TheBai.astro  Thẻ bài ở trang chủ và thư viện
+src/lib/bai-viet.ts        Đọc bai-viet.yaml, định dạng số và ngày kiểu Việt Nam
 public/                    Chép nguyên vào dist/, giữ nguyên đường dẫn:
   styles.css               Toàn bộ giao diện; màu, phông, bo góc là biến trong :root
   nav.js                   Nút menu ☰ trên màn hẹp (mọi trang đều nạp)
@@ -28,8 +34,14 @@ public/                    Chép nguyên vào dist/, giữ nguyên đường d�
   data/market-data.js      Số liệu thị trường — SINH TỰ ĐỘNG bởi scripts/export_chart_data.py
   phan-tich/<mã>/dashboard.html  Dashboard của bài — SINH TỰ ĐỘNG từ dự án Quarto nội bộ (xem bên dưới)
   phan-tich/mcm/*.xlsx, *.pdf    File định giá công khai, đã làm sạch ghi chú nội bộ và metadata trước khi đưa vào
+  favicon.svg              Biểu tượng tab trình duyệt (cùng hình logo)
+  favicon.ico, apple-touch-icon.png, og.png   SINH TỰ ĐỘNG bởi scripts/tao_anh.py
+  robots.txt               Cho máy tìm kiếm biết sitemap ở đâu
+  _headers                 Header bảo mật Cloudflare gắn vào mọi trang (file này không bị phát ra web)
 scripts/export_chart_data.py  Đọc cơ sở dữ liệu cổ phiếu (chỉ đọc), tính số liệu, ghi public/data/market-data.js
 scripts/portfolio.py       Các cách phân bổ danh mục (Markowitz, Black-Litterman…) dùng cho script trên
+scripts/kiem-tra-dist.mjs  Chạy sau mỗi lần build: chữ cấm, link hỏng → build thất bại, không lên web
+scripts/tao_anh.py         Sinh favicon.ico, apple-touch-icon.png và og.png (ảnh khi chia sẻ link)
 astro.config.mjs           Cấu hình Astro (giữ URL dạng terms.html, không nén HTML)
 wrangler.jsonc             Cấu hình Cloudflare: phát thư mục dist/
 package.json, package-lock.json   Phiên bản Astro và wrangler, ghim cứng
@@ -54,6 +66,23 @@ npm run preview    # build rồi chạy giả lập Cloudflare ở http://localh
 ```
 
 Ctrl+C để tắt.
+
+## Sửa số định giá, thêm bài mới
+
+Mọi con số và chữ trên thẻ bài nằm ở `src/data/bai-viet.yaml`. Sửa ở đó là trang chủ, thư viện `/phan-tich/` và
+trang bài cùng đổi. Số tiền ghi không có dấu chấm (`26694`), ngày ghi `2026-10-15`; gõ sai kiểu thì `npm run build`
+báo đúng dòng sai và dừng.
+
+Thêm bài mới: thêm một mục vào `bai-viet.yaml`, tạo `src/pages/phan-tich/<mã>/index.astro` (chép trang có sẵn rồi
+sửa nội dung), đưa dashboard/Excel vào `public/phan-tich/<mã>/`. Thẻ bài ở trang chủ, thư viện và sitemap tự có.
+
+## Ảnh chia sẻ link, favicon
+
+Sau khi đổi logo (`public/favicon.svg`) hoặc bảng màu (`public/styles.css`), sinh lại ảnh:
+
+```powershell
+python scripts/tao_anh.py    # cần playwright và pillow
+```
 
 ## Cập nhật số liệu thị trường
 
@@ -84,6 +113,7 @@ repo công khai là lộ. Muốn đổi dashboard thì sửa ở dự án Quarto
 - `public/data/market-data.js`: chạy lại `scripts/export_chart_data.py`.
 - `public/phan-tich/*/dashboard.html`: sửa nguồn ở dự án Quarto rồi chạy lại `dung_ban_web.py`. Vá tay một lần là
   lần render sau mất bản vá.
+- `public/favicon.ico`, `public/apple-touch-icon.png`, `public/og.png`: chạy lại `scripts/tao_anh.py`.
 - `dist/`: kết quả build, không đưa lên git.
 
 ## Điểm ngắt màn hình
@@ -102,7 +132,7 @@ Dashboard có điểm ngắt riêng (560px) nằm trong phần giao diện của
 
 ## Trước khi push
 
-1. `npm run build` chạy không lỗi.
+1. `npm run build` chạy không lỗi (đã gồm bước soát chữ cấm và link hỏng).
 2. Xem thử qua `npm run preview` ở 4 khổ: **1440, 390, 360, 320px** (DevTools → chế độ thiết bị).
    Không trang nào bị tràn ngang; nút ☰ mở/đóng được; biểu đồ vẽ đủ.
 3. Mở Console của trình duyệt: không có lỗi đỏ.

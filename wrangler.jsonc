@@ -5,6 +5,8 @@
   "assets": {
     "directory": "./dist",
     // /terms.html → /terms, /phan-tich/mcm → /phan-tich/mcm/ như trước
-    "html_handling": "auto-trailing-slash"
+    "html_handling": "auto-trailing-slash",
+    // URL không có: trả mã 404 kèm trang dist/404.html
+    "not_found_handling": "404-page"
   }
 }

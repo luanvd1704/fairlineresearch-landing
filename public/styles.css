@@ -1050,3 +1050,18 @@ dd, output, .big, .sens, .plan__price, .num { font-variant-numeric: tabular-nums
   .tbl-report th:first-child, .tbl-report td:first-child { padding-left: 8px; }
   .tbl-report thead th { letter-spacing: 0; }
 }
+
+/* Link "Bỏ qua menu": nằm ngoài màn hình, chỉ hiện khi bấm Tab (bàn phím, trình đọc màn hình) */
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -100px;
+  z-index: 30;
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: var(--paper);
+  color: var(--ink);
+  font-weight: 600;
+  box-shadow: var(--shadow);
+}
+.skip-link:focus { top: 12px; }
