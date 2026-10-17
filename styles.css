@@ -1,21 +1,21 @@
 :root {
-  --navy-950: #161412;
-  --navy-900: #22201c;
-  --navy-800: #3a342d;
-  --navy-700: #4a4239;
-  --blue: #8c3f1f;
-  --teal: #b4532a;
-  --teal-2: #c8693f;
-  --teal-3: #e8956a;
-  --teal-soft: #f6e6db;
-  --lav: #efe9df;
-  --lav-2: #e3d9ca;
-  --paper: #f7f4ee;
+  --navy-950: #0f1f19;
+  --navy-900: #1f3a30;
+  --navy-800: #2c4d40;
+  --navy-700: #3a5e50;
+  --blue: #8a6a2a;
+  --teal: #2c5a48;
+  --teal-2: #9c7832;
+  --teal-3: #d4b06a;
+  --teal-soft: #f3ecd9;
+  --lav: #ecefe6;
+  --lav-2: #dde3d6;
+  --paper: #f5f3ec;
   --card: #ffffff;
-  --ink: #1d1b18;
-  --ink-2: #45403a;
-  --ink-3: #776f65;
-  --line: #e6e0d6;
+  --ink: #1a1f1c;
+  --ink-2: #3f4842;
+  --ink-3: #6c756f;
+  --line: #e2e0d6;
   --green: #137a66;
   --green-soft: #e1f4ef;
   --red: #c0392b;
@@ -23,14 +23,14 @@
   --amber: #a86b12;
   --amber-soft: #f8eed8;
   --radius: 16px;
-  --shadow: 0 1px 2px rgba(34, 32, 28, .05), 0 14px 32px -18px rgba(34, 32, 28, .28);
+  --shadow: 0 1px 2px rgba(31, 58, 48, .05), 0 14px 32px -18px rgba(31, 58, 48, .28);
   --serif: "Newsreader", Georgia, serif;
   --sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
-  /* nền than chì có vệt sáng dọc — dùng cho đầu trang, dải đăng ký */
+  /* nền xanh rêu có vệt sáng dọc — dùng cho đầu trang, dải đăng ký */
   --night:
-    radial-gradient(900px 420px at 88% 0%, rgba(232, 149, 106, .20), transparent 62%),
-    radial-gradient(800px 520px at 0% 100%, rgba(120, 62, 30, .55), transparent 65%),
-    repeating-linear-gradient(90deg, transparent 0 64px, rgba(255, 255, 255, .045) 64px 66px, transparent 66px 150px, rgba(232, 180, 140, .07) 150px 158px, transparent 158px 230px),
+    radial-gradient(900px 420px at 88% 0%, rgba(212, 176, 106, .20), transparent 62%),
+    radial-gradient(800px 520px at 0% 100%, rgba(44, 90, 72, .55), transparent 65%),
+    repeating-linear-gradient(90deg, transparent 0 64px, rgba(255, 255, 255, .045) 64px 66px, transparent 66px 150px, rgba(212, 190, 140, .07) 150px 158px, transparent 158px 230px),
     linear-gradient(180deg, var(--navy-950) 0%, var(--navy-900) 58%, var(--navy-800) 100%);
 }
 
@@ -113,7 +113,7 @@ dd, output, .big, .sens, .plan__price, .num { font-variant-numeric: tabular-nums
 }
 .btn:active { transform: translateY(1px); }
 .btn--primary { background: var(--teal); color: #fff; }
-.btn--primary:hover { background: #99441f; }
+.btn--primary:hover { background: #234a3b; }
 .btn--ghost { border-color: var(--teal-2); color: var(--teal); background: transparent; }
 .btn--ghost:hover { background: var(--teal-soft); }
 .btn--light { background: #fff; color: var(--navy-900); }
@@ -121,7 +121,7 @@ dd, output, .big, .sens, .plan__price, .num { font-variant-numeric: tabular-nums
 .btn--glass { border-color: rgba(255, 255, 255, .35); color: #fff; background: rgba(255, 255, 255, .06); }
 .btn--glass:hover { background: rgba(255, 255, 255, .14); }
 .btn--mint { background: var(--teal-3); color: var(--navy-950); }
-.btn--mint:hover { background: #f0ab86; }
+.btn--mint:hover { background: #e0c288; }
 .btn--sm { padding: .5rem .95rem; font-size: .875rem; }
 .btn--pill { border-radius: 999px; padding: .35rem .95rem; font-size: .82rem; }
 :focus-visible { outline: 2px solid var(--teal-2); outline-offset: 2px; }
@@ -141,10 +141,10 @@ dd, output, .big, .sens, .plan__price, .num { font-variant-numeric: tabular-nums
   padding: 0 14px 0 22px;
   border: 1px solid rgba(255, 255, 255, .14);
   border-radius: 18px;
-  background: rgba(34, 32, 28, .62);
+  background: rgba(31, 58, 48, .62);
   -webkit-backdrop-filter: blur(14px);
   backdrop-filter: blur(14px);
-  box-shadow: 0 12px 30px -18px rgba(22, 20, 18, .7);
+  box-shadow: 0 12px 30px -18px rgba(15, 31, 25, .7);
   color: #fff;
 }
 .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
@@ -189,7 +189,7 @@ dd, output, .big, .sens, .plan__price, .num { font-variant-numeric: tabular-nums
     border: 1px solid rgba(255, 255, 255, .14);
     border-radius: 16px;
     background: var(--navy-900);
-    box-shadow: 0 18px 40px -16px rgba(22, 20, 18, .7);
+    box-shadow: 0 18px 40px -16px rgba(15, 31, 25, .7);
   }
   .nav--mo .nav__links a { padding: 11px 14px; border-radius: 10px; font-size: 1rem; }
   .nav--mo .nav__links a:hover { background: rgba(255, 255, 255, .08); }
@@ -208,7 +208,7 @@ dd, output, .big, .sens, .plan__price, .num { font-variant-numeric: tabular-nums
   position: absolute;
   inset: auto 0 0;
   height: 120px;
-  background: linear-gradient(180deg, transparent, rgba(22, 20, 18, .35));
+  background: linear-gradient(180deg, transparent, rgba(15, 31, 25, .35));
   pointer-events: none;
 }
 .hero__grid {
@@ -341,7 +341,7 @@ dd, output, .big, .sens, .plan__price, .num { font-variant-numeric: tabular-nums
   text-decoration: none;
   transition: transform .2s, box-shadow .2s;
 }
-.post:hover { transform: translateY(-3px); box-shadow: 0 2px 4px rgba(34, 32, 28, .06), 0 22px 40px -20px rgba(34, 32, 28, .4); }
+.post:hover { transform: translateY(-3px); box-shadow: 0 2px 4px rgba(31, 58, 48, .06), 0 22px 40px -20px rgba(31, 58, 48, .4); }
 .post__body { display: flex; flex: 1; flex-direction: column; gap: 10px; padding: 22px 24px 24px; }
 .post__cat { color: var(--blue); font-size: .74rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
 .post__title { font-family: var(--serif); font-size: 1.6rem; font-weight: 400; line-height: 1.2; }
@@ -364,7 +364,7 @@ dd, output, .big, .sens, .plan__price, .num { font-variant-numeric: tabular-nums
   background:
     radial-gradient(600px 300px at 100% 0%, rgba(255, 255, 255, .18), transparent 60%),
     repeating-linear-gradient(90deg, transparent 0 54px, rgba(255, 255, 255, .06) 54px 56px, transparent 56px 120px),
-    linear-gradient(160deg, #6e2e14 0%, #9a4422 60%, #c8693f 100%);
+    linear-gradient(160deg, #0f1f19 0%, #1f3a30 60%, #2c5a48 100%);
 }
 .cover__brand { font-family: var(--serif); font-size: .95rem; opacity: .8; }
 .cover__ticker { font-family: var(--serif); font-size: clamp(3.2rem, 7vw, 4.6rem); line-height: .95; letter-spacing: -.01em; }
@@ -390,7 +390,7 @@ dd, output, .big, .sens, .plan__price, .num { font-variant-numeric: tabular-nums
   position: sticky;
   top: 110px;
   padding: 22px 24px;
-  border: 1px solid #dccfbd;
+  border: 1px solid #cdd6c4;
   border-radius: 12px;
   background: linear-gradient(180deg, #fff, var(--lav));
 }
@@ -449,13 +449,13 @@ dd, output, .big, .sens, .plan__price, .num { font-variant-numeric: tabular-nums
 
 /* Phương pháp */
 .methods { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-.method { display: flex; flex-direction: column; gap: 12px; padding: 28px; background: #fbf3ec; border-color: #f0dccd; box-shadow: none; }
+.method { display: flex; flex-direction: column; gap: 12px; padding: 28px; background: #f1f4ec; border-color: #dfe6d6; box-shadow: none; }
 .method p { color: var(--ink-2); font-size: .95rem; }
 .method__num { font-family: var(--serif); font-style: italic; font-size: 1.6rem; color: var(--teal); }
 .method .method__fit {
   margin-top: auto;
   padding-top: 14px;
-  border-top: 1px solid #f0dccd;
+  border-top: 1px solid #dfe6d6;
   color: var(--ink-3);
   font-size: .82rem;
 }
@@ -555,18 +555,18 @@ dd, output, .big, .sens, .plan__price, .num { font-variant-numeric: tabular-nums
 .viz__legend li { display: flex; align-items: center; gap: 6px; }
 .key { display: inline-block; flex: none; }
 .key--line { width: 16px; height: 2px; border-radius: 1px; background: var(--navy-900); }
-.key--band { width: 14px; height: 10px; border-radius: 2px; background: rgba(34, 32, 28, .12); }
+.key--band { width: 14px; height: 10px; border-radius: 2px; background: rgba(31, 58, 48, .12); }
 .key--ref { width: 16px; border-top: 2px dashed var(--ink-3); }
 .key--dot { width: 10px; height: 10px; border-radius: 50%; background: var(--navy-900); }
 .key--tick { width: 2px; height: 12px; background: var(--ink-3); }
-.key--range { width: 16px; height: 8px; border-radius: 4px; background: #ecc9b3; }
+.key--range { width: 16px; height: 8px; border-radius: 4px; background: #e6d6ae; }
 .key--fair { width: 16px; height: 2px; background: var(--teal); }
 
 .viz__plot { position: relative; }
 .viz__svg { display: block; overflow: visible; touch-action: pan-y; }
 .viz__svg:focus-visible { outline: 2px solid var(--teal-2); outline-offset: 4px; border-radius: 4px; }
 .viz__svg text { font-family: var(--sans); }
-.viz__grid { stroke: #efebe4; stroke-width: 1; }
+.viz__grid { stroke: #ecede6; stroke-width: 1; }
 .viz__tick { fill: var(--ink-3); font-size: 11px; font-variant-numeric: tabular-nums; }
 .viz__note { fill: var(--ink-3); font-size: 11px; }
 .viz__label { fill: var(--ink); font-size: 12px; font-weight: 600; }
@@ -579,7 +579,7 @@ dd, output, .big, .sens, .plan__price, .num { font-variant-numeric: tabular-nums
 .viz__fair { fill: none; stroke: var(--teal); stroke-width: 2; }
 .viz__cheap { fill: var(--teal-2); opacity: .1; }
 .viz__hit { fill: transparent; cursor: pointer; outline: none; }
-.viz__hit:hover, .viz__hit:focus-visible { fill: rgba(34, 32, 28, .1); }
+.viz__hit:hover, .viz__hit:focus-visible { fill: rgba(31, 58, 48, .1); }
 
 .viz__tip {
   position: absolute;
@@ -594,13 +594,13 @@ dd, output, .big, .sens, .plan__price, .num { font-variant-numeric: tabular-nums
   line-height: 1.5;
   pointer-events: none;
 }
-.tip__title { color: #b9afa2; font-size: .75rem; margin-bottom: 2px; }
+.tip__title { color: #a9b5ac; font-size: .75rem; margin-bottom: 2px; }
 .tip__row { display: flex; align-items: center; gap: 7px; white-space: nowrap; }
 .tip__row strong { font-weight: 600; font-variant-numeric: tabular-nums; }
-.tip__row span { color: #b9afa2; }
+.tip__row span { color: #a9b5ac; }
 .viz__tip .key--line, .viz__tip .key--dot { background: #fff; }
 .viz__tip .key--band { background: rgba(255, 255, 255, .35); }
-.viz__tip .key--tick { background: #b9afa2; }
+.viz__tip .key--tick { background: #a9b5ac; }
 .viz__tip .key--fair { background: var(--teal-3); }
 
 /* Dải P/E ngành */
@@ -620,10 +620,10 @@ dd, output, .big, .sens, .plan__price, .num { font-variant-numeric: tabular-nums
 .sx__track {
   position: relative;
   height: 100%;
-  background-image: linear-gradient(to right, #efebe4 1px, transparent 1px);
+  background-image: linear-gradient(to right, #ecede6 1px, transparent 1px);
   background-size: var(--grid) 100%;
 }
-.sx__range { position: absolute; top: 50%; height: 8px; margin-top: -4px; border-radius: 4px; background: #ecc9b3; }
+.sx__range { position: absolute; top: 50%; height: 8px; margin-top: -4px; border-radius: 4px; background: #e6d6ae; }
 .sx__mid { position: absolute; top: 50%; width: 2px; height: 14px; margin: -7px 0 0 -1px; background: var(--ink-3); }
 .sx__dot {
   position: absolute;
@@ -643,7 +643,7 @@ dd, output, .big, .sens, .plan__price, .num { font-variant-numeric: tabular-nums
 .viz__table summary { cursor: pointer; color: var(--teal); font-weight: 600; width: fit-content; }
 .viz__table .tbl { max-height: 260px; overflow: auto; margin-top: 8px; }
 .viz__table table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
-.viz__table th, .viz__table td { padding: 5px 8px; text-align: right; border-bottom: 1px solid #efebe4; white-space: nowrap; }
+.viz__table th, .viz__table td { padding: 5px 8px; text-align: right; border-bottom: 1px solid #ecede6; white-space: nowrap; }
 .viz__table th:first-child, .viz__table td:first-child { text-align: left; }
 .viz__table th { position: sticky; top: 0; background: var(--card); color: var(--ink-3); font-weight: 500; }
 .viz__source { margin-top: 18px; color: var(--ink-3); font-size: .8rem; }
@@ -821,7 +821,7 @@ dd, output, .big, .sens, .plan__price, .num { font-variant-numeric: tabular-nums
 
 /* Bảng giá */
 .plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: stretch; }
-.plan { position: relative; display: flex; flex-direction: column; padding: 32px 28px; background: #fbf3ec; border-color: #f0dccd; box-shadow: none; }
+.plan { position: relative; display: flex; flex-direction: column; padding: 32px 28px; background: #f1f4ec; border-color: #dfe6d6; box-shadow: none; }
 .plan h3 { font-size: 1.2rem; }
 .plan__price { font-family: var(--serif); font-size: 2.3rem; font-weight: 400; margin-top: 10px; letter-spacing: -.01em; }
 .plan__price span { font-family: var(--sans); font-size: .9rem; color: var(--ink-3); }
@@ -841,7 +841,7 @@ dd, output, .big, .sens, .plan__price, .num { font-variant-numeric: tabular-nums
 }
 .plan .btn { margin-top: auto; }
 .plan--featured { background: var(--night); border-color: var(--navy-900); color: #fff; }
-.plan--featured .plan__for, .plan--featured .plan__price span { color: #b9afa2; }
+.plan--featured .plan__for, .plan--featured .plan__price span { color: #a9b5ac; }
 .plan--featured li::before { border-color: var(--teal-3); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 8'%3E%3Cpath d='M1 4l3 3 5-6' fill='none' stroke='%2334d1b4' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
 .plan__badge {
   position: absolute;
@@ -905,7 +905,7 @@ dd, output, .big, .sens, .plan__price, .num { font-variant-numeric: tabular-nums
 .cta h2 em { color: var(--teal-3); }
 .cta p { color: rgba(255, 255, 255, .72); margin-top: 14px; font-size: 1.05rem; }
 .cta__bars { position: absolute; left: 0; right: 0; bottom: 0; height: 120px; display: flex; align-items: flex-end; gap: 1.2%; padding: 0 2%; opacity: .55; }
-.cta__bars i { flex: 1; border-radius: 4px 4px 0 0; background: linear-gradient(180deg, #9a4422, #3a342d); }
+.cta__bars i { flex: 1; border-radius: 4px 4px 0 0; background: linear-gradient(180deg, #3a6e58, #1f3a30); }
 .signup { display: flex; flex-wrap: wrap; gap: 10px; }
 .signup input {
   flex: 1 1 220px;
@@ -941,7 +941,7 @@ dd, output, .big, .sens, .plan__price, .num { font-variant-numeric: tabular-nums
   letter-spacing: -.02em;
   text-align: center;
   color: transparent;
-  background: linear-gradient(180deg, #e8dccb 0%, rgba(232, 220, 203, .15) 100%);
+  background: linear-gradient(180deg, #d9e2cf 0%, rgba(217, 226, 207, .15) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   user-select: none;
