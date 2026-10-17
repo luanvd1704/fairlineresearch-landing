@@ -2,7 +2,10 @@
 // không phát bản lỗi lên web.
 //   1. Chữ cấm: đường dẫn máy, tên máy, nhận định nội bộ. Repo và web đều công khai.
 //   2. Link nội bộ: mọi href/src trỏ tới file có thật trong dist/; mọi #neo trỏ tới id có thật.
-import { existsSync, readdirSync, readFileSync } from 'node:fs';
+//   3. Dashboard đã tách thư viện: không quá 1,5 MB, không còn Plotly viết thẳng trong file, mọi /lib/… nó dùng
+//      có thật và đúng dấu vân tay trong tên (thư viện được giữ 1 năm, sửa đè nội dung là người xem dùng bản sai).
+import { createHash } from 'node:crypto';
+import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import { extname, join, relative, sep } from 'node:path';
 
 const DIST = 'dist';
@@ -65,6 +68,29 @@ for (const f of files.filter((f) => extname(f) === '.html' && !LA_DASHBOARD(f)))
     }
   }
 }
+
+// Thư viện dashboard: tên dạng <tên>.<10 ký tự đầu SHA-256 nội dung>.<đuôi> (tach_thu_vien.py ở dự án Quarto)
+// (file chữ .js/.css tính sau khi thống nhất xuống dòng LF; file nhị phân như font tính nguyên byte)
+const dungVanTay = (f) => {
+  const chu = readFileSync(f, 'latin1');
+  const ma = createHash('sha256').update(/\.(js|css)$/.test(f) ? chu.replaceAll('\r\n', '\n') : chu, 'latin1').digest('hex');
+  return f.split('.').at(-2) === ma.slice(0, 10);
+};
+const libDaDung = new Set();
+for (const f of files.filter(LA_DASHBOARD)) {
+  const mb = statSync(f).size / 1e6;
+  if (mb > 1.5) loi.push(`${f}: nặng ${mb.toFixed(1)} MB, chưa tách thư viện (chạy tach_thu_vien.py)`);
+  const noiDung = readFileSync(f, 'utf8');
+  if (noiDung.includes('plotly.js v')) loi.push(`${f}: còn Plotly viết thẳng trong file`);
+  for (const [, ten] of noiDung.matchAll(/["(]\/lib\/([^"')]+)["')]/g)) {
+    const p = join(DIST, 'lib', ten);
+    if (!existsSync(p)) loi.push(`${f}: thiếu thư viện /lib/${ten}`);
+    else if (!dungVanTay(p)) loi.push(`lib/${ten}: nội dung không khớp dấu vân tay trong tên (bị sửa đè?)`);
+    libDaDung.add(ten);
+  }
+}
+const libThua = existsSync(join(DIST, 'lib')) ? readdirSync(join(DIST, 'lib')).filter((t) => !libDaDung.has(t)) : [];
+if (libThua.length) console.warn(`kiem-tra-dist: thư viện không dashboard nào dùng (xóa được): ${libThua.join(', ')}`);
 
 if (loi.length) {
   console.error(`\nkiem-tra-dist: ${loi.length} lỗi, không đưa bản này lên web\n  ` + loi.join('\n  '));

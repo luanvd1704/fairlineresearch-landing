@@ -105,6 +105,11 @@ công cụ định giá (`src/pages/index.astro`, ô `r` và `g2`). Đổi một
 `public/phan-tich/<mã>/`. Trước khi chép, script soát chuỗi cấm (đường dẫn máy, nhận định nội bộ); thấy là dừng,
 không chép.
 
+Sau khi chép, `dung_ban_web.py` gọi `tach_thu_vien.py` (cũng ở dự án Quarto): Plotly, CSS, font và script dùng
+chung được tách ra `public/lib/` với tên có dấu vân tay nội dung, dashboard chỉ còn ~1 MB và mọi dashboard dùng chung
+một bản thư viện. Vì vậy dashboard **không mở được bằng file://**, xem thử qua `npm run dev` hoặc `npm run preview`.
+`npm run build` báo lỗi nếu dashboard nào chưa tách hoặc thiếu thư viện.
+
 Script và file `.qmd` cố ý để **ngoài repo**: file `.qmd` có nhận định và ghi chú nội bộ không công bố, đưa vào
 repo công khai là lộ. Muốn đổi dashboard thì sửa ở dự án Quarto rồi chạy lại script, không sửa file trong repo.
 
@@ -113,6 +118,8 @@ repo công khai là lộ. Muốn đổi dashboard thì sửa ở dự án Quarto
 - `public/data/market-data.js`: chạy lại `scripts/export_chart_data.py`.
 - `public/phan-tich/*/dashboard.html`: sửa nguồn ở dự án Quarto rồi chạy lại `dung_ban_web.py`. Vá tay một lần là
   lần render sau mất bản vá.
+- `public/lib/*`: do `tach_thu_vien.py` sinh. Không sửa đè (trình duyệt giữ 1 năm theo tên file); file nào
+  `npm run build` báo "không dashboard nào dùng" thì xóa được.
 - `public/favicon.ico`, `public/apple-touch-icon.png`, `public/og.png`: chạy lại `scripts/tao_anh.py`.
 - `dist/`: kết quả build, không đưa lên git.
 
