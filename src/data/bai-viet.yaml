@@ -12,36 +12,36 @@
   nganh: Sữa
   danhMuc: Sữa và thực phẩm
   tieuDe: "Mộc Châu Milk: kinh doanh sữa co lại, tiền gửi gánh gần nửa giá trị"
-  ngay: 2026-10-15
-  soLieuDen: Q2/2026
+  ngay: 2026-10-24
+  soLieuDen: Q3/2026
   taiLieu: Dashboard, định giá, Excel
   # Thẻ bài: trang chủ dùng `tomTat`, thư viện dùng `tomTatThuVien`; câu định giá tự nối thêm vào cuối
-  tomTat: "Lợi nhuận lõi giảm từ 289 tỷ (2022) còn 152 tỷ (2025); lãi tiền gửi bằng 42% LNTT."
-  tomTatThuVien: "Lợi nhuận lõi giảm từ 289 tỷ (2022) còn 152 tỷ (2025); lãi tiền gửi bằng 42% LNTT. Hai dự án trang trại và nhà máy hút phần lớn 1.398,5 tỷ tiền ròng."
+  tomTat: "Lợi nhuận lõi giảm từ 289 tỷ (2022) còn 152 tỷ (2025); quý 3/2026 lãi tăng nhờ cắt khuyến mãi nhưng doanh thu ngoài Vinamilk giảm 3,7%."
+  tomTatThuVien: "Lợi nhuận lõi giảm từ 289 tỷ (2022) còn 152 tỷ (2025); lãi tiền gửi bằng 42% LNTT. Quý 3/2026 doanh thu ngoài Vinamilk giảm 3,7%. Hai dự án trang trại và nhà máy hút phần lớn 1.426 tỷ tiền ròng."
   bia:
     cot: [38, 62, 48, 80, 56] # chiều cao (%) các cột trang trí trên ảnh bìa; thư viện dùng 4 cột đầu
   dinhGia:
-    giaThamChieu: 26600
-    ngayGia: 2026-10-13
-    bienAnToan: 0.6 # %, lấy nguyên từ file Excel
+    giaThamChieu: 25700
+    ngayGia: 2026-10-23
+    bienAnToan: -6.3 # %, lấy nguyên từ file Excel
     # Phương pháp có `dung: true` là con số dùng (giá trị hợp lý = kịch bản cơ sở); các dòng khác chỉ để đối chiếu
     phuongPhap:
       - tenNgan: DCF
         tenDayDu: DCF phần lõi + 90% tiền + dự án
         dung: true
-        xau: 14575
-        coSo: 26694
-        tot: 36658
+        xau: 13615
+        coSo: 24845
+        tot: 35697
       - tenNgan: P/E lõi
         tenDayDu: P/E lợi nhuận lõi + 90% tiền + dự án
-        xau: 15603
-        coSo: 27131
-        tot: 35935
+        xau: 14670
+        coSo: 25264
+        tot: 35002
       - tenNgan: Chiết khấu cổ tức
         tenDayDu: Chiết khấu cổ tức (DDM)
-        xau: 8764
-        coSo: 22496
-        tot: 32690
+        xau: 7989
+        coSo: 20949
+        tot: 31887
       - tenNgan: P/B theo ROE
         tenDayDu: P/B theo ROE
         xau: 14240
@@ -49,9 +49,9 @@
         tot: 24631
       - tenNgan: EV/EBITDA lõi
         tenDayDu: EV/EBITDA lõi + 90% tiền + dự án
-        xau: 16869
-        coSo: 27001
-        tot: 34389
+        xau: 16173
+        coSo: 25608
+        tot: 33693
 
 - id: qns
   ma: QNS
