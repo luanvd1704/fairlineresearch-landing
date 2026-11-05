@@ -1,0 +1,147 @@
+---
+import Base from '../../../layouts/Base.astro';
+import { dong, layBai, nghin1, nghin2, ngay, phanTram1, phuongPhapDung } from '../../../lib/bai-viet';
+
+// Số định giá lấy từ src/data/bai-viet.yaml (mục id: cmg)
+const { data: bai } = await layBai('cmg');
+const dg = bai.dinhGia!;
+const dung = phuongPhapDung(dg);
+---
+<Base
+  title="CMG — Tập đoàn Công nghệ CMC — Fairline Research"
+  description="Phân tích cơ bản và định giá CMG (Tập đoàn Công nghệ CMC): lợi nhuận từng mảng, lãi vay tăng, tòa nhà Creative Space, định giá theo P/E từng mảng cộng tiền ròng."
+>
+
+  <section class="page-hero">
+    <div class="container">
+      <nav class="crumbs" aria-label="Vị trí"><a href="../">Phân tích</a><span>›</span><span>CMG</span></nav>
+      <p class="eyebrow">Phân tích cơ bản · Công nghệ, viễn thông · HOSE: CMG</p>
+      <h1>CMC: kinh doanh vẫn tăng, <em>lãi vay kéo lợi nhuận ròng đi xuống</em></h1>
+      <div class="meta-line">
+        <span>Ngày <strong>{ngay(bai.ngay)}</strong></span>
+        <span>Số liệu đến <strong>{bai.soLieuDen}</strong></span>
+        <span>Giá tham chiếu <strong>{dong(dg.giaThamChieu)} đồng</strong> (phiên {ngay(dg.ngayGia)})</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="report">
+    <div class="container report__grid">
+      <article class="report__body">
+        <h2>Tóm <em>tắt</em></h2>
+        <ol>
+          <li><strong>Một tập đoàn, nhiều mảng khác nhau.</strong> CMC Global xuất khẩu phần mềm (khách lớn nhất là Samsung, hưởng thuế 10%); Công nghệ và giải pháp (T&amp;S) tích hợp hệ thống trong nước; CMC Telecom làm viễn thông, điện toán đám mây và trung tâm dữ liệu (CMG sở hữu 54,63%, TIME dotCom của Malaysia 45,3%); NetNam là công ty liên kết (41,14%); thêm giáo dục và tòa nhà Creative Space. Năm tài chính chạy từ 01/04 đến 31/03.</li>
+          <li><strong>Năm tài chính 2025 (đến 31/03/2026) tăng tốt.</strong> Doanh thu 9.560,8 tỷ (+16,6%), lợi nhuận trước thuế 611,9 tỷ (+22%), LNST cổ đông mẹ 413,0 tỷ (+18,5%). Trong đó có 17,6 tỷ thu nhập thuế hoãn lại, khoản bút toán không có tiền.</li>
+          <li><strong>6 tháng đầu năm tài chính 2026: kinh doanh tăng, lãi vay ăn mất.</strong> Lợi nhuận hoạt động (lãi gộp trừ chi phí bán hàng và quản lý) 257,1 tỷ, tăng 6,6%. Nhưng chi phí lãi vay 73,9 tỷ (+78%), riêng quý 2 là 40,8 tỷ, gấp 2,1 lần cùng kỳ; LNST cổ đông mẹ còn 164,0 tỷ (−10,9%). Tiền thu từ kinh doanh 6 tháng chỉ 116 tỷ vì CMG thường thu tiền dồn về nửa cuối năm tài chính.</li>
+          <li><strong>Đầu tư nặng bằng vốn vay.</strong> Nợ vay tăng từ 1.772 lên 3.614 tỷ trong năm tài chính 2025, gồm trái phiếu 1.250 tỷ (10 năm, lãi 5,5%, CGIF bảo lãnh) để xây tòa Creative Space Hà Nội. Giá gốc tòa nhà 1.252,5 tỷ tại 30/09/2026, dự kiến xong 31/12/2026; từ đó lãi trái phiếu (khoảng 68,75 tỷ/năm danh nghĩa) và khấu hao sẽ đi vào kết quả kinh doanh thay vì cộng vào giá gốc.</li>
+          <li><strong>Phần lớn tiền vay chưa tiêu đang nằm trong tiền gửi.</strong> Tại 31/03/2026, tiền và tiền gửi 3.587,7 tỷ gần bằng tổng nợ vay 3.614,4 tỷ. Công ty mẹ nợ ròng với bên ngoài khoảng 711 tỷ (gồm trái phiếu), khối công ty con dư tiền ròng khoảng 683 tỷ.</li>
+          <li><strong>Cổ tức bằng cổ phiếu, Samsung là cổ đông lớn nhất.</strong> Ba năm gần nhất chỉ chia cổ phiếu (11%, 10%, 10%; đợt 10% năm 2025 chưa chốt quyền). Samsung SDS Asia Pacific nắm 29,77%.</li>
+        </ol>
+
+        <h2>Định <em>giá</em></h2>
+        <p>Định giá theo tổng từng phần: mỗi mảng lấy lợi nhuận năm tài chính 2025 nhân một bội số P/E riêng (Global 9 lần, T&amp;S 8, CMC Telecom 11, dịch vụ khác 6, NetNam 8). Thuyết minh bộ phận cho thấy lợi nhuận các mảng là lợi nhuận <em>trước</em> lãi vay và lãi tiền gửi, nên tiền, tiền gửi, toàn bộ nợ vay và giá gốc tòa nhà Creative Space được cộng, trừ ở một bước riêng, lấy số dư 31/03/2026 cùng kỳ với lợi nhuận. Ba kịch bản không gán xác suất: giá trị hợp lý là kịch bản cơ sở.</p>
+        <div class="tiles">
+          <div class="tile card"><p class="tile__label">Giá tham chiếu</p><p class="tile__value">{dong(dg.giaThamChieu)}</p><p class="tile__note">đồng, phiên {ngay(dg.ngayGia)}</p></div>
+          <div class="tile card"><p class="tile__label">Giá trị hợp lý</p><p class="tile__value">{dong(dung.coSo)}</p><p class="tile__note">đồng, kịch bản cơ sở</p></div>
+          <div class="tile card"><p class="tile__label">Khoảng giá trị</p><p class="tile__value tile__value--sm">{dong(dung.xau)} – {dong(dung.tot)}</p><p class="tile__note">xấu – tốt, đồng</p></div>
+          <div class="tile card"><p class="tile__label">Biên an toàn</p><p class="tile__value">{phanTram1(dg.bienAnToan)}</p><p class="tile__note">(giá trị hợp lý − giá) ÷ giá trị hợp lý</p></div>
+        </div>
+
+        <figure class="ff card" style="--min:12; --max:26; --ticks:7">
+          <figcaption class="ff__head">
+            <div>
+              <h3>Khoảng giá trị theo từng phương pháp</h3>
+              <p class="muted">Từ kịch bản xấu đến kịch bản tốt · nghìn đồng mỗi cổ phiếu</p>
+            </div>
+          </figcaption>
+          <div class="ff__plot">
+            {dg.phuongPhap.map((p) => (
+              <div class="ff__row">
+                <div class="ff__label">{p.tenNgan}<small>{p.dung ? 'Dùng làm giá trị' : 'Đối chiếu'}</small></div>
+                <div class="ff__track"><div class:list={['ff__bar', !p.dung && 'ff__bar--ref']} style={`--lo:${p.xau / 1000}; --hi:${p.tot / 1000}`}><span>{nghin1(p.xau)} – {nghin1(p.tot)}</span></div></div>
+              </div>
+            ))}
+            <div class="ff__marker ff__marker--price" style={`--v:${dg.giaThamChieu / 1000}`}><span>Giá {nghin2(dg.giaThamChieu)}</span></div>
+            <div class="ff__marker ff__marker--fair" style={`--v:${dung.coSo / 1000}`}><span>Hợp lý {nghin2(dung.coSo)}</span></div>
+          </div>
+          <div class="ff__axis" aria-hidden="true">
+            <span style="--t:12">12</span><span style="--t:14">14</span><span style="--t:16">16</span><span style="--t:18">18</span>
+            <span style="--t:20">20</span><span style="--t:22">22</span><span style="--t:24">24</span><span style="--t:26">26</span>
+          </div>
+          <p class="ff__note">P/E từng mảng cộng tiền ròng và giá gốc Creative Space là con số dùng. P/E chung nhân thẳng EPS năm tài chính 2025 (1.773 đồng) với 8 / 10 / 12 lần, không cộng riêng tòa nhà Creative Space nên ra thấp hơn.</p>
+        </figure>
+
+        <div class="tbl-wrap">
+          <table class="tbl-report">
+            <thead><tr><th>Phương pháp</th><th>Xấu</th><th>Cơ sở</th><th>Tốt</th></tr></thead>
+            <tbody>
+              {dg.phuongPhap.map((p) => (
+                <tr class={p.dung ? 'row-total' : undefined}><td>{p.tenDayDu}</td><td>{dong(p.xau)}</td><td>{dong(p.coSo)}</td><td>{dong(p.tot)}</td></tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p class="fineprint">Đồng mỗi cổ phiếu. Dòng đậm là con số dùng; dòng còn lại chỉ để đối chiếu. Kịch bản xấu chỉ khác cơ sở ở P/E Global 8 lần, CMC Telecom 10 lần và giảm 10% giá gốc Creative Space. Sau đợt cổ tức cổ phiếu 10% (chưa chốt quyền), giá trị cơ sở mỗi cổ phiếu còn khoảng 18.722 đồng.</p>
+
+        <h3>Cấu phần giá trị cơ sở</h3>
+        <div class="tbl-wrap">
+          <table class="tbl-report">
+            <thead><tr><th>Cấu phần</th><th>Tỷ đồng</th><th>Cách tính</th></tr></thead>
+            <tbody>
+              <tr><td>CMC Global</td><td>1.085,2</td><td>53% lợi nhuận khối công nghệ, thuế 10%, × 9</td></tr>
+              <tr><td>Công nghệ và giải pháp (T&amp;S)</td><td>760,4</td><td>47% còn lại, thuế 20%, × 8</td></tr>
+              <tr><td>CMC Telecom (phần 54,63%)</td><td>1.493,5</td><td>LNST 248,5 tỷ suy từ lợi ích cổ đông thiểu số, × 11</td></tr>
+              <tr><td>Dịch vụ khác (cho thuê văn phòng, giáo dục)</td><td>242,7</td><td>× 6; lỗ giáo dục không được giảm thuế</td></tr>
+              <tr><td>NetNam (liên kết 41,14%)</td><td>367,1</td><td>lãi liên kết 45,9 tỷ × 8</td></tr>
+              <tr><td>Lãi tỷ giá, thu nhập khác</td><td>43,1</td><td>× 4</td></tr>
+              <tr><td>Loại trừ giao dịch nội bộ</td><td>−327,9</td><td>× 10</td></tr>
+              <tr class="row-total"><td>Giá trị hoạt động</td><td>3.664,1</td><td></td></tr>
+              <tr><td>Tiền và tiền gửi − toàn bộ nợ vay</td><td>−26,7</td><td>3.587,7 − 3.614,4 (31/03/2026)</td></tr>
+              <tr><td>Giá gốc Creative Space</td><td>1.158,8</td><td>Hà Nội 876,2 + TP.HCM 282,6 (31/03/2026)</td></tr>
+              <tr class="row-total"><td>Giá trị vốn chủ</td><td>4.796,2</td><td>÷ 232,89 triệu cổ phiếu = {dong(dung.coSo)} đồng</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="note-box">
+          <strong>Chưa tách được tiền và nợ riêng của CMC Telecom.</strong> Lợi nhuận CMC Telecom đem nhân P/E đã trừ lãi các khoản vay của chính Telecom, trong khi bước cộng trừ tiền và nợ đang tính toàn bộ nợ hợp nhất. Báo cáo của TIME dotCom không tách tiền và vay của Telecom, nên phần này đang để bằng 0; mỗi 100 tỷ thay đổi khoảng 429 đồng/cổ phiếu. Nếu lấy số dư ngày 30/09/2026 thay cho 31/03, giá trị cơ sở là 20.001 đồng.
+        </div>
+        <p>Phép thử lợi nhuận (không phải dự báo): giữ nhịp tăng của 6 tháng đầu năm, lãi vay giữ mức quý 2 và lãi trái phiếu Creative Space thôi được cộng vào giá gốc từ 01/2027, EPS năm tài chính 2026 khoảng 1.613 đồng và 2027 khoảng 1.566 đồng; ở giá tham chiếu tương đương 11,4 và 11,8 lần. Chưa tính khấu hao và tiền thuê của tòa nhà.</p>
+
+        <h2>Cần <em>theo dõi</em></h2>
+        <ul>
+          <li>BCTC quý 3 năm tài chính 2026 (tháng 10–12/2026, công bố khoảng cuối tháng 01/2027): chi phí lãi vay mỗi quý có giữ quanh 40 tỷ không; lợi ích cổ đông thiểu số (đại diện cho CMC Telecom) có tiếp tục tăng không.</li>
+          <li>Tòa Creative Space Hà Nội: ngày đưa vào sử dụng (dự kiến 31/12/2026), mức khấu hao và tiền thuê thu được; tháng 9/2026 đã mời thầu nội thất.</li>
+          <li>Trung tâm dữ liệu SHTP (6.260 tỷ): đến 05/11/2026 chưa thấy công bố khởi công; theo dõi cách vay phần 5.008 tỷ ngoài vốn chủ.</li>
+          <li>Ngày chốt quyền cổ tức cổ phiếu 10% năm 2025; kết quả đợt đăng ký mua 1 triệu cổ phiếu của Chủ tịch HĐQT (hạn 17/11/2026).</li>
+        </ul>
+
+        <div class="note-box note-box--warn">
+          Bài viết chỉ để tham khảo, không phải khuyến nghị mua, bán hay nắm giữ cổ phiếu. Giá trị là ước tính dựa trên giả định — đặc biệt bội số P/E từng mảng, tỷ lệ chia lợi nhuận giữa Global và T&amp;S (lấy từ số quản trị) và lợi nhuận CMC Telecom (suy gián tiếp) là số người viết tự đặt hoặc tự suy.
+        </div>
+      </article>
+
+      <aside class="aside-box">
+        <div class="aside-card card">
+          <h3>Tài liệu</h3>
+          <div class="actions">
+            <a class="btn btn--primary" href="CMG_dinh_gia_2026-11-05.pdf" target="_blank" rel="noopener">PDF báo cáo định giá (15 trang) <span aria-hidden="true">↓</span></a>
+            <a class="btn btn--ghost" href="CMG_dinh_gia_2026-11-05.xlsx" download>File Excel định giá <span aria-hidden="true">↓</span></a>
+          </div>
+        </div>
+        <div class="aside-card card">
+          <h3>Số liệu nhanh</h3>
+          <dl>
+            <div><dt>Sàn</dt><dd>HOSE</dd></div>
+            <div><dt>Năm tài chính</dt><dd>01/04 – 31/03</dd></div>
+            <div><dt>LNST mẹ FY2025</dt><dd>413,0 tỷ</dd></div>
+            <div><dt>LNST mẹ 6T FY2026</dt><dd>164,0 tỷ</dd></div>
+            <div><dt>Nợ vay 30/09/2026</dt><dd>3.845,4 tỷ</dd></div>
+            <div><dt>Samsung SDS sở hữu</dt><dd>29,77%</dd></div>
+          </dl>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+</Base>
