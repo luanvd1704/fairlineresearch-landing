@@ -1,0 +1,147 @@
+---
+import Base from '../../../layouts/Base.astro';
+import { dong, layBai, nghin1, nghin2, ngay, phanTram1, phuongPhapDung } from '../../../lib/bai-viet';
+
+// Số định giá lấy từ src/data/bai-viet.yaml (mục id: pow)
+const { data: bai } = await layBai('pow');
+const dg = bai.dinhGia!;
+const dung = phuongPhapDung(dg);
+---
+<Base
+  title="POW — PV Power — Fairline Research"
+  description="Phân tích cơ bản và định giá POW (PV Power): khoản hồi tố năm 2026, Nhơn Trạch 3-4, tiền EVN đang giữ, nợ vay; định giá trọng số bốn phương pháp, ba kịch bản."
+>
+
+  <section class="page-hero">
+    <div class="container">
+      <nav class="crumbs" aria-label="Vị trí"><a href="../">Phân tích</a><span>›</span><span>POW</span></nav>
+      <p class="eyebrow">Phân tích cơ bản · Điện · HOSE: POW</p>
+      <h1>PV Power: lãi 2026 cao một phần nhờ khoản một lần, <em>Nhơn Trạch 3-4 là ván cược lớn nhất</em></h1>
+      <div class="meta-line">
+        <span>Ngày <strong>{ngay(bai.ngay)}</strong></span>
+        <span>Số liệu đến <strong>{bai.soLieuDen}</strong></span>
+        <span>Giá tham chiếu <strong>{dong(dg.giaThamChieu)} đồng</strong> (phiên {ngay(dg.ngayGia)})</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="report">
+    <div class="container report__grid">
+      <article class="report__body">
+        <h2>Tóm <em>tắt</em></h2>
+        <ol>
+          <li><strong>Lợi nhuận 9 tháng 2026 tăng mạnh, nhưng một phần là khoản một lần.</strong> Doanh thu 49.406 tỷ, LNTT 7.743,5 tỷ, LNST cổ đông mẹ 6.434 tỷ (cả năm 2025: 2.427 tỷ). Quý 2 có khoảng 2.476 tỷ hồi tố theo công bố của PVN: chênh lệch tỷ giá Vũng Áng 1 giai đoạn 2019–2021 (1.103 tỷ), quyết toán tiền điện và giá khí Cà Mau (991 tỷ), giảm trích dự phòng O&M (381 tỷ). Quý 3 LNTT 2.414 tỷ; bỏ lãi tỷ giá khoảng 187 tỷ và hoàn nhập dự phòng phải thu khoảng 326 tỷ thì còn khoảng 1.900 tỷ — vẫn cao, một phần nhờ El Niño và giá LNG cao.</li>
+          <li><strong>Nhơn Trạch 3-4 (1.624 MW, chạy LNG) là ván cược lớn nhất.</strong> Vốn ước khoảng 29.000 tỷ (theo Vietcap: 24.000 tỷ giải ngân tới 2025 cộng 5.000 tỷ năm 2026; POW chưa quyết toán). Ở kịch bản cơ sở, giá trị theo dòng tiền chỉ khoảng 17.600 tỷ: giá điện của dự án được tính để có lợi suất khoảng 8%, thấp hơn lợi suất yêu cầu 11,8%. Muốn giá trị bằng số vốn đã bỏ ra, EBITDA giai đoạn đầu phải đạt khoảng 4.956 tỷ/năm, trong khi mô hình dùng 3.100 tỷ.</li>
+          <li><strong>EVN đang giữ một phần lớn tiền.</strong> Phải thu khách hàng tăng từ 14.197 tỷ (cuối 2025) lên 24.913 tỷ (30/06/2026), còn 23.964 tỷ cuối quý 3 (EPTC 23.880 tỷ). Vay ngắn hạn ngân hàng tăng 8.026 tỷ trong 9 tháng: công ty vay để chờ EVN trả. Mô hình giả định thu về 80% phần vượt mức bình thường cùng mùa trong 2 năm, góp khoảng 882 đồng/cổ phiếu.</li>
+          <li><strong>Nợ ròng còn 7.368 tỷ (30/09/2026).</strong> Vay 37.525 tỷ, tiền và tiền gửi 30.158 tỷ. Khoảng 15–16 nghìn tỷ là nợ USD của Nhơn Trạch 3-4; chưa rõ hợp đồng có bù chênh lệch tỷ giá như Vũng Áng 1 hay không (mô hình giả định bù 70%).</li>
+          <li><strong>Không trả cổ tức tiền từ 11/2021, đang chuẩn bị tăng vốn 2026–2028.</strong> Tiền giữ lại đi vào các dự án LNG mới (Quảng Ninh 30%, Quỳnh Lập, Vũng Áng III, Cà Mau 3) có lợi suất điều tiết thấp hơn lợi suất yêu cầu, nên mỗi đồng tái đầu tư có thể làm giảm giá trị.</li>
+        </ol>
+
+        <h2>Định <em>giá</em></h2>
+        <p>Giá trị hợp lý là bình quân có trọng số của bốn phương pháp: DCF từng cụm nhà máy theo vòng đời còn lại 10%, EV/EBITDA toàn công ty 35%, P/E trên lợi nhuận cốt lõi 40%, P/B theo ROE 15%. DCF chỉ nặng 10% vì dự phóng vài chục năm khó tin. Kịch bản xấu, tốt chỉ đổi chiều nhóm giả định có chung nguyên nhân EVN và điều tiết (Nhơn Trạch 3-4, tiền EVN giữ, bù tỷ giá Vũng Áng 1, khí Cà Mau trả trước, tỷ giá nợ USD); ba kịch bản không gán xác suất.</p>
+        <div class="tiles">
+          <div class="tile card"><p class="tile__label">Giá tham chiếu</p><p class="tile__value">{dong(dg.giaThamChieu)}</p><p class="tile__note">đồng, phiên {ngay(dg.ngayGia)}</p></div>
+          <div class="tile card"><p class="tile__label">Giá trị hợp lý</p><p class="tile__value">{dong(dung.coSo)}</p><p class="tile__note">đồng, kịch bản cơ sở</p></div>
+          <div class="tile card"><p class="tile__label">Khoảng giá trị</p><p class="tile__value tile__value--sm">{dong(dung.xau)} – {dong(dung.tot)}</p><p class="tile__note">xấu – tốt, đồng</p></div>
+          <div class="tile card"><p class="tile__label">Biên an toàn</p><p class="tile__value">{phanTram1(dg.bienAnToan)}</p><p class="tile__note">(giá trị hợp lý − giá) ÷ giá trị hợp lý</p></div>
+        </div>
+
+        <figure class="ff card" style="--min:2; --max:22; --ticks:10">
+          <figcaption class="ff__head">
+            <div>
+              <h3>Khoảng giá trị theo từng phương pháp</h3>
+              <p class="muted">Từ kịch bản xấu đến kịch bản tốt · nghìn đồng mỗi cổ phiếu</p>
+            </div>
+          </figcaption>
+          <div class="ff__plot">
+            {dg.phuongPhap.map((p) => (
+              <div class="ff__row">
+                <div class="ff__label">{p.tenNgan}<small>{p.dung ? 'Dùng làm giá trị' : 'Thành phần'}</small></div>
+                <div class="ff__track"><div class:list={['ff__bar', !p.dung && 'ff__bar--ref']} style={`--lo:${p.xau / 1000}; --hi:${p.tot / 1000}`}><span>{nghin1(p.xau)} – {nghin1(p.tot)}</span></div></div>
+              </div>
+            ))}
+            <div class="ff__marker ff__marker--price" style={`--v:${dg.giaThamChieu / 1000}`}><span>Giá {nghin2(dg.giaThamChieu)}</span></div>
+            <div class="ff__marker ff__marker--fair" style={`--v:${dung.coSo / 1000}`}><span>Hợp lý {nghin2(dung.coSo)}</span></div>
+          </div>
+          <div class="ff__axis" aria-hidden="true">
+            <span style="--t:2">2</span><span style="--t:4">4</span><span style="--t:6">6</span><span style="--t:8">8</span><span style="--t:10">10</span><span style="--t:12">12</span>
+            <span style="--t:14">14</span><span style="--t:16">16</span><span style="--t:18">18</span><span style="--t:20">20</span><span style="--t:22">22</span>
+          </div>
+          <p class="ff__note">Dòng đầu là con số dùng: kịch bản xấu, tốt chỉ đổi nhóm giả định EVN và điều tiết. Bốn dòng dưới là từng phương pháp; xấu, tốt của chúng là góc cực (mọi giả định cùng xấu hoặc cùng tốt), nên rộng hơn. EV/EBITDA và P/E cộng thêm phần tiền EVN thu về và bù tỷ giá Vũng Áng 1 như DCF; P/B thì không.</p>
+        </figure>
+
+        <div class="tbl-wrap">
+          <table class="tbl-report">
+            <thead><tr><th>Phương pháp</th><th>Xấu</th><th>Cơ sở</th><th>Tốt</th></tr></thead>
+            <tbody>
+              {dg.phuongPhap.map((p) => (
+                <tr class={p.dung ? 'row-total' : undefined}><td>{p.tenDayDu}</td><td>{dong(p.xau)}</td><td>{dong(p.coSo)}</td><td>{dong(p.tot)}</td></tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p class="fineprint">Đồng mỗi cổ phiếu. Dòng đậm là giá trị hợp lý, {dong(dung.coSo)} đồng; bốn dòng còn lại là từng phương pháp, xấu và tốt là góc cực. DCF chiết khấu về 30/09/2026 rồi đẩy tới ngày giá theo chi phí vốn chủ; ba phương pháp bội số đã là giá trị tại ngày giá.</p>
+
+        <h3>Giả định chính</h3>
+        <div class="tbl-wrap">
+          <table class="tbl-report">
+            <thead><tr><th>Giả định</th><th>Giá trị</th></tr></thead>
+            <tbody>
+              <tr><td>Lợi suất yêu cầu (WACC)</td><td>11,78% = 70% × chi phí vốn chủ 14,64% (4,6% + β 1,09 × 9,2%; β không vay nợ 0,80) + 30% × lãi vay 6% sau lá chắn thuế 15%</td></tr>
+              <tr><td>EV/EBITDA toàn công ty (xấu / cơ sở / tốt)</td><td>6x / 7x / 8x</td></tr>
+              <tr><td>P/E (xấu / cơ sở / tốt)</td><td>5,5x / 7x / 8,5x nhân EPS cốt lõi khoảng 1.675 đồng: LNST cổ đông mẹ 4 quý Q4/2025–Q3/2026 là 7.004 tỷ, bỏ ba khoản hồi tố, dự phòng và tỷ giá, cộng 10% vì Q4/2025 chưa có Nhơn Trạch 3-4</td></tr>
+              <tr><td>P/B: ROE (xấu / cơ sở / tốt)</td><td>9% / 11% / 13%</td></tr>
+              <tr><td>Nhơn Trạch 3-4: EBITDA năm 2026–2035</td><td>3.100 tỷ (xấu 1.673, tốt 3.460); Qc 65% (tốt 75%); phần cố định trong giá điện 450 đồng/kWh (xấu 380, tốt 520); khấu hao 1.570 tỷ/năm</td></tr>
+              <tr><td>Nhơn Trạch 3-4: EBITDA 2036–2050</td><td>40% giai đoạn đầu (xấu 20%, tốt 60%), khi hết sàn Qc</td></tr>
+              <tr><td>Nhơn Trạch 3-4: vốn còn phải chi sau 30/09/2026</td><td>2.769 tỷ (xấu 3.469, tốt 2.269)</td></tr>
+              <tr><td>Nhà máy cũ: EBITDA chuẩn hoá</td><td>Vũng Áng 1 2.300 tỷ tới 2040 · Cà Mau và Nhơn Trạch 1 800 tỷ tới 2034 · Nhơn Trạch 2 1.200 tỷ tới 2036 · Hủa Na 650 tỷ · Đakđrinh 450 tỷ</td></tr>
+              <tr><td>Tiền EVN đang giữ</td><td>Thu 80% phần vượt mức bình thường cùng mùa trong 2 năm (xấu 50%, tốt 100%)</td></tr>
+              <tr><td>Tỷ giá nợ USD của Nhơn Trạch 3-4</td><td>Được bù 70% (xấu 0%, tốt 100%)</td></tr>
+              <tr><td>Quỹ khen thưởng phúc lợi</td><td>Trừ 6,5% lợi nhuận mỗi năm</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="note-box">
+          <strong>Độ nhạy.</strong> β không vay nợ 0,75 thì giá trị hợp lý {dong(11764)} đồng, 0,70 thì {dong(11889)} đồng (chỉ DCF và P/B đổi). Mỗi 0,5x P/E đổi khoảng 335 đồng. Trên giá trị tổng hợp, giá tham chiếu ứng với EBITDA Nhơn Trạch 3-4 khoảng 3.937 tỷ/năm. Nếu khoảng 2.244 tỷ chênh giữa số đã trả trên sổ sách và mốc giải ngân 24.000 tỷ vẫn phải chi thật, giá trị hợp lý còn khoảng 11.030 đồng.
+        </div>
+
+        <h2>Cần <em>theo dõi</em></h2>
+        <ul>
+          <li>BCTC năm 2026: phải thu EPTC cuối năm (cuối quý 3: 23.880 tỷ), khoản bù tỷ giá Vũng Áng 1 còn chờ duyệt (492,6 tỷ), quyết toán vốn Nhơn Trạch 3-4.</li>
+          <li>Thông cáo năm 2026: Qc, sản lượng và doanh thu riêng của Nhơn Trạch 3-4; Qc năm 2027.</li>
+          <li>Đợt tăng vốn 2026–2028: tỷ lệ và giá phát hành so với giá trị.</li>
+          <li>Khí Cà Mau trả trước 2.709,6 tỷ: số dư đứng yên suốt 9 tháng 2026; có bị ghi vào chi phí không.</li>
+          <li>Giá LNG châu Á và số chuyến LNG về Nhơn Trạch 3-4.</li>
+        </ul>
+
+        <div class="note-box note-box--warn">
+          Bài viết chỉ để tham khảo, không phải khuyến nghị mua, bán hay nắm giữ cổ phiếu. Giá trị là ước tính dựa trên giả định — đặc biệt EBITDA và phần giá cố định của Nhơn Trạch 3-4, giá LNG thực trả, việc EVN trả tiền và bù tỷ giá là số người viết tự đặt vì công ty không công bố.
+        </div>
+      </article>
+
+      <aside class="aside-box">
+        <div class="aside-card card">
+          <h3>Tài liệu</h3>
+          <div class="actions">
+            <a class="btn btn--primary" href="dashboard.html" target="_blank" rel="noopener">Mở dashboard tương tác <span aria-hidden="true">↗</span></a>
+          </div>
+          <p class="fineprint" style="margin-top:12px">Dashboard mở tốt nhất trên máy tính.</p>
+        </div>
+        <div class="aside-card card">
+          <h3>Số liệu nhanh</h3>
+          <dl>
+            <div><dt>Sàn</dt><dd>HOSE</dd></div>
+            <div><dt>Công suất</dt><dd>5.849 MW</dd></div>
+            <div><dt>Vốn hoá (giá tham chiếu)</dt><dd>38.348 tỷ</dd></div>
+            <div><dt>Nợ ròng 30/09/2026</dt><dd>7.368 tỷ</dd></div>
+            <div><dt>LNST cổ đông mẹ 2025</dt><dd>2.426,7 tỷ</dd></div>
+            <div><dt>LNST cổ đông mẹ 9T/2026</dt><dd>6.434,5 tỷ</dd></div>
+            <div><dt>PVN sở hữu</dt><dd>79,94%</dd></div>
+            <div><dt>Kiểm toán</dt><dd>Deloitte</dd></div>
+          </dl>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+</Base>

@@ -5,6 +5,54 @@
 # - Ngày ghi dạng năm-tháng-ngày: 2026-10-15.
 # - Gõ sai kiểu (chữ vào chỗ số, thiếu mục bắt buộc) thì `npm run build` báo lỗi và không lên web.
 
+- id: pow
+  ma: POW
+  ten: Tổng công ty Điện lực Dầu khí Việt Nam (PV Power)
+  san: HOSE
+  nganh: Điện
+  danhMuc: Điện và năng lượng
+  tieuDe: "PV Power: lãi 2026 cao một phần nhờ khoản một lần, Nhơn Trạch 3-4 là ván cược lớn nhất"
+  ngay: 2026-11-06
+  soLieuDen: Q3/2026
+  taiLieu: Dashboard, định giá
+  # Thẻ bài: trang chủ dùng `tomTat`, thư viện dùng `tomTatThuVien`; câu định giá tự nối thêm vào cuối
+  tomTat: "9 tháng 2026 LNTT 7.744 tỷ, trong đó khoảng 2.476 tỷ là khoản hồi tố ghi trong quý 2; Nhơn Trạch 3-4 vốn ước 29.000 tỷ nhưng giá trị theo dòng tiền chỉ khoảng 17.600 tỷ; EVN còn nợ gần 24.000 tỷ."
+  tomTatThuVien: "9 tháng 2026 LNTT 7.744 tỷ, trong đó khoảng 2.476 tỷ là khoản hồi tố ghi trong quý 2; bỏ khoản một lần, LNTT quý 3 khoảng 1.900 tỷ. Nhơn Trạch 3-4 vốn ước 29.000 tỷ, giá trị theo dòng tiền khoảng 17.600 tỷ. Phải thu khách hàng 23.964 tỷ, gần hết là EVN; không trả cổ tức tiền từ 11/2021."
+  bia:
+    cot: [52, 70, 44, 64, 58] # chiều cao (%) các cột trang trí trên ảnh bìa; thư viện dùng 4 cột đầu
+  dinhGia:
+    giaThamChieu: 12500
+    ngayGia: 2026-11-05
+    bienAnToan: -7.3 # %, (giá trị hợp lý − giá) ÷ giá trị hợp lý, giá trị hợp lý 11.649,9 từ file Excel (00_Tổng hợp)
+    # Phương pháp có `dung: true` là con số dùng (giá trị hợp lý = kịch bản cơ sở); các dòng khác chỉ để đối chiếu
+    phuongPhap:
+      - tenNgan: 4 phương pháp
+        tenDayDu: Trọng số DCF 10% · EV/EBITDA 35% · P/E 40% · P/B 15%
+        dung: true
+        xau: 7221
+        coSo: 11650
+        tot: 14588
+      - tenNgan: DCF từng cụm
+        tenDayDu: DCF từng cụm nhà máy, vòng đời hữu hạn
+        xau: 3083
+        coSo: 9979
+        tot: 15184
+      - tenNgan: EV/EBITDA
+        tenDayDu: EV/EBITDA toàn công ty 7x (6x / 8x)
+        xau: 4931
+        coSo: 13245
+        tot: 20051
+      - tenNgan: P/E cốt lõi
+        tenDayDu: P/E 7x (5,5x / 8,5x) × EPS cốt lõi 4 quý
+        xau: 7354
+        coSo: 11417
+        tot: 15372
+      - tenNgan: P/B theo ROE
+        tenDayDu: P/B theo ROE 11% (9% / 13%)
+        xau: 7247
+        coSo: 9662
+        tot: 12078
+
 - id: cmg
   ma: CMG
   ten: Tập đoàn Công nghệ CMC
