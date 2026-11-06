@@ -60,26 +60,26 @@
   nganh: Công nghệ, viễn thông
   danhMuc: Công nghệ và viễn thông
   tieuDe: "CMC: kinh doanh vẫn tăng, lãi vay kéo lợi nhuận ròng đi xuống"
-  ngay: 2026-11-05
+  ngay: 2026-11-06
   soLieuDen: "30/09/2026"
   taiLieu: Định giá, PDF, Excel
   # Thẻ bài: trang chủ dùng `tomTat`, thư viện dùng `tomTatThuVien`; câu định giá tự nối thêm vào cuối
-  tomTat: "6 tháng đầu năm tài chính 2026, lợi nhuận hoạt động tăng 6,6% nhưng LNST cổ đông mẹ giảm 10,9% vì lãi vay tăng 78%; tòa Creative Space Hà Nội vay trái phiếu 1.250 tỷ, dự kiến xong cuối 2026."
-  tomTatThuVien: "Lợi nhuận hoạt động 6 tháng tăng 6,6%, LNST cổ đông mẹ giảm 10,9% vì lãi vay tăng 78%. Định giá theo P/E từng mảng (Global, T&S, CMC Telecom, NetNam) cộng tiền ròng và giá gốc tòa nhà Creative Space; chưa tách được tiền và nợ riêng của CMC Telecom."
+  tomTat: "6 tháng đầu năm tài chính 2026, lợi nhuận hoạt động tăng 6,6% nhưng LNST cổ đông mẹ giảm 10,9% vì lãi vay tăng 78%; tòa Creative Space Hà Nội vay trái phiếu 1.250 tỷ, dự kiến xong quý I/2027."
+  tomTatThuVien: "Lợi nhuận hoạt động 6 tháng tăng 6,6%, LNST cổ đông mẹ giảm 10,9% vì lãi vay tăng 78%. Định giá theo giá trị hoạt động từng mảng (Global, T&S, Hạ tầng số gồm CMC Telecom), trừ phần cổ đông thiểu số, cộng tiền ròng và giá gốc tòa Creative Space Hà Nội theo số dư 30/09/2026."
   bia:
     cot: [44, 60, 52, 74, 58] # chiều cao (%) các cột trang trí trên ảnh bìa; thư viện dùng 4 cột đầu
   dinhGia:
     giaThamChieu: 18450
     ngayGia: 2026-11-04
-    bienAnToan: 10.4 # %, (giá trị hợp lý − giá) ÷ giá trị hợp lý, từ file Excel (03_Định giá)
+    bienAnToan: 5.9 # %, (giá trị hợp lý − giá) ÷ giá trị hợp lý, từ file Excel (03_Định giá)
     # Phương pháp có `dung: true` là con số dùng (giá trị hợp lý = kịch bản cơ sở); các dòng khác chỉ để đối chiếu
     phuongPhap:
-      - tenNgan: SOTP P/E
-        tenDayDu: P/E từng mảng + tiền ròng + giá gốc Creative Space
+      - tenNgan: SOTP EV
+        tenDayDu: Giá trị hoạt động từng mảng − cổ đông thiểu số + tiền ròng + giá gốc Creative Space Hà Nội (30/09/2026)
         dung: true
-        xau: 18996
-        coSo: 20594
-        tot: 23670
+        xau: 16431
+        coSo: 19615
+        tot: 22341
       - tenNgan: P/E chung
         tenDayDu: P/E toàn tập đoàn 8 / 10 / 12 lần × EPS FY2025
         xau: 14187
