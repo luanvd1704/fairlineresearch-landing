@@ -141,11 +141,23 @@
   nganh: Đường, sữa đậu nành
   danhMuc: Đường, đồ uống
   tieuDe: "Đường Quảng Ngãi: sữa đậu nành là trụ lợi nhuận, mảng đường có dấu hiệu qua đáy"
-  ngay: 2026-10-25
+  ngay: 2026-11-11
   soLieuDen: Q3/2026
-  taiLieu: Dashboard
+  taiLieu: Dashboard, định giá, Excel
   tomTat: "Biên gộp sữa 2025 bị phóng đại vì đổi cách ghi khuyến mãi; biên đường lên 21,9% ở Q3/2026; tiền ròng 5.743 tỷ, khoảng 37% vốn hóa."
   tomTatThuVien: "Biên gộp sữa 2025 bị phóng đại vì đổi cách ghi khuyến mãi; biên đường lên 21,9% ở Q3/2026; tiền ròng 5.743 tỷ, khoảng 37% vốn hóa, trước ba dự án khoảng 4.486 tỷ ở An Khê."
   bia:
     mau: teal
     cot: [70, 52, 40, 58, 66]
+  dinhGia:
+    giaThamChieu: 49300
+    ngayGia: 2026-11-09
+    bienAnToan: 13.5 # %, (cơ sở 57.005 − giá) ÷ cơ sở; file Excel ghi 12,2% vì đo trên giá trị kỳ vọng 25/50/25 = 56.126 (00_Tổng hợp)
+    # Phương pháp có `dung: true` là con số dùng (giá trị hợp lý = kịch bản cơ sở)
+    phuongPhap:
+      - tenNgan: SOTP
+        tenDayDu: Cộng từng phần (Vinasoy, đường, mảng khác) − chiết khấu tập đoàn 5% + tiền ròng có điều chỉnh
+        dung: true
+        xau: 44631
+        coSo: 57005
+        tot: 65861
