@@ -1,11 +1,8 @@
 ---
 import Base from '../../../layouts/Base.astro';
-import { dong, layBai, ngay, phanTram1, phuongPhapDung } from '../../../lib/bai-viet';
+import { layBai, ngay } from '../../../lib/bai-viet';
 
-// Số định giá lấy từ src/data/bai-viet.yaml (mục id: qns), khớp file QNS_dinh_gia_2026-11-11.xlsx
 const { data: bai } = await layBai('qns');
-const dg = bai.dinhGia!;
-const dung = phuongPhapDung(dg);
 ---
 <Base
   title="QNS — Đường Quảng Ngãi — Fairline Research"
@@ -20,7 +17,7 @@ const dung = phuongPhapDung(dg);
       <div class="meta-line">
         <span>Ngày <strong>{ngay(bai.ngay)}</strong></span>
         <span>Số liệu đến <strong>{bai.soLieuDen}</strong></span>
-        <span>Giá tham chiếu <strong>{dong(dg.giaThamChieu)} đồng</strong> (phiên {ngay(dg.ngayGia)})</span>
+        <span>Giá thị trường đến <strong>23/10/2026</strong></span>
       </div>
     </div>
   </section>
@@ -35,68 +32,24 @@ const dung = phuongPhapDung(dg);
           <li><strong>Lợi nhuận 2025 giảm vì mảng đường, không phải vì chi phí bán hàng.</strong> LNTT 2025 giảm 433 tỷ, trong khi lợi nhuận gộp mảng đường giảm 519 tỷ. Theo cách ghi cũ, chi phí bán hàng chỉ tăng khoảng 8%.</li>
           <li><strong>Chính sách giữ nguyên, giá mía giảm.</strong> Thuế chống bán phá giá, chống trợ cấp với đường Thái Lan được gia hạn đến 15/06/2031 với mức cũ. Giá mía đầu vụ 25/26 hạ từ 1,1 xuống 1,0 triệu đồng/tấn (−9%), tương đương khoảng 208 tỷ lợi nhuận gộp một vụ nếu sản lượng giữ như vụ 24/25.</li>
           <li><strong>Kế hoạch 2026 thận trọng.</strong> LNST kế hoạch 1.512 tỷ (−21%); sau 9 tháng đã đạt 93%, trong khi giai đoạn 2020–2025 chín tháng chiếm 63,7–73,8% LNST cả năm.</li>
-          <li><strong>Bảng cân đối mạnh, đầu tư lớn phía trước.</strong> Tiền ròng 5.743 tỷ (30/09/2026), khoảng 37% vốn hóa (giá 09/11/2026); cổ tức tiền mặt 40% mệnh giá mỗi năm 2024–2025. Ba dự án ở An Khê (mở rộng nhà máy đường, điện sinh khối, ethanol) tổng vốn khoảng 4.486 tỷ, số dư nhận diện 943,3 tỷ tại 30/09/2026 (không phải tổng tiền đã chi).</li>
+          <li><strong>Bảng cân đối mạnh, đầu tư lớn phía trước.</strong> Tiền ròng 5.743 tỷ (30/09/2026), khoảng 37% vốn hóa (giá 23/10/2026); cổ tức tiền mặt 40% mệnh giá mỗi năm 2024–2025. Ba dự án ở An Khê (mở rộng nhà máy đường, điện sinh khối, ethanol) tổng vốn khoảng 4.486 tỷ, số dư nhận diện 943,3 tỷ tại 30/09/2026 (không phải tổng tiền đã chi).</li>
         </ol>
 
-        <h2>Định <em>giá</em></h2>
-        <p>Định giá cộng từng phần (SOTP) trên một năm chuẩn hoá, không dự phóng nhiều năm: Vinasoy theo bội số EBIT, mảng đường và mảng khác theo bội số EBITDA, trừ chiết khấu tập đoàn 5%, rồi cộng phần tiền ròng có điều chỉnh (giữ lại tiền vận hành, chỉ tính một phần tiền đã cam kết cho ba dự án). Giá trị hợp lý là kịch bản cơ sở. Nếu gán xác suất 25/50/25 cho ba kịch bản, giá trị kỳ vọng là {dong(56126)} đồng.</p>
+        <h2>Số liệu <em>định giá</em></h2>
         <div class="tiles">
-          <div class="tile card"><p class="tile__label">Giá tham chiếu</p><p class="tile__value">{dong(dg.giaThamChieu)}</p><p class="tile__note">đồng, phiên {ngay(dg.ngayGia)}</p></div>
-          <div class="tile card"><p class="tile__label">Giá trị hợp lý</p><p class="tile__value">{dong(dung.coSo)}</p><p class="tile__note">đồng, kịch bản cơ sở</p></div>
-          <div class="tile card"><p class="tile__label">Khoảng giá trị</p><p class="tile__value tile__value--sm">{dong(dung.xau)} – {dong(dung.tot)}</p><p class="tile__note">xấu – tốt, đồng</p></div>
-          <div class="tile card"><p class="tile__label">Biên an toàn</p><p class="tile__value">{phanTram1(dg.bienAnToan)}</p><p class="tile__note">(giá trị hợp lý − giá) ÷ giá trị hợp lý</p></div>
-        </div>
-
-        <h3>Cơ cấu giá trị hợp lý</h3>
-        <div class="tbl-wrap">
-          <table class="tbl-report">
-            <thead><tr><th>Cấu phần (kịch bản cơ sở)</th><th>Đồng/cổ phiếu</th><th>Tỷ trọng</th></tr></thead>
-            <tbody>
-              <tr><td>Vinasoy (sữa đậu nành), sau chiết khấu tập đoàn</td><td>{dong(29761)}</td><td>52,2%</td></tr>
-              <tr><td>Mảng đường, sau chiết khấu tập đoàn</td><td>{dong(9175)}</td><td>16,1%</td></tr>
-              <tr><td>Mảng khác, sau chiết khấu tập đoàn</td><td>{dong(5215)}</td><td>9,1%</td></tr>
-              <tr><td>Tiền ròng có điều chỉnh</td><td>{dong(12854)}</td><td>22,5%</td></tr>
-              <tr class="row-total"><td>Giá trị hợp lý</td><td>{dong(dung.coSo)}</td><td>100%</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <h3>Giả định chính</h3>
-        <div class="tbl-wrap">
-          <table class="tbl-report">
-            <thead><tr><th>Giả định</th><th>Xấu / cơ sở / tốt</th></tr></thead>
-            <tbody>
-              <tr><td>Vinasoy: doanh thu</td><td>4.700 / 4.805 / 5.000 tỷ</td></tr>
-              <tr><td>Vinasoy: biên gộp (cách ghi khuyến mãi từ 2025)</td><td>40,9% / 45,0% / 48,1%</td></tr>
-              <tr><td>Vinasoy: bội số</td><td>9x EBIT cả ba kịch bản</td></tr>
-              <tr><td>Đường: doanh thu</td><td>3.600 / 3.900 / 4.050 tỷ</td></tr>
-              <tr><td>Đường: biên gộp</td><td>16,5% / 19% / 22% (từ 11/11/2026; trước là 18,5% / 21% / 24%)</td></tr>
-              <tr><td>Đường: bội số</td><td>4,75x EBITDA cả ba kịch bản</td></tr>
-              <tr><td>Mảng khác (bia, bánh kẹo, nước khoáng, nha): EBITDA</td><td>380 / 428 / 470 tỷ, bội số 4x</td></tr>
-              <tr><td>Tiền + đầu tư ngắn hạn 30/09/2026: 8.926 tỷ</td><td>Giữ 1.200 tỷ vận hành; tiền cam kết ba dự án 3.542 tỷ tính 60% / 85% / 100%; phần dư 4.184 tỷ tính 90% / 100% / 100%; trừ nợ vay 3.183 tỷ</td></tr>
-              <tr><td>Chi phí bán hàng + quản lý theo mảng</td><td>Người viết tự phân bổ, công ty không công bố theo mảng</td></tr>
-              <tr><td>Số cổ phiếu</td><td>312,1 triệu đang lưu hành (đã trừ 55,5 triệu cổ phiếu quỹ); kịch bản tốt thêm 3% phát hành cho người lao động</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="note-box">
-          <strong>Độ nhạy.</strong> Mỗi 1 điểm % biên gộp đường đổi giá trị hợp lý khoảng 560 đồng; mỗi 1x bội số Vinasoy đổi khoảng 3.300 đồng. Ở giá tham chiếu, nếu giữ đường và mảng khác ở kịch bản cơ sở, thị trường đang trả cho Vinasoy khoảng 6,7x EBIT (mô hình dùng 9x). Biên gộp đường được hạ ngày 11/11/2026 sau khi giá đường thế giới giảm lại từ cuối tháng 10; 19% sát mức 12 tháng đến Q3/2026 (19,1%).
-        </div>
-
-        <h3>Bội số tại giá tham chiếu</h3>
-        <div class="tiles">
-          <div class="tile card"><p class="tile__label">P/E</p><p class="tile__value">7,7x</p><p class="tile__note">LNST 4 quý đến Q3/2026</p></div>
-          <div class="tile card"><p class="tile__label">P/B</p><p class="tile__value">1,43x</p><p class="tile__note">vốn chủ 30/09/2026</p></div>
-          <div class="tile card"><p class="tile__label">EV / EBITDA</p><p class="tile__value">4,0x</p><p class="tile__note">4 quý đến Q3/2026</p></div>
+          <div class="tile card"><p class="tile__label">P/E</p><p class="tile__value">7,8x</p><p class="tile__note">LNST 4 quý đến Q3/2026, giá 23/10/2026</p></div>
+          <div class="tile card"><p class="tile__label">P/B</p><p class="tile__value">1,45x</p><p class="tile__note">vốn chủ 30/09/2026</p></div>
+          <div class="tile card"><p class="tile__label">EV / EBITDA</p><p class="tile__value">4,1x</p><p class="tile__note">4 quý đến Q3/2026</p></div>
           <div class="tile card"><p class="tile__label">Tiền ròng / vốn hóa</p><p class="tile__value">~37%</p><p class="tile__note">5.743 tỷ, 30/09/2026</p></div>
         </div>
         <p>Bội số trên lấy từ file định giá, chia cho 312,1 triệu cổ phiếu lưu hành (đã trừ cổ phiếu quỹ); P/E, P/B trong CSDL cao hơn khoảng 18% vì tính cả 55,5 triệu cổ phiếu quỹ. Tính đến 30/06/2026 (thẻ 8.3, CSDL chưa có Q3), nếu coi khoảng 4.022 tỷ vốn còn phải chi cho ba dự án là không còn tự do, phần kinh doanh được trả khoảng 8,9 lần lợi nhuận cốt lõi sau thuế.</p>
+        <div class="note-box">Phần định giá chi tiết (năm chuẩn hóa, tổng các phần) <strong>đang được cập nhật</strong> để phản ánh việc đổi cách ghi khuyến mãi và sẽ đăng kèm file Excel.</div>
 
         <h2>Rủi ro và <em>cần theo dõi</em></h2>
         <ul>
           <li><strong>Giá bán đường:</strong> đường nhập khẩu ASEAN, đường lậu, siro ngô HFCS thuế 0%; hai nhóm lớn của Thái Lan chịu mức thuế thấp hơn mức chung.</li>
           <li><strong>Số liệu mảng sữa khó so sánh</strong> qua mốc 2025; chi phí bán hàng bằng 16,3% doanh thu trong 9 tháng 2026 (cùng kỳ 12,7%; 2024: 8,4%).</li>
-          <li><strong>Giá mía vụ 26/27:</strong> giá đường tăng thì nông dân có thể đòi giá mía cao hơn; giá đường giảm mà QNS giữ giá mía thì biên gộp đường năm sau có thể giảm mạnh như năm 2025 (giảm 11,5 điểm % khi giá mía không đổi).</li>
+          <li><strong>Giá mía vụ 26/27:</strong> giá đường tăng thì nông dân có thể đòi giá mía cao hơn.</li>
           <li><strong>Dự án ethanol (1.742 tỷ):</strong> có đầu ra nhờ xăng E10 bắt buộc từ 01/06/2026; hiệu quả còn phụ thuộc giá ethanol.</li>
           <li>BCTC quý 3/2026 đã có: biên gộp mảng đường 21,9%, sát mốc khoảng 22%; chi phí bán hàng 18,7% doanh thu, vượt mốc 15%. Theo dõi tiếp ở BCTC quý 4/2026.</li>
           <li>Sản lượng đường Thái Lan vụ 26/27: dự báo giảm 12,5–17%.</li>
@@ -112,7 +65,6 @@ const dung = phuongPhapDung(dg);
           <h3>Tài liệu</h3>
           <div class="actions">
             <a class="btn btn--primary" href="dashboard.html" target="_blank" rel="noopener">Mở dashboard tương tác <span aria-hidden="true">↗</span></a>
-            <a class="btn btn--ghost" href="QNS_dinh_gia_2026-11-11.pdf" target="_blank" rel="noopener">PDF định giá (11 trang) <span aria-hidden="true">↓</span></a>
             <a class="btn btn--ghost" href="QNS_dinh_gia_2026-11-11.xlsx" download>File Excel định giá <span aria-hidden="true">↓</span></a>
           </div>
           <p class="fineprint" style="margin-top:12px">Dashboard mở tốt nhất trên máy tính.</p>
